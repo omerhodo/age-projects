@@ -2,7 +2,6 @@
 
 import { Box, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import styles from './AgeSlider.module.scss';
 
 interface AgeSliderProps {
@@ -11,7 +10,6 @@ interface AgeSliderProps {
 }
 
 const AgeSlider: React.FC<AgeSliderProps> = ({ currentAge, months }) => {
-  const { t } = useTranslation();
   const [animationProgress, setAnimationProgress] = useState(0);
 
   const ageRangeStart = Math.max(0, currentAge - 5);
@@ -19,7 +17,8 @@ const AgeSlider: React.FC<AgeSliderProps> = ({ currentAge, months }) => {
   const totalAgeRange = ageRangeEnd - ageRangeStart;
 
   const exactCurrentAge = currentAge + months / 12;
-  const progressPercentage = ((exactCurrentAge - ageRangeStart) / totalAgeRange) * 100;
+  const progressPercentage =
+    ((exactCurrentAge - ageRangeStart) / totalAgeRange) * 100;
 
   useEffect(() => {
     setAnimationProgress(0);
@@ -39,19 +38,19 @@ const AgeSlider: React.FC<AgeSliderProps> = ({ currentAge, months }) => {
       <Box className={styles['age-slider__container']}>
         <Box className={styles['age-slider__labels']}>
           <Typography
-            variant="body2"
+            variant='body2'
             className={`${styles['age-slider__label']} ${styles['age-slider__label--previous']}`}
           >
             {previousAge}
           </Typography>
           <Typography
-            variant="h6"
+            variant='h6'
             className={`${styles['age-slider__label']} ${styles['age-slider__label--current']}`}
           >
             {currentAge}
           </Typography>
           <Typography
-            variant="body2"
+            variant='body2'
             className={`${styles['age-slider__label']} ${styles['age-slider__label--next']}`}
           >
             {nextAge}
@@ -59,10 +58,16 @@ const AgeSlider: React.FC<AgeSliderProps> = ({ currentAge, months }) => {
         </Box>
 
         <Box className={styles['age-slider__range-labels']}>
-          <Typography variant="caption" className={styles['age-slider__range-start']}>
+          <Typography
+            variant='caption'
+            className={styles['age-slider__range-start']}
+          >
             {ageRangeStart}
           </Typography>
-          <Typography variant="caption" className={styles['age-slider__range-end']}>
+          <Typography
+            variant='caption'
+            className={styles['age-slider__range-end']}
+          >
             {ageRangeEnd}
           </Typography>
         </Box>
@@ -72,21 +77,25 @@ const AgeSlider: React.FC<AgeSliderProps> = ({ currentAge, months }) => {
             className={styles['age-slider__track-progress']}
             style={{
               width: `${animationProgress}%`,
-              transition: 'width 1s cubic-bezier(0.4, 0, 0.2, 1)'
+              transition: 'width 1s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
           />
           <Box
             className={styles['age-slider__indicator']}
             style={{
               left: `${animationProgress}%`,
-              transition: 'left 1s cubic-bezier(0.4, 0, 0.2, 1)'
+              transition: 'left 1s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
           />
           <Box className={styles['age-slider__month-markers']}>
             {Array.from({ length: 13 }, (_, i) => {
-              const currentAgePosition = ((currentAge - ageRangeStart) / totalAgeRange) * 100;
-              const nextAgePosition = ((nextAge - ageRangeStart) / totalAgeRange) * 100;
-              const monthPosition = currentAgePosition + (i / 12) * (nextAgePosition - currentAgePosition);
+              const currentAgePosition =
+                ((currentAge - ageRangeStart) / totalAgeRange) * 100;
+              const nextAgePosition =
+                ((nextAge - ageRangeStart) / totalAgeRange) * 100;
+              const monthPosition =
+                currentAgePosition +
+                (i / 12) * (nextAgePosition - currentAgePosition);
 
               return (
                 <Box
