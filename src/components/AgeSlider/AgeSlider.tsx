@@ -2,6 +2,7 @@
 
 import { Box, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './AgeSlider.module.scss';
 
 interface AgeSliderProps {
@@ -10,20 +11,8 @@ interface AgeSliderProps {
 }
 
 const AgeSlider: React.FC<AgeSliderProps> = ({ currentAge, months }) => {
+  const { t } = useTranslation();
   const [animationProgress, setAnimationProgress] = useState(0);
-
-  useEffect(() => {
-    setAnimationProgress(0);
-
-    const timer = setTimeout(() => {
-      setAnimationProgress((currentAge + months / 12) / totalAgeRange);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [currentAge, months]);
-
-  const previousAge = currentAge - 1;
-  const nextAge = currentAge + 1;
 
   const ageRangeStart = Math.max(0, currentAge - 5);
   const ageRangeEnd = currentAge + 5;
@@ -31,6 +20,19 @@ const AgeSlider: React.FC<AgeSliderProps> = ({ currentAge, months }) => {
 
   const exactCurrentAge = currentAge + months / 12;
   const progressPercentage = ((exactCurrentAge - ageRangeStart) / totalAgeRange) * 100;
+
+  useEffect(() => {
+    setAnimationProgress(0);
+
+    const timer = setTimeout(() => {
+      setAnimationProgress(progressPercentage);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [currentAge, months, progressPercentage]);
+
+  const previousAge = currentAge - 1;
+  const nextAge = currentAge + 1;
 
   return (
     <Box className={styles['age-slider']}>
@@ -69,15 +71,15 @@ const AgeSlider: React.FC<AgeSliderProps> = ({ currentAge, months }) => {
           <Box
             className={styles['age-slider__track-progress']}
             style={{
-              width: `${progressPercentage}%`,
-              transition: 'width 2s cubic-bezier(0.4, 0, 0.2, 1)'
+              width: `${animationProgress}%`,
+              transition: 'width 1s cubic-bezier(0.4, 0, 0.2, 1)'
             }}
           />
           <Box
             className={styles['age-slider__indicator']}
             style={{
-              left: `${progressPercentage}%`,
-              transition: 'left 2s cubic-bezier(0.4, 0, 0.2, 1)'
+              left: `${animationProgress}%`,
+              transition: 'left 1s cubic-bezier(0.4, 0, 0.2, 1)'
             }}
           />
           <Box className={styles['age-slider__month-markers']}>
