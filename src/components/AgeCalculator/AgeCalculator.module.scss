@@ -42,7 +42,7 @@ $mobile: 480px;
   padding: 20px;
 
   @media (max-width: $tablet) {
-    padding: 16px;
+    padding: 0;
     min-height: 50vh;
   }
 
