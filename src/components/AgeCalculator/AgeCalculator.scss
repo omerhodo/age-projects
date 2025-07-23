@@ -1,0 +1,257 @@
+// AgeCalculator Component - BEM Methodology with SASS
+
+// Variables
+$primary-color: #1976d2;
+$primary-hover: #1565c0;
+$primary-light: rgba(25, 118, 210, 0.3);
+$primary-light-hover: rgba(25, 118, 210, 0.4);
+$background-gradient-start: #f5f7fa;
+$background-gradient-end: #c3cfe2;
+$border-color: #e3f2fd;
+$text-secondary: #666;
+$white: #ffffff;
+$shadow-light: rgba(0, 0, 0, 0.1);
+$shadow-medium: rgba(0, 0, 0, 0.2);
+
+// Breakpoints
+$tablet: 768px;
+$mobile: 480px;
+
+// Mixins
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin card-shadow {
+    box-shadow: 0 8px 32px $shadow-light;
+}
+
+@mixin button-base {
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: 600;
+    text-transform: none;
+    min-width: 120px;
+    transition: all 0.3s ease;
+}
+
+@mixin hover-lift {
+    transform: translateY(-2px);
+}
+
+// Main component
+.age-calculator {
+    @include flex-center;
+    min-height: 60vh;
+    padding: 20px;
+
+    @media (max-width: $tablet) {
+        padding: 16px;
+        min-height: 50vh;
+    }
+
+    // Card element
+    &__card {
+        max-width: 600px;
+        width: 100%;
+        border-radius: 16px !important;
+        @include card-shadow;
+    }
+
+    // Content area
+    &__content {
+        padding: 32px !important;
+
+        @media (max-width: $tablet) {
+            padding: 24px !important;
+        }
+    }
+
+    // Header section
+    &__header {
+        @include flex-center;
+        margin-bottom: 32px;
+        gap: 12px;
+
+        @media (max-width: $mobile) {
+            flex-direction: column;
+            gap: 8px;
+        }
+    }
+
+    // Icon
+    &__icon {
+        font-size: 32px !important;
+        color: $primary-color;
+    }
+
+    // Title
+    &__title {
+        color: $primary-color;
+        font-weight: 600 !important;
+        text-align: center;
+
+        @media (max-width: $tablet) {
+            font-size: 1.8rem !important;
+        }
+
+        @media (max-width: $mobile) {
+            font-size: 1.5rem !important;
+        }
+    }
+
+    // Form section
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        margin-bottom: 32px;
+    }
+
+    // Input field
+    &__input {
+        width: 100%;
+    }
+
+    // Error alert
+    &__error {
+        margin: 0 !important;
+        border-radius: 8px !important;
+    }
+
+    // Buttons container
+    &__buttons {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        @media (max-width: $tablet) {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    // Button base
+    &__button {
+        @include button-base;
+
+        @media (max-width: $tablet) {
+            width: 100%;
+            max-width: 200px;
+        }
+
+        // Primary button variant
+        &--primary {
+            background-color: $primary-color !important;
+            box-shadow: 0 4px 12px $primary-light !important;
+
+            &:hover {
+                background-color: $primary-hover !important;
+                box-shadow: 0 6px 16px $primary-light-hover !important;
+                @include hover-lift;
+            }
+        }
+
+        // Secondary button variant
+        &--secondary {
+            border-color: $primary-color !important;
+            color: $primary-color !important;
+
+            &:hover {
+                background-color: rgba($primary-color, 0.04) !important;
+                border-color: $primary-hover !important;
+                color: $primary-hover !important;
+            }
+        }
+    }
+
+    // Result section
+    &__result {
+        padding: 24px !important;
+        border-radius: 12px !important;
+        background: linear-gradient(135deg,
+                $background-gradient-start 0%,
+                $background-gradient-end 100%) !important;
+        border: 1px solid $border-color !important;
+    }
+
+    // Result title
+    &__result-title {
+        text-align: center;
+        color: $primary-color;
+        margin-bottom: 20px !important;
+        font-weight: 600 !important;
+    }
+
+    // Result main content
+    &__result-main {
+        text-align: center;
+        margin-bottom: 24px;
+    }
+
+    // Age display
+    &__age-display {
+        color: $primary-color;
+        font-weight: 700 !important;
+        margin-bottom: 8px !important;
+
+        @media (max-width: $tablet) {
+            font-size: 2rem !important;
+        }
+
+        @media (max-width: $mobile) {
+            font-size: 1.8rem !important;
+        }
+    }
+
+    // Age detail text
+    &__age-detail {
+        color: $text-secondary;
+        font-size: 16px !important;
+    }
+
+    // Statistics grid
+    &__statistics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+
+        @media (max-width: $tablet) {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+    }
+
+    // Individual stat card
+    &__stat {
+        text-align: center;
+        padding: 16px;
+        background: $white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px $shadow-light;
+        transition: transform 0.3s ease;
+
+        &:hover {
+            @include hover-lift;
+        }
+    }
+
+    // Stat number
+    &__stat-number {
+        color: $primary-color !important;
+        font-weight: 700 !important;
+        margin-bottom: 4px !important;
+    }
+
+    // Stat label
+    &__stat-label {
+        color: $text-secondary !important;
+        font-size: 12px !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+}

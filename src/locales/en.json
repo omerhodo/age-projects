@@ -1,0 +1,32 @@
+{
+  "common": {
+    "language": "Language",
+    "turkish": "Türkçe",
+    "english": "English"
+  },
+  "home": {
+    "title": "Age Calculator Application",
+    "description": "Enter your birth date to find out your current age"
+  },
+  "ageCalculator": {
+    "title": "Age Calculator",
+    "birthDateLabel": "Your Birth Date",
+    "calculateButton": "Calculate Age",
+    "clearButton": "Clear",
+    "yourAge": "Your Age",
+    "years": "Years",
+    "months": "months",
+    "days": "days",
+    "totalDays": "Total Days",
+    "totalHours": "Total Hours",
+    "totalMinutes": "Total Minutes",
+    "errors": {
+      "selectBirthDate": "Please select your birth date",
+      "futureDate": "Birth date cannot be in the future"
+    },
+    "ageStats": {
+      "since": "Since your birth:",
+      "youHaveLived": "You have lived for"
+    }
+  }
+}

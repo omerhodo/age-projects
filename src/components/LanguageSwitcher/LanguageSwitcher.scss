@@ -1,0 +1,201 @@
+// LanguageSwitcher Component - BEM Methodology with SASS
+
+// Variables
+$primary-color: #1976d2;
+$primary-alpha-light: rgba(25, 118, 210, 0.3);
+$primary-alpha-lighter: rgba(25, 118, 210, 0.04);
+$primary-alpha-focus: rgba(25, 118, 210, 0.2);
+$white: #ffffff;
+$white-alpha: rgba(255, 255, 255, 0.95);
+$white-alpha-border: rgba(255, 255, 255, 0.2);
+$white-alpha-dark-border: rgba(255, 255, 255, 0.1);
+$dark-bg: rgba(18, 18, 18, 0.95);
+$dark-select-bg: rgba(30, 30, 30, 0.9);
+$dark-menu-bg: rgba(30, 30, 30, 0.95);
+$shadow-light: rgba(0, 0, 0, 0.15);
+$shadow-medium: rgba(0, 0, 0, 0.1);
+
+// Breakpoints
+$tablet: 768px;
+$mobile: 480px;
+
+// Mixins
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+}
+
+@mixin glass-effect {
+    backdrop-filter: blur(10px);
+    border: 1px solid $white-alpha-border;
+}
+
+@mixin slide-in-animation {
+    animation: slideInFromRight 0.3s ease-out;
+}
+
+@mixin hover-transition {
+    transition: background-color 0.2s ease;
+}
+
+// Main component
+.language-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+
+    @media (max-width: $tablet) {
+        top: 16px;
+        right: 16px;
+    }
+
+    @media (max-width: $mobile) {
+        top: 12px;
+        right: 12px;
+    }
+
+    // Container with glass effect
+    &__container {
+        @include flex-center;
+        gap: 8px;
+        background: $white-alpha;
+        @include glass-effect;
+        padding: 8px 12px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px $shadow-light;
+        @include slide-in-animation;
+
+        @media (max-width: $tablet) {
+            padding: 6px 10px;
+        }
+
+        @media (max-width: $mobile) {
+            padding: 4px 8px;
+        }
+
+        // Dark theme
+        @media (prefers-color-scheme: dark) {
+            background: $dark-bg;
+            border-color: $white-alpha-dark-border;
+        }
+    }
+
+    // Icon
+    &__icon {
+        color: $primary-color;
+        font-size: 20px !important;
+
+        @media (max-width: $tablet) {
+            font-size: 18px !important;
+        }
+    }
+
+    // Form control
+    &__form {
+        min-width: 120px;
+
+        @media (max-width: $tablet) {
+            min-width: 100px;
+        }
+
+        @media (max-width: $mobile) {
+            min-width: 90px;
+        }
+    }
+
+    // Select input
+    &__select {
+        border-radius: 6px !important;
+        background: $white;
+        color: $white !important;
+
+        // Select dropdown icon
+        .MuiSelect-icon {
+            color: $white !important;
+        }
+
+        // Border styles
+        .MuiOutlinedInput-notchedOutline {
+            border-color: $primary-alpha-light !important;
+        }
+
+        &:hover .MuiOutlinedInput-notchedOutline {
+            border-color: $primary-color !important;
+        }
+
+        &.Mui-focused .MuiOutlinedInput-notchedOutline {
+            border-color: $primary-color !important;
+            box-shadow: 0 0 0 2px $primary-alpha-focus;
+        }
+
+        // Dark theme
+        @media (prefers-color-scheme: dark) {
+            background: $dark-select-bg;
+            color: $white;
+
+            .MuiSelect-icon {
+                color: $white !important;
+            }
+        }
+    }
+
+    // Dropdown menu
+    &__menu {
+        margin-top: 4px;
+
+        .MuiPaper-root {
+            border-radius: 8px;
+            box-shadow: 0 8px 24px $shadow-light;
+            border: 1px solid $shadow-medium;
+
+            // Dark theme
+            @media (prefers-color-scheme: dark) {
+                background: $dark-menu-bg;
+                border-color: $white-alpha-dark-border;
+            }
+        }
+    }
+
+    // Menu item
+    &__item {
+        padding: 8px 12px !important;
+        color: $white !important;
+        @include hover-transition;
+
+        &:hover {
+            background-color: $primary-alpha-lighter !important;
+        }
+
+        // Dark theme
+        @media (prefers-color-scheme: dark) {
+            color: $white !important;
+        }
+    }
+
+    // Option content
+    &__option {
+        @include flex-center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    // Flag emoji
+    &__flag {
+        font-size: 18px;
+        line-height: 1;
+    }
+}
+
+// Keyframe animation
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

@@ -1,36 +1,160 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Age Calculator Application
 
-## Getting Started
+A modern age calculator application. Enter your birth date to learn your current age in detail.
 
-First, run the development server:
+## 🚀 Features
 
+- **Detailed Age Calculation**: Age display in years, months, and days
+- **Statistics**: Total days, hours, and minutes calculation
+- **Multi-language Support**: Turkish and English language support
+- **Responsive Design**: Mobile and desktop compatible
+- **Material UI**: Modern and user-friendly interface
+- **BEM Methodology**: Clean and maintainable CSS structure
+- **TypeScript**: Type-safe code development
+- **Internationalization**: Full i18n support with react-i18next
+
+## 🛠️ Technologies
+
+- **Framework**: Next.js 15+
+- **Language**: TypeScript
+- **UI Library**: Material UI (MUI)
+- **Date Operations**: date-fns
+- **Translation**: react-i18next, i18next
+- **Styling**: BEM Methodology + CSS Modules
+- **Code Quality**: ESLint + Prettier
+- **Build Tool**: Turbopack
+
+## 📦 Installation
+
+### Requirements
+- Node.js 18+ 
+- Yarn 1.22+ (preferred) or npm
+
+### Steps
+
+1. **Clone the project**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd age-projects
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies**
+```bash
+yarn install
+# or
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Start the development server**
+```bash
+yarn dev
+# or
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Open in your browser**
+```
+http://localhost:3000
+```
 
-## Learn More
+## 🏗️ Build and Deploy
 
-To learn more about Next.js, take a look at the following resources:
+### Production Build
+```bash
+yarn build
+yarn start
+# or
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Lint Check
+```bash
+yarn lint
+# or
+npm run lint
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Additional Scripts
+```bash
+yarn lint:fix        # Fix lint errors automatically
+yarn type-check      # TypeScript type checking
+yarn format          # Format code with Prettier
+yarn format:check    # Check code formatting
+yarn clean           # Clean build directories
+yarn reinstall       # Clean reinstall dependencies
+```
 
-## Deploy on Vercel
+## 📁 Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── app/                   # Next.js App Router
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Main layout
+│   ├── page.tsx           # Main page
+│   ├── page.module.css    # Main page styles
+│   └── providers.tsx      # Context providers
+├── components/            # React components
+│   ├── AgeCalculator/     # Age calculator component
+│   │   ├── AgeCalculator.tsx
+│   │   └── AgeCalculator.css
+│   └── LanguageSwitcher/  # Language switcher component
+│       ├── LanguageSwitcher.tsx
+│       └── LanguageSwitcher.css
+├── locales/               # Translation files
+│   ├── en.json           # English translations
+│   └── tr.json           # Turkish translations
+├── i18n.ts               # i18next configuration
+└── .github/
+    └── copilot-instructions.md
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎨 BEM Methodology
+
+The project uses BEM (Block Element Modifier) methodology for CSS class naming:
+
+```css
+/* Block */
+.age-calculator { }
+
+/* Element */
+.age-calculator__input { }
+.age-calculator__result { }
+
+/* Modifier */
+.age-calculator--active { }
+.age-calculator__button--primary { }
+```
+
+## 🔧 Development
+
+### Creating Components
+When creating new components:
+- Use TypeScript
+- Style with BEM methodology
+- Define props interfaces
+- Follow export/import conventions
+
+### Style Rules
+- Use BEM methodology
+- Prefer CSS Modules or styled-components
+- Apply responsive design principles
+- Customize Material UI theme
+
+## 📱 Responsive Design
+
+The application is optimized for these screen sizes:
+- **Desktop**: 1024px+
+- **Tablet**: 768px - 1023px  
+- **Mobile**: 320px - 767px
+
+## 🚀 Deploy Options
+
+### Vercel (Recommended)
+```bash
+yarn global add vercel
+# or
+npm i -g vercel
+vercel
+```

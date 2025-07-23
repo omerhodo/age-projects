@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.*
+
+# Production builds
+.next/
+out/
+build/
+dist/
+
+# Environment files
+.env*
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Cache
+.turbo
+.cache
+.parcel-cache
+
+# TypeScript
+*.tsbuildinfo
+
+# Coverage
+coverage/
+
+# Temporary
+tmp/
+temp/
+
+# Vercel
+.vercel
+
+# Specific files to ignore
+public/
+CHANGELOG.md
+LICENSE
+
+# Auto-generated files
+next-env.d.ts
+
+# Documentation
+*.md

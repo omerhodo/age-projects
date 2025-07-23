@@ -1,0 +1,222 @@
+// SASS Variables for Page
+$gradient-start: #667eea;
+$gradient-end: #764ba2;
+$white: #ffffff;
+$white-transparent: rgba(255, 255, 255, 0.9);
+$black-shadow: rgba(0, 0, 0, 0.3);
+$max-width: 1200px;
+$description-max-width: 600px;
+
+// Breakpoints
+$tablet: 768px;
+$mobile: 480px;
+$small-mobile: 600px;
+
+// Mixins
+@mixin center-content {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin button-base {
+    appearance: none;
+    border-radius: 128px;
+    height: 48px;
+    padding: 0 20px;
+    border: 1px solid transparent;
+    transition:
+        background 0.2s,
+        color 0.2s,
+        border-color 0.2s;
+    cursor: pointer;
+    @include flex-center;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+// BEM Structure with SASS nesting
+.home {
+    min-height: 100vh;
+    background: linear-gradient(135deg, $gradient-start 0%, $gradient-end 100%);
+    padding: 20px 0;
+
+    &__main {
+        max-width: $max-width;
+        @include center-content;
+        padding: 40px 20px;
+        text-align: center;
+
+        @media (max-width: $tablet) {
+            padding: 20px 16px;
+        }
+    }
+
+    &__title {
+        color: $white;
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        text-shadow: 0 2px 4px $black-shadow;
+
+        @media (max-width: $tablet) {
+            font-size: 2.2rem;
+        }
+
+        @media (max-width: $mobile) {
+            font-size: 1.8rem;
+        }
+    }
+
+    &__description {
+        color: $white-transparent;
+        font-size: 1.2rem;
+        margin-bottom: 40px;
+        max-width: $description-max-width;
+        @include center-content;
+        line-height: 1.6;
+
+        @media (max-width: $tablet) {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: $mobile) {
+            font-size: 1rem;
+        }
+    }
+}
+
+// Original Next.js styles (keeping for compatibility)
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    grid-row-start: 2;
+
+    ol {
+        font-family: var(--font-geist-mono);
+        padding-left: 0;
+        margin: 0;
+        font-size: 14px;
+        line-height: 24px;
+        letter-spacing: -0.01em;
+        list-style-position: inside;
+
+        @media (max-width: $small-mobile) {
+            text-align: center;
+        }
+    }
+
+    li:not(:last-of-type) {
+        margin-bottom: 8px;
+    }
+
+    code {
+        font-family: inherit;
+        background: var(--gray-alpha-100);
+        padding: 2px 4px;
+        border-radius: 4px;
+        font-weight: 600;
+    }
+
+    @media (max-width: $small-mobile) {
+        align-items: center;
+    }
+}
+
+.ctas {
+    display: flex;
+    gap: 16px;
+
+    a {
+        @include button-base;
+
+        &.primary {
+            background: var(--foreground);
+            color: var(--background);
+            gap: 8px;
+
+            @media (hover: hover) and (pointer: fine) {
+                &:hover {
+                    background: var(--button-primary-hover);
+                    border-color: transparent;
+                }
+            }
+        }
+
+        &.secondary {
+            border-color: var(--gray-alpha-200);
+            min-width: 158px;
+
+            @media (hover: hover) and (pointer: fine) {
+                &:hover {
+                    background: var(--button-secondary-hover);
+                    border-color: transparent;
+                }
+            }
+
+            @media (max-width: $small-mobile) {
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: $small-mobile) {
+            font-size: 14px;
+            height: 40px;
+            padding: 0 16px;
+        }
+    }
+
+    @media (max-width: $small-mobile) {
+        flex-direction: column;
+    }
+}
+
+.footer {
+    grid-row-start: 3;
+    display: flex;
+    gap: 24px;
+
+    a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                text-decoration: underline;
+                text-underline-offset: 4px;
+            }
+        }
+    }
+
+    img {
+        flex-shrink: 0;
+    }
+
+    @media (max-width: $small-mobile) {
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.page {
+    @media (max-width: $small-mobile) {
+        padding: 32px;
+        padding-bottom: 80px;
+    }
+}
+
+.logo {
+    @media (prefers-color-scheme: dark) {
+        fill: var(--foreground);
+    }
+}

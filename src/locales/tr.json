@@ -1,0 +1,32 @@
+{
+  "common": {
+    "language": "Dil",
+    "turkish": "Türkçe",
+    "english": "English"
+  },
+  "home": {
+    "title": "Yaş Hesaplama Uygulaması",
+    "description": "Doğum tarihinizi girerek mevcut yaşınızı öğrenin"
+  },
+  "ageCalculator": {
+    "title": "Yaş Hesaplayıcı",
+    "birthDateLabel": "Doğum Tarihiniz",
+    "calculateButton": "Yaşı Hesapla",
+    "clearButton": "Temizle",
+    "yourAge": "Yaşınız",
+    "years": "Yaş",
+    "months": "ay",
+    "days": "gün",
+    "totalDays": "Toplam Gün",
+    "totalHours": "Toplam Saat",
+    "totalMinutes": "Toplam Dakika",
+    "errors": {
+      "selectBirthDate": "Lütfen doğum tarihinizi seçin",
+      "futureDate": "Doğum tarihi gelecekte olamaz"
+    },
+    "ageStats": {
+      "since": "Doğumunuzdan bu yana:",
+      "youHaveLived": "Toplamda yaşadığınız süre"
+    }
+  }
+}
