@@ -223,6 +223,7 @@ const AgeCalculator: React.FC = () => {
                                 <AgeExpressions
                                     ageResult={ageResult}
                                     birthDate={birthDate!}
+                                    showAllAvailable={true}
                                 />
                             </>
                         )}

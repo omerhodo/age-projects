@@ -35,8 +35,7 @@
       "variant3": "{{years}} yaş {{months}} ay yaşlandınız.",
       "variant4": "{{nextAge}} yaşının içindesin.",
       "variant5": "Seneye {{nextBirthday}} tarihinde {{nextAge}} yaşını doldurmuş olacaksınız.",
-      "variant6": "{{age}} baharını görüyorsunuz.",
-      "variant7": "{{years}} yıl {{months}} ay {{days}} gün yaşam tecrübeniz var."
+      "variant6": "{{years}} yıl {{months}} ay {{days}} gün yaşam tecrübeniz var."
     }
   },
   "footer": {

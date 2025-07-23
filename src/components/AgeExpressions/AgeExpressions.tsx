@@ -19,10 +19,21 @@ interface AgeResult {
 interface AgeExpressionsProps {
     ageResult: AgeResult;
     birthDate: Date;
+    maxVariants?: number;
+    showAllAvailable?: boolean;
+    debugMode?: boolean
 }
 
-const AgeExpressions: React.FC<AgeExpressionsProps> = ({ ageResult, birthDate }) => {
+const AgeExpressions: React.FC<AgeExpressionsProps> = ({
+    ageResult,
+    birthDate,
+    maxVariants = 5,
+    showAllAvailable = false,
+    debugMode = false
+}) => {
     const { t, i18n } = useTranslation();
+
+    const DEFAULT_MAX_VARIANTS = 5;
 
     const getDateLocale = () => {
         return i18n.language === 'tr' ? tr : enUS;
@@ -43,7 +54,33 @@ const AgeExpressions: React.FC<AgeExpressionsProps> = ({ ageResult, birthDate })
         };
     };
 
+    const getAvailableVariants = () => {
+        const variants = [];
+        let variantIndex = 1;
+
+        while (true) {
+            const translationKey = `ageCalculator.ageExpressions.variant${variantIndex}`;
+            const translation = t(translationKey, { returnObjects: false });
+
+            // If translation returns the key itself, it means the variant doesn't exist
+            if (translation === translationKey) {
+                break;
+            }
+
+            variants.push(variantIndex);
+            variantIndex++;
+        }
+
+        if (showAllAvailable) {
+            return variants;
+        }
+
+        const limit = maxVariants || DEFAULT_MAX_VARIANTS;
+        return variants.slice(0, limit);
+    };
+
     const nextBirthdayInfo = getNextBirthdayInfo(birthDate);
+    const availableVariants = getAvailableVariants();
 
     const params = {
         age: ageResult.years,
@@ -62,19 +99,25 @@ const AgeExpressions: React.FC<AgeExpressionsProps> = ({ ageResult, birthDate })
                     className={styles['age-expressions__title']}
                 >
                     {t('ageCalculator.ageExpressions.title')}
+                    {debugMode && (
+                        <Typography variant='caption' component='span' style={{ marginLeft: '10px', opacity: 0.7 }}>
+                            ({availableVariants.length} total, showing {availableVariants.length})
+                        </Typography>
+                    )}
                 </Typography>
             </Box>
 
             <Box className={styles['age-expressions__content']}>
-                {[1, 2, 3, 4, 5].map((index) => {
-                    const variantKey = `variant${index}`;
+                {availableVariants.map((variantNumber) => {
+                    const variantKey = `variant${variantNumber}`;
 
                     return (
                         <Typography
-                            key={index}
+                            key={variantNumber}
                             variant='body1'
                             className={styles['age-expressions__item']}
                         >
+                            {debugMode && <span style={{ opacity: 0.6 }}>[{variantNumber}] </span>}
                             {t(`ageCalculator.ageExpressions.${variantKey}`, params)}
                         </Typography>
                     );
