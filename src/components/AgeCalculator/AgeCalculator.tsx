@@ -35,9 +35,14 @@ const AgeCalculator: React.FC = () => {
   const [ageResult, setAgeResult] = useState<AgeResult | null>(null);
   const [error, setError] = useState<string>('');
 
-  // Get appropriate locale for date picker
   const getDateLocale = () => {
     return i18n.language === 'tr' ? tr : enUS;
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' && birthDate) {
+      calculateAge();
+    }
   };
 
   const calculateAge = () => {
@@ -71,7 +76,6 @@ const AgeCalculator: React.FC = () => {
       months += 12;
     }
 
-    // Toplam hesaplamalar
     const timeDiff = today.getTime() - birth.getTime();
     const totalDays = Math.floor(timeDiff / (1000 * 3600 * 24));
     const totalHours = Math.floor(timeDiff / (1000 * 3600));
@@ -121,6 +125,7 @@ const AgeCalculator: React.FC = () => {
                     fullWidth: true,
                     className: styles['age-calculator__input'],
                     variant: 'outlined',
+                    onKeyDown: handleKeyDown,
                   },
                 }}
                 format='dd/MM/yyyy'
