@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import './LanguageSwitcher.scss';
+import styles from './LanguageSwitcher.module.scss';
 
 const LanguageSwitcher: React.FC = () => {
     const { i18n, t } = useTranslation();
@@ -22,28 +22,28 @@ const LanguageSwitcher: React.FC = () => {
     };
 
     return (
-        <div className='language-switcher'>
-            <Box className='language-switcher__container'>
-                <LanguageIcon className='language-switcher__icon' />
-                <FormControl className='language-switcher__form' size='small'>
+        <div className={styles['language-switcher']}>
+            <Box className={styles['language-switcher__container']}>
+                <LanguageIcon className={styles['language-switcher__icon']} />
+                <FormControl className={styles['language-switcher__form']} size='small'>
                     <Select
                         value={i18n.language}
                         onChange={handleLanguageChange}
-                        className='language-switcher__select'
+                        className={styles['language-switcher__select']}
                         variant='outlined'
                         MenuProps={{
-                            className: 'language-switcher__menu',
+                            className: styles['language-switcher__menu'],
                         }}
                     >
-                        <MenuItem value='tr' className='language-switcher__item'>
-                            <div className='language-switcher__option'>
-                                <span className='language-switcher__flag'>🇹🇷</span>
+                        <MenuItem value='tr' className={styles['language-switcher__item']}>
+                            <div className={styles['language-switcher__option']}>
+                                <span className={styles['language-switcher__flag']}>🇹🇷</span>
                                 <Typography variant='body2'>{t('common.turkish')}</Typography>
                             </div>
                         </MenuItem>
-                        <MenuItem value='en' className='language-switcher__item'>
-                            <div className='language-switcher__option'>
-                                <span className='language-switcher__flag'>🇺🇸</span>
+                        <MenuItem value='en' className={styles['language-switcher__item']}>
+                            <div className={styles['language-switcher__option']}>
+                                <span className={styles['language-switcher__flag']}>🇺🇸</span>
                                 <Typography variant='body2'>{t('common.english')}</Typography>
                             </div>
                         </MenuItem>

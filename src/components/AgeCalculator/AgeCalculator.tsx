@@ -16,7 +16,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { enUS, tr } from 'date-fns/locale';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import './AgeCalculator.scss';
+import styles from './AgeCalculator.module.scss';
 
 interface AgeResult {
     years: number;
@@ -96,17 +96,17 @@ const AgeCalculator: React.FC = () => {
             dateAdapter={AdapterDateFns}
             adapterLocale={getDateLocale()}
         >
-            <div className='age-calculator'>
-                <Card className='age-calculator__card' elevation={3}>
-                    <CardContent className='age-calculator__content'>
-                        <Box className='age-calculator__header'>
-                            <CalendarTodayIcon className='age-calculator__icon' />
-                            <Typography variant='h4' className='age-calculator__title'>
+            <div className={styles['age-calculator']}>
+                <Card className={styles['age-calculator__card']} elevation={3}>
+                    <CardContent className={styles['age-calculator__content']}>
+                        <Box className={styles['age-calculator__header']}>
+                            <CalendarTodayIcon className={styles['age-calculator__icon']} />
+                            <Typography variant='h4' className={styles['age-calculator__title']}>
                                 {t('ageCalculator.title')}
                             </Typography>
                         </Box>
 
-                        <Box className='age-calculator__form'>
+                        <Box className={styles['age-calculator__form']}>
                             <DatePicker
                                 label={t('ageCalculator.birthDateLabel')}
                                 value={birthDate}
@@ -114,7 +114,7 @@ const AgeCalculator: React.FC = () => {
                                 slotProps={{
                                     textField: {
                                         fullWidth: true,
-                                        className: 'age-calculator__input',
+                                        className: styles['age-calculator__input'],
                                         variant: 'outlined',
                                     },
                                 }}
@@ -123,16 +123,16 @@ const AgeCalculator: React.FC = () => {
                             />
 
                             {error && (
-                                <Alert severity='error' className='age-calculator__error'>
+                                <Alert severity='error' className={styles['age-calculator__error']}>
                                     {error}
                                 </Alert>
                             )}
 
-                            <Box className='age-calculator__buttons'>
+                            <Box className={styles['age-calculator__buttons']}>
                                 <Button
                                     variant='contained'
                                     onClick={calculateAge}
-                                    className='age-calculator__button age-calculator__button--primary'
+                                    className={`${styles['age-calculator__button']} ${styles['age-calculator__button--primary']}`}
                                     size='large'
                                     disabled={!birthDate}
                                 >
@@ -141,7 +141,7 @@ const AgeCalculator: React.FC = () => {
                                 <Button
                                     variant='outlined'
                                     onClick={handleReset}
-                                    className='age-calculator__button age-calculator__button--secondary'
+                                    className={`${styles['age-calculator__button']} ${styles['age-calculator__button--secondary']}`}
                                     size='large'
                                 >
                                     {t('ageCalculator.clearButton')}
@@ -150,69 +150,69 @@ const AgeCalculator: React.FC = () => {
                         </Box>
 
                         {ageResult && (
-                            <Paper className='age-calculator__result' elevation={2}>
+                            <Paper className={styles['age-calculator__result']} elevation={2}>
                                 <Typography
                                     variant='h5'
-                                    className='age-calculator__result-title'
+                                    className={styles['age-calculator__result-title']}
                                 >
                                     {t('ageCalculator.yourAge')}
                                 </Typography>
 
-                                <Box className='age-calculator__result-main'>
+                                <Box className={styles['age-calculator__result-main']}>
                                     <Typography
                                         variant='h3'
-                                        className='age-calculator__age-display'
+                                        className={styles['age-calculator__age-display']}
                                     >
                                         {ageResult.years} {t('ageCalculator.years')}
                                     </Typography>
                                     <Typography
                                         variant='body1'
-                                        className='age-calculator__age-detail'
+                                        className={styles['age-calculator__age-detail']}
                                     >
                                         {ageResult.months} {t('ageCalculator.months')}{' '}
                                         {ageResult.days} {t('ageCalculator.days')}
                                     </Typography>
                                 </Box>
 
-                                <Box className='age-calculator__statistics'>
-                                    <div className='age-calculator__stat'>
+                                <Box className={styles['age-calculator__statistics']}>
+                                    <div className={styles['age-calculator__stat']}>
                                         <Typography
                                             variant='h6'
-                                            className='age-calculator__stat-number'
+                                            className={styles['age-calculator__stat-number']}
                                         >
                                             {ageResult.totalDays.toLocaleString()}
                                         </Typography>
                                         <Typography
                                             variant='body2'
-                                            className='age-calculator__stat-label'
+                                            className={styles['age-calculator__stat-label']}
                                         >
                                             {t('ageCalculator.totalDays')}
                                         </Typography>
                                     </div>
-                                    <div className='age-calculator__stat'>
+                                    <div className={styles['age-calculator__stat']}>
                                         <Typography
                                             variant='h6'
-                                            className='age-calculator__stat-number'
+                                            className={styles['age-calculator__stat-number']}
                                         >
                                             {ageResult.totalHours.toLocaleString()}
                                         </Typography>
                                         <Typography
                                             variant='body2'
-                                            className='age-calculator__stat-label'
+                                            className={styles['age-calculator__stat-label']}
                                         >
                                             {t('ageCalculator.totalHours')}
                                         </Typography>
                                     </div>
-                                    <div className='age-calculator__stat'>
+                                    <div className={styles['age-calculator__stat']}>
                                         <Typography
                                             variant='h6'
-                                            className='age-calculator__stat-number'
+                                            className={styles['age-calculator__stat-number']}
                                         >
                                             {ageResult.totalMinutes.toLocaleString()}
                                         </Typography>
                                         <Typography
                                             variant='body2'
-                                            className='age-calculator__stat-label'
+                                            className={styles['age-calculator__stat-label']}
                                         >
                                             {t('ageCalculator.totalMinutes')}
                                         </Typography>
