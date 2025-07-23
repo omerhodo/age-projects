@@ -1,6 +1,3 @@
-// LanguageSwitcher Component - BEM Methodology with SASS
-
-// Variables
 $primary-color: #1976d2;
 $primary-alpha-light: rgba(25, 118, 210, 0.3);
 $primary-alpha-lighter: rgba(25, 118, 210, 0.04);
@@ -15,187 +12,164 @@ $dark-menu-bg: rgba(30, 30, 30, 0.95);
 $shadow-light: rgba(0, 0, 0, 0.15);
 $shadow-medium: rgba(0, 0, 0, 0.1);
 
-// Breakpoints
 $tablet: 768px;
 $mobile: 480px;
 
-// Mixins
 @mixin flex-center {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 @mixin glass-effect {
-    backdrop-filter: blur(10px);
-    border: 1px solid $white-alpha-border;
+  backdrop-filter: blur(10px);
+  border: 1px solid $white-alpha-border;
 }
 
 @mixin slide-in-animation {
-    animation: slideInFromRight 0.3s ease-out;
+  animation: slideInFromRight 0.3s ease-out;
 }
 
 @mixin hover-transition {
-    transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
-// Main component
 .language-switcher {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 1000;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+
+  @media (max-width: $tablet) {
+    bottom: 16px;
+    left: 16px;
+  }
+
+  @media (max-width: $mobile) {
+    bottom: 12px;
+    left: 12px;
+  }
+
+  &__container {
+    @include flex-center;
+    gap: 8px;
+    background: $dark-bg;
+    backdrop-filter: blur(10px);
+    border: 1px solid $white-alpha-dark-border;
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px $shadow-light;
+    @include slide-in-animation;
 
     @media (max-width: $tablet) {
-        bottom: 16px;
-        left: 16px;
+      padding: 6px 10px;
     }
 
     @media (max-width: $mobile) {
-        bottom: 12px;
-        left: 12px;
+      padding: 4px 8px;
+    }
+  }
+
+  &__icon {
+    color: $white;
+    font-size: 20px !important;
+
+    @media (max-width: $tablet) {
+      font-size: 18px !important;
+    }
+  }
+
+  &__form {
+    min-width: 120px;
+
+    @media (max-width: $tablet) {
+      min-width: 100px;
     }
 
-    // Container with glass effect
-    &__container {
-        @include flex-center;
-        gap: 8px;
-        background: $white-alpha;
-        @include glass-effect;
-        padding: 8px 12px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px $shadow-light;
-        @include slide-in-animation;
+    @media (max-width: $mobile) {
+      min-width: 90px;
+    }
+  }
 
-        @media (max-width: $tablet) {
-            padding: 6px 10px;
-        }
+  &__select {
+    border-radius: 6px !important;
+    background: $dark-select-bg;
+    color: $white !important;
 
-        @media (max-width: $mobile) {
-            padding: 4px 8px;
-        }
 
-        // Dark theme
-        @media (prefers-color-scheme: dark) {
-            background: $dark-bg;
-            border-color: $white-alpha-dark-border;
-        }
+    .MuiSelect-icon {
+      color: $white !important;
     }
 
-    // Icon
-    &__icon {
-        color: $primary-color;
-        font-size: 20px !important;
 
-        @media (max-width: $tablet) {
-            font-size: 18px !important;
-        }
+    .MuiOutlinedInput-notchedOutline {
+      border-color: $white-alpha-dark-border !important;
     }
 
-    // Form control
-    &__form {
-        min-width: 120px;
-
-        @media (max-width: $tablet) {
-            min-width: 100px;
-        }
-
-        @media (max-width: $mobile) {
-            min-width: 90px;
-        }
+    &:hover .MuiOutlinedInput-notchedOutline {
+      border-color: $white-alpha-border !important;
     }
 
-    // Select input
-    &__select {
-        border-radius: 6px !important;
-        background: $white;
-        color: $white !important;
+    &.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: $white-alpha-border !important;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+    }
+  }
 
-        // Select dropdown icon
-        .MuiSelect-icon {
-            color: $white !important;
-        }
 
-        // Border styles
-        .MuiOutlinedInput-notchedOutline {
-            border-color: $primary-alpha-light !important;
-        }
+  &__menu {
+    margin-top: 4px;
 
-        &:hover .MuiOutlinedInput-notchedOutline {
-            border-color: $primary-color !important;
-        }
+    .MuiPaper-root {
+      border-radius: 8px;
+      box-shadow: 0 8px 24px $shadow-light;
+      border: 1px solid $white-alpha-dark-border;
+      background: $dark-menu-bg !important;
+    }
+  }
 
-        &.Mui-focused .MuiOutlinedInput-notchedOutline {
-            border-color: $primary-color !important;
-            box-shadow: 0 0 0 2px $primary-alpha-focus;
-        }
 
-        // Dark theme
-        @media (prefers-color-scheme: dark) {
-            background: $dark-select-bg;
-            color: $white;
+  &__item {
+    padding: 8px 12px !important;
+    color: $white !important;
+    @include hover-transition;
 
-            .MuiSelect-icon {
-                color: $white !important;
-            }
-        }
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1) !important;
     }
 
-    // Dropdown menu
-    &__menu {
-        margin-top: 4px;
 
-        .MuiPaper-root {
-            border-radius: 8px;
-            box-shadow: 0 8px 24px $shadow-light;
-            border: 1px solid $shadow-medium;
-
-            // Dark theme
-            @media (prefers-color-scheme: dark) {
-                background: $dark-menu-bg;
-                border-color: $white-alpha-dark-border;
-            }
-        }
+    .MuiTypography-root {
+      color: $white !important;
     }
 
-    // Menu item
-    &__item {
-        padding: 8px 12px !important;
-        color: $white !important;
-        @include hover-transition;
-
-        &:hover {
-            background-color: $primary-alpha-lighter !important;
-        }
-
-        // Dark theme
-        @media (prefers-color-scheme: dark) {
-            color: $white !important;
-        }
+    &.Mui-selected {
+      background-color: rgba(255, 255, 255, 0.15) !important;
+      color: $white !important;
     }
+  }
 
-    // Option content
-    &__option {
-        @include flex-center;
-        gap: 8px;
-        width: 100%;
-    }
 
-    // Flag emoji
-    &__flag {
-        font-size: 18px;
-        line-height: 1;
-    }
+  &__option {
+    @include flex-center;
+    gap: 8px;
+    width: 100%;
+  }
+
+
+  &__flag {
+    font-size: 18px;
+    line-height: 1;
+  }
 }
 
-// Keyframe animation
 @keyframes slideInFromRight {
-    from {
-        opacity: 0;
-        transform: translateX(20px);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
 
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
