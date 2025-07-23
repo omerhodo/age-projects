@@ -59,7 +59,15 @@ const AgeExpressions: React.FC<AgeExpressionsProps> = ({
     return {
       date: format(nextBirthday, 'dd/MM/yyyy', { locale: getDateLocale() }),
       age: nextBirthday.getFullYear() - birthDate.getFullYear(),
+      nextBirthday: nextBirthday,
     };
+  };
+
+  const getDaysUntilBirthday = (nextBirthday: Date) => {
+    const today = new Date();
+    const timeDiff = nextBirthday.getTime() - today.getTime();
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return daysDiff;
   };
 
   const getAvailableVariants = () => {
@@ -89,6 +97,7 @@ const AgeExpressions: React.FC<AgeExpressionsProps> = ({
 
   const nextBirthdayInfo = getNextBirthdayInfo(birthDate);
   const availableVariants = getAvailableVariants();
+  const daysUntilBirthday = getDaysUntilBirthday(nextBirthdayInfo.nextBirthday);
 
   const params = {
     age: ageResult.years,
@@ -97,6 +106,7 @@ const AgeExpressions: React.FC<AgeExpressionsProps> = ({
     days: ageResult.days,
     nextBirthday: nextBirthdayInfo.date,
     nextAge: nextBirthdayInfo.age,
+    daysUntilBirthday: daysUntilBirthday,
   };
 
   return (

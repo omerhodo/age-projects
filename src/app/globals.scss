@@ -10,8 +10,7 @@ $foreground-rgb-light: 0, 0, 0;
 $foreground-rgb-dark: 255, 255, 255;
 
 // Font variables
-$font-family:
-  -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+$font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
   'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 
 // Breakpoints
@@ -87,12 +86,9 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 a {
@@ -147,5 +143,17 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+
+input,
+textarea,
+select,
+.MuiInputBase-input,
+.MuiTextField-root input {
+  font-size: 16px !important;
+
+  @media (max-width: $mobile) {
+    font-size: 16px !important;
   }
 }

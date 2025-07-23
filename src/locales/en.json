@@ -36,7 +36,10 @@
       "variant4": "You are in your {{age}}s.",
       "variant5": "Next year on {{nextBirthday}} you will turn {{nextAge}} years old.",
       "variant6": "You are in your {{age}}th spring of life.",
-      "variant7": "You have {{years}} years, {{months}} months, and {{days}} days of life experience."
+      "variant7": "You have {{years}} years, {{months}} months, and {{days}} days of life experience.",
+      "variant8": "{{daysUntilBirthday}} days until your birthday.",
+      "variant9": "You will turn {{nextAge}} in {{daysUntilBirthday}} days.",
+      "variant10": "Your next birthday is on {{nextBirthday}}, {{daysUntilBirthday}} days away."
     }
   },
   "footer": {

@@ -36,7 +36,10 @@
       "variant4": "{{nextAge}} yaşının içindesin.",
       "variant5": "Seneye {{nextBirthday}} tarihinde {{nextAge}} yaşını doldurmuş olacaksınız.",
       "variant6": "{{years}} yıl {{months}} ay {{days}} gün yaşam tecrübeniz var.",
-      "variant7": "{{years}} yıl {{months}} aydır yaşıyorsunuz."
+      "variant7": "{{years}} yıl {{months}} aydır yaşıyorsunuz.",
+      "variant8": "Doğum gününüze {{daysUntilBirthday}} gün kaldı.",
+      "variant9": "{{daysUntilBirthday}} gün sonra {{nextAge}} yaşına gireceksiniz.",
+      "variant10": "Bir sonraki doğum gününüz {{nextBirthday}} tarihinde, {{daysUntilBirthday}} gün sonra."
     }
   },
   "footer": {
