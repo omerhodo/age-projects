@@ -123,28 +123,31 @@ $mobile: 480px;
       border-radius: 8px;
       box-shadow: 0 8px 24px $shadow-light;
       border: 1px solid $white-alpha-dark-border;
-      background: $dark-menu-bg !important;
+      background: $white !important;
     }
   }
 
 
   &__item {
     padding: 8px 12px !important;
-    color: $white !important;
+    color: $dark-bg !important;
     @include hover-transition;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1) !important;
+      background-color: rgba(0, 0, 0, 0.1) !important;
     }
 
-
     .MuiTypography-root {
-      color: $white !important;
+      color: $dark-bg !important;
     }
 
     &.Mui-selected {
-      background-color: rgba(255, 255, 255, 0.15) !important;
-      color: $white !important;
+      background-color: rgba(0, 0, 0, 0.15) !important;
+      color: $dark-bg !important;
+
+      .MuiTypography-root {
+        color: $dark-bg !important;
+      }
     }
   }
 
