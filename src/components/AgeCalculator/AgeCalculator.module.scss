@@ -147,6 +147,7 @@ $mobile: 480px;
         &--primary {
             background-color: $primary-color !important;
             box-shadow: 0 4px 12px $primary-light !important;
+            color: $white !important;
 
             &:hover {
                 background-color: $primary-hover !important;
