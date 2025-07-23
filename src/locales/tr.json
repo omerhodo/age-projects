@@ -27,6 +27,16 @@
     "ageStats": {
       "since": "Doğumunuzdan bu yana:",
       "youHaveLived": "Toplamda yaşadığınız süre"
+    },
+    "ageExpressions": {
+      "title": "Yaş İfadeleri",
+      "variant1": "{{age}} yaşındasınız.",
+      "variant2": "{{nextAge}} yaşından gün alıyorsunuz.",
+      "variant3": "{{years}} yaş {{months}} ay yaşlandınız.",
+      "variant4": "{{nextAge}} yaşının içindesin.",
+      "variant5": "Seneye {{nextBirthday}} tarihinde {{nextAge}} yaşını doldurmuş olacaksınız.",
+      "variant6": "{{age}} baharını görüyorsunuz.",
+      "variant7": "{{years}} yıl {{months}} ay {{days}} gün yaşam tecrübeniz var."
     }
   },
   "footer": {

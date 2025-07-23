@@ -1,0 +1,51 @@
+$primary-color: #1976d2;
+$white: #ffffff;
+$shadow-light: rgba(0, 0, 0, 0.1);
+
+$mobile: 480px;
+
+.age-expressions {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: $white !important;
+    margin-top: 16px !important;
+    padding: 24px !important;
+    border-radius: 12px !important;
+
+    &__header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    &__title {
+        color: $white !important;
+        font-weight: 600 !important;
+        margin-bottom: 16px !important;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    &__item {
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-radius: 8px !important;
+        padding: 12px 16px !important;
+        border-left: 4px solid rgba(255, 255, 255, 0.3) !important;
+        color: $white !important;
+        font-weight: 500 !important;
+        transition: all 0.3s ease !important;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
+            transform: translateX(4px);
+            border-left-color: rgba(255, 255, 255, 0.6) !important;
+        }
+
+        @media (max-width: $mobile) {
+            font-size: 14px !important;
+            padding: 10px 12px !important;
+        }
+    }
+}

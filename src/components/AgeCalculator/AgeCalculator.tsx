@@ -16,6 +16,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { enUS, tr } from 'date-fns/locale';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import AgeExpressions from '../AgeExpressions';
 import AgeSlider from '../AgeSlider';
 import styles from './AgeCalculator.module.scss';
 
@@ -151,73 +152,79 @@ const AgeCalculator: React.FC = () => {
                         </Box>
 
                         {ageResult && (
-                            <Paper className={styles['age-calculator__result']} elevation={2}>
-                                <AgeSlider
-                                    currentAge={ageResult.years}
-                                    months={ageResult.months}
+                            <>
+                                <Paper className={styles['age-calculator__result']} elevation={2}>
+                                    <AgeSlider
+                                        currentAge={ageResult.years}
+                                        months={ageResult.months}
+                                    />
+
+                                    <Box className={styles['age-calculator__result-main']}>
+                                        <Typography
+                                            variant='h3'
+                                            className={styles['age-calculator__age-display']}
+                                        >
+                                            {ageResult.years} {t('ageCalculator.years')}
+                                        </Typography>
+                                        <Typography
+                                            variant='body1'
+                                            className={styles['age-calculator__age-detail']}
+                                        >
+                                            {ageResult.months} {t('ageCalculator.months')}{' '}
+                                            {ageResult.days} {t('ageCalculator.days')}
+                                        </Typography>
+                                    </Box>
+
+                                    <Box className={styles['age-calculator__statistics']}>
+                                        <div className={styles['age-calculator__stat']}>
+                                            <Typography
+                                                variant='h6'
+                                                className={styles['age-calculator__stat-number']}
+                                            >
+                                                {ageResult.totalDays.toLocaleString()}
+                                            </Typography>
+                                            <Typography
+                                                variant='body2'
+                                                className={styles['age-calculator__stat-label']}
+                                            >
+                                                {t('ageCalculator.totalDays')}
+                                            </Typography>
+                                        </div>
+                                        <div className={styles['age-calculator__stat']}>
+                                            <Typography
+                                                variant='h6'
+                                                className={styles['age-calculator__stat-number']}
+                                            >
+                                                {ageResult.totalHours.toLocaleString()}
+                                            </Typography>
+                                            <Typography
+                                                variant='body2'
+                                                className={styles['age-calculator__stat-label']}
+                                            >
+                                                {t('ageCalculator.totalHours')}
+                                            </Typography>
+                                        </div>
+                                        <div className={styles['age-calculator__stat']}>
+                                            <Typography
+                                                variant='h6'
+                                                className={styles['age-calculator__stat-number']}
+                                            >
+                                                {ageResult.totalMinutes.toLocaleString()}
+                                            </Typography>
+                                            <Typography
+                                                variant='body2'
+                                                className={styles['age-calculator__stat-label']}
+                                            >
+                                                {t('ageCalculator.totalMinutes')}
+                                            </Typography>
+                                        </div>
+                                    </Box>
+                                </Paper>
+                                <AgeExpressions
+                                    ageResult={ageResult}
+                                    birthDate={birthDate!}
                                 />
-
-                                <Box className={styles['age-calculator__result-main']}>
-                                    <Typography
-                                        variant='h3'
-                                        className={styles['age-calculator__age-display']}
-                                    >
-                                        {ageResult.years} {t('ageCalculator.years')}
-                                    </Typography>
-                                    <Typography
-                                        variant='body1'
-                                        className={styles['age-calculator__age-detail']}
-                                    >
-                                        {ageResult.months} {t('ageCalculator.months')}{' '}
-                                        {ageResult.days} {t('ageCalculator.days')}
-                                    </Typography>
-                                </Box>
-
-                                <Box className={styles['age-calculator__statistics']}>
-                                    <div className={styles['age-calculator__stat']}>
-                                        <Typography
-                                            variant='h6'
-                                            className={styles['age-calculator__stat-number']}
-                                        >
-                                            {ageResult.totalDays.toLocaleString()}
-                                        </Typography>
-                                        <Typography
-                                            variant='body2'
-                                            className={styles['age-calculator__stat-label']}
-                                        >
-                                            {t('ageCalculator.totalDays')}
-                                        </Typography>
-                                    </div>
-                                    <div className={styles['age-calculator__stat']}>
-                                        <Typography
-                                            variant='h6'
-                                            className={styles['age-calculator__stat-number']}
-                                        >
-                                            {ageResult.totalHours.toLocaleString()}
-                                        </Typography>
-                                        <Typography
-                                            variant='body2'
-                                            className={styles['age-calculator__stat-label']}
-                                        >
-                                            {t('ageCalculator.totalHours')}
-                                        </Typography>
-                                    </div>
-                                    <div className={styles['age-calculator__stat']}>
-                                        <Typography
-                                            variant='h6'
-                                            className={styles['age-calculator__stat-number']}
-                                        >
-                                            {ageResult.totalMinutes.toLocaleString()}
-                                        </Typography>
-                                        <Typography
-                                            variant='body2'
-                                            className={styles['age-calculator__stat-label']}
-                                        >
-                                            {t('ageCalculator.totalMinutes')}
-                                        </Typography>
-                                    </div>
-                                </Box>
-                            </Paper>
+                            </>
                         )}
                     </CardContent>
                 </Card>

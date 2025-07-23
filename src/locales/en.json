@@ -27,6 +27,16 @@
     "ageStats": {
       "since": "Since your birth:",
       "youHaveLived": "You have lived for"
+    },
+    "ageExpressions": {
+      "title": "Age Expressions",
+      "variant1": "You are {{age}} years old.",
+      "variant2": "You are experiencing your {{age}}s.",
+      "variant3": "You have aged {{years}} years and {{months}} months.",
+      "variant4": "You are in your {{age}}s.",
+      "variant5": "Next year on {{nextBirthday}} you will turn {{nextAge}} years old.",
+      "variant6": "You are in your {{age}}th spring of life.",
+      "variant7": "You have {{years}} years, {{months}} months, and {{days}} days of life experience."
     }
   },
   "footer": {
