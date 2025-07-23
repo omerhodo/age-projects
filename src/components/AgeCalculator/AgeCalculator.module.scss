@@ -44,7 +44,7 @@ $mobile: 480px;
 // Main component
 .age-calculator {
     @include flex-center;
-    min-height: 60vh;
+    min-height: 40vh;
     padding: 20px;
 
     @media (max-width: $tablet) {
