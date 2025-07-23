@@ -16,6 +16,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { enUS, tr } from 'date-fns/locale';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import AgeSlider from '../AgeSlider';
 import styles from './AgeCalculator.module.scss';
 
 interface AgeResult {
@@ -151,12 +152,10 @@ const AgeCalculator: React.FC = () => {
 
                         {ageResult && (
                             <Paper className={styles['age-calculator__result']} elevation={2}>
-                                <Typography
-                                    variant='h5'
-                                    className={styles['age-calculator__result-title']}
-                                >
-                                    {t('ageCalculator.yourAge')}
-                                </Typography>
+                                <AgeSlider
+                                    currentAge={ageResult.years}
+                                    months={ageResult.months}
+                                />
 
                                 <Box className={styles['age-calculator__result-main']}>
                                     <Typography

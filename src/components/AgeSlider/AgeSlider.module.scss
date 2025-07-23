@@ -1,0 +1,161 @@
+.age-slider {
+    margin: 0 0 30px 0;
+    padding: 1rem;
+
+    &__container {
+        position: relative;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    &__labels {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        padding: 0 1rem;
+        gap: 2rem;
+    }
+
+    &__range-labels {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding: 0 0.5rem;
+    }
+
+    &__range-start,
+    &__range-end {
+        color: #999;
+        font-size: 0.75rem;
+    }
+
+    &__label {
+        font-weight: 600;
+
+        &--previous {
+            color: #999;
+        }
+
+        &--current {
+            color: #1976d2;
+            font-size: 1.5rem;
+            text-shadow: 0 2px 4px rgba(25, 118, 210, 0.3);
+        }
+
+        &--next {
+            color: #999;
+        }
+    }
+
+    &__track {
+        position: relative;
+        height: 8px;
+        margin: 1rem 0;
+    }
+
+    &__track-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);
+        border-radius: 4px;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    &__track-progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(25, 118, 210, 0.4);
+        will-change: width;
+    }
+
+    &__indicator {
+        position: absolute;
+        top: -4px;
+        width: 16px;
+        height: 16px;
+        background: #1976d2;
+        border-radius: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 2px 8px rgba(25, 118, 210, 0.5);
+        border: 2px solid #fff;
+        will-change: left;
+        z-index: 2;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    &__marker {
+        position: absolute;
+        top: -2px;
+        width: 2px;
+        height: 12px;
+        background: #666;
+        border-radius: 1px;
+
+        &--start {
+            left: 0;
+        }
+
+        &--end {
+            right: 0;
+        }
+    }
+
+    &__month-markers {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__month-marker {
+        position: absolute;
+        top: 2px;
+        width: 1px;
+        height: 4px;
+        background: #ccc;
+        transform: translateX(-50%);
+    }
+
+    &__month-display {
+        text-align: center;
+        margin-top: 0.5rem;
+
+        .MuiTypography-caption {
+            color: #666;
+            font-weight: 500;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .age-slider {
+        &__container {
+            max-width: 300px;
+        }
+
+        &__label--current {
+            font-size: 1.3rem;
+        }
+    }
+}
