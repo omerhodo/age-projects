@@ -1,6 +1,7 @@
 'use client';
 
 import AgeCalculator from '@/components/AgeCalculator/AgeCalculator';
+import Footer from '@/components/Footer';
 import LanguageSwitcher from '@/components/LanguageSwitcher/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import styles from './page.module.scss';
@@ -16,6 +17,7 @@ export default function Home() {
         <p className={styles.home__description}>{t('home.description')}</p>
         <AgeCalculator />
       </main>
+      <Footer />
     </div>
   );
 }

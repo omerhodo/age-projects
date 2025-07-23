@@ -45,13 +45,16 @@ $small-mobile: 600px;
 .home {
     min-height: 100vh;
     background: linear-gradient(135deg, $gradient-start 0%, $gradient-end 100%);
-    padding: 20px 0;
+    padding: 20px 0 0 0;
+    display: flex;
+    flex-direction: column;
 
     &__main {
         max-width: $max-width;
         @include center-content;
         padding: 40px 20px;
         text-align: center;
+        flex: 1;
 
         @media (max-width: $tablet) {
             padding: 20px 16px;

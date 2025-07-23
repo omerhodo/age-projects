@@ -28,5 +28,8 @@
       "since": "Doğumunuzdan bu yana:",
       "youHaveLived": "Toplamda yaşadığınız süre"
     }
+  },
+  "footer": {
+    "madeBy": "Geliştiren"
   }
 }

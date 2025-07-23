@@ -28,5 +28,8 @@
       "since": "Since your birth:",
       "youHaveLived": "You have lived for"
     }
+  },
+  "footer": {
+    "madeBy": "Developed by"
   }
 }
