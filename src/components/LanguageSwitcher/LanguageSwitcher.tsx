@@ -1,5 +1,6 @@
 'use client';
 
+import { usePlatform } from '@hooks';
 import LanguageIcon from '@mui/icons-material/Language';
 import {
   Box,
@@ -7,14 +8,14 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  Typography,
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './LanguageSwitcher.module.scss';
 
 const LanguageSwitcher: React.FC = () => {
-  const { i18n, t } = useTranslation();
+  const { i18n } = useTranslation();
+  const { isMobile, isNative } = usePlatform();
 
   const handleLanguageChange = (event: SelectChangeEvent<string>) => {
     const selectedLanguage = event.target.value;
@@ -22,7 +23,9 @@ const LanguageSwitcher: React.FC = () => {
   };
 
   return (
-    <div className={styles['language-switcher']}>
+    <div
+      className={`${styles['language-switcher']} ${isMobile ? styles['language-switcher--mobile'] : ''} ${isNative ? styles['language-switcher--native'] : ''}`}
+    >
       <Box className={styles['language-switcher__container']}>
         <LanguageIcon className={styles['language-switcher__icon']} />
         <FormControl className={styles['language-switcher__form']} size='small'>
@@ -38,13 +41,11 @@ const LanguageSwitcher: React.FC = () => {
             <MenuItem value='tr' className={styles['language-switcher__item']}>
               <div className={styles['language-switcher__option']}>
                 <span className={styles['language-switcher__flag']}>🇹🇷</span>
-                <Typography variant='body2'>{t('common.turkish')}</Typography>
               </div>
             </MenuItem>
             <MenuItem value='en' className={styles['language-switcher__item']}>
               <div className={styles['language-switcher__option']}>
                 <span className={styles['language-switcher__flag']}>🇺🇸</span>
-                <Typography variant='body2'>{t('common.english')}</Typography>
               </div>
             </MenuItem>
           </Select>
