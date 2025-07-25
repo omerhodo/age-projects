@@ -5,8 +5,8 @@ const config: CapacitorConfig = {
   appName: 'Age Calculator',
   webDir: 'out',
   server: {
-    androidScheme: 'https'
-  }
+    androidScheme: 'https',
+  },
 };
 
 export default config;

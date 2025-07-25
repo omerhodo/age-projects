@@ -244,4 +244,71 @@ $mobile: 480px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
+
+  // Mobile platform styles
+  &--mobile {
+    padding: 12px;
+
+    .age-calculator__card {
+      margin: 0;
+      border-radius: 12px;
+    }
+
+    .age-calculator__title {
+      font-size: 1.5rem !important;
+      margin-bottom: 16px !important;
+    }
+
+    .age-calculator__form {
+      gap: 16px;
+    }
+
+    .age-calculator__button {
+      padding: 14px 24px;
+      font-size: 16px;
+    }
+
+    .age-calculator__results {
+      margin-top: 20px;
+    }
+
+    .age-calculator__stat {
+      padding: 12px;
+
+      &-number {
+        font-size: 1.5rem !important;
+      }
+
+      &-label {
+        font-size: 11px !important;
+      }
+    }
+  }
+
+  &--native {
+    background: transparent;
+
+    .age-calculator__card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .age-calculator__stat {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  // Card mobile specific styles
+  &__card--mobile {
+    margin: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: $mobile) {
+      margin: 4px;
+      border-radius: 8px;
+    }
+  }
 }
