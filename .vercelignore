@@ -1,0 +1,54 @@
+# Mobile build directories - not needed for web deployment
+/ios/
+/android/
+
+# Capacitor files - mobile specific
+capacitor.config.ts
+capacitor.config.json
+
+# Development files
+*.log
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE files
+.vscode/
+.idea/
+
+# Build artifacts that Vercel will rebuild
+/.next/
+/out/
+/build/
+/dist/
+
+# Dependencies - Vercel will install these
+/node_modules/
+
+# Lock files - Vercel uses yarn.lock if present
+package-lock.json
+
+# Testing and development
+/coverage/
+*.test.*
+*.spec.*
+__tests__/
+
+# Documentation
+README.md
+CHANGELOG.md
+LICENSE
+
+# Git files
+.git/
+.gitignore
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+*.old
