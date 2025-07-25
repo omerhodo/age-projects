@@ -8,6 +8,8 @@ A modern age calculator application. Enter your birth date to learn your current
 - **Statistics**: Total days, hours, and minutes calculation
 - **Multi-language Support**: Turkish and English language support
 - **Responsive Design**: Mobile and desktop compatible
+- **Mobile App Support**: Native iOS and Android app with Capacitor
+- **Platform Detection**: Smart platform detection with usePlatform hook
 - **Material UI**: Modern and user-friendly interface
 - **BEM Methodology**: Clean and maintainable CSS structure
 - **TypeScript**: Type-safe code development
@@ -17,12 +19,21 @@ A modern age calculator application. Enter your birth date to learn your current
 
 - **Framework**: Next.js 15+
 - **Language**: TypeScript
+- **Mobile**: Capacitor for iOS/Android
 - **UI Library**: Material UI (MUI)
 - **Date Operations**: date-fns
 - **Translation**: react-i18next, i18next
 - **Styling**: BEM Methodology + CSS Modules
 - **Code Quality**: ESLint + Prettier
 - **Build Tool**: Turbopack
+
+**Platform Info Properties:**
+- `isMobile`: boolean - Is mobile device or narrow screen
+- `isNative`: boolean - Is running as native Capacitor app
+- `isWeb`: boolean - Is running in web browser
+- `platform`: 'ios' | 'android' | 'web' - Current platform
+- `isIOS`: boolean - Is iOS platform
+- `isAndroid`: boolean - Is Android platform
 
 ## 📦 Installation
 

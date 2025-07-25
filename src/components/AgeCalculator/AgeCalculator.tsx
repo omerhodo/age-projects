@@ -1,5 +1,6 @@
 'use client';
 
+import { usePlatform } from '@hooks';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import {
   Alert,
@@ -31,6 +32,7 @@ interface AgeResult {
 
 const AgeCalculator: React.FC = () => {
   const { t, i18n } = useTranslation();
+  const { isMobile, isNative } = usePlatform();
   const [birthDate, setBirthDate] = useState<Date | null>(null);
   const [ageResult, setAgeResult] = useState<AgeResult | null>(null);
   const [error, setError] = useState<string>('');
@@ -102,8 +104,13 @@ const AgeCalculator: React.FC = () => {
       dateAdapter={AdapterDateFns}
       adapterLocale={getDateLocale()}
     >
-      <div className={styles['age-calculator']}>
-        <Card className={styles['age-calculator__card']} elevation={3}>
+      <div
+        className={`${styles['age-calculator']} ${isMobile ? styles['age-calculator--mobile'] : ''} ${isNative ? styles['age-calculator--native'] : ''}`}
+      >
+        <Card
+          className={`${styles['age-calculator__card']} ${isMobile ? styles['age-calculator__card--mobile'] : ''}`}
+          elevation={3}
+        >
           <CardContent className={styles['age-calculator__content']}>
             <Box className={styles['age-calculator__header']}>
               <CalendarTodayIcon className={styles['age-calculator__icon']} />
@@ -234,11 +241,13 @@ const AgeCalculator: React.FC = () => {
                     </div>
                   </Box>
                 </Paper>
-                <AgeExpressions
-                  ageResult={ageResult}
-                  birthDate={birthDate!}
-                  showAllAvailable={true}
-                />
+                {birthDate && !isNaN(birthDate.getTime()) && (
+                  <AgeExpressions
+                    ageResult={ageResult}
+                    birthDate={birthDate}
+                    showAllAvailable={true}
+                  />
+                )}
               </>
             )}
           </CardContent>

@@ -40,6 +40,15 @@ const AgeExpressions: React.FC<AgeExpressionsProps> = ({
   };
 
   const getNextBirthdayInfo = (birthDate: Date) => {
+    if (!birthDate || isNaN(birthDate.getTime())) {
+      const today = new Date();
+      return {
+        date: format(today, 'dd/MM/yyyy', { locale: getDateLocale() }),
+        age: 0,
+        nextBirthday: today,
+      };
+    }
+
     const today = new Date();
     const currentYear = today.getFullYear();
     let nextBirthday = new Date(
@@ -47,6 +56,14 @@ const AgeExpressions: React.FC<AgeExpressionsProps> = ({
       birthDate.getMonth(),
       birthDate.getDate()
     );
+
+    if (isNaN(nextBirthday.getTime())) {
+      return {
+        date: format(today, 'dd/MM/yyyy', { locale: getDateLocale() }),
+        age: 0,
+        nextBirthday: today,
+      };
+    }
 
     if (nextBirthday <= today) {
       nextBirthday = new Date(
@@ -64,6 +81,10 @@ const AgeExpressions: React.FC<AgeExpressionsProps> = ({
   };
 
   const getDaysUntilBirthday = (nextBirthday: Date) => {
+    if (!nextBirthday || isNaN(nextBirthday.getTime())) {
+      return 0;
+    }
+
     const today = new Date();
     const timeDiff = nextBirthday.getTime() - today.getTime();
     const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));

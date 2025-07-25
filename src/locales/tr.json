@@ -39,7 +39,8 @@
       "variant7": "{{years}} yıl {{months}} aydır yaşıyorsunuz.",
       "variant8": "Doğum gününüze {{daysUntilBirthday}} gün kaldı.",
       "variant9": "{{daysUntilBirthday}} gün sonra {{nextAge}} yaşına gireceksiniz.",
-      "variant10": "Bir sonraki doğum gününüz {{nextBirthday}} tarihinde, {{daysUntilBirthday}} gün sonra."
+      "variant10": "Bir sonraki doğum gününüz {{nextBirthday}} tarihinde, {{daysUntilBirthday}} gün sonra.",
+      "variant11": "{{years}} yıl {{months}} aylıksınız."
     }
   },
   "footer": {

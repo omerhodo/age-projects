@@ -59,6 +59,10 @@ $small-mobile: 600px;
     @media (max-width: $tablet) {
       padding: 20px 16px;
     }
+
+    &--mobile {
+      padding: 50px 16px 20px 16px;
+    }
   }
 
   &__title {
