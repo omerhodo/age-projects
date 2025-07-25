@@ -39,7 +39,8 @@
       "variant7": "You have {{years}} years, {{months}} months, and {{days}} days of life experience.",
       "variant8": "{{daysUntilBirthday}} days until your birthday.",
       "variant9": "You will turn {{nextAge}} in {{daysUntilBirthday}} days.",
-      "variant10": "Your next birthday is on {{nextBirthday}}, {{daysUntilBirthday}} days away."
+      "variant10": "Your next birthday is on {{nextBirthday}}, {{daysUntilBirthday}} days away.",
+      "variant11": "You are {{years}} years and {{months}} months old."
     }
   },
   "footer": {

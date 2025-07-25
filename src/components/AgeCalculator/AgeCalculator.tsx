@@ -241,11 +241,13 @@ const AgeCalculator: React.FC = () => {
                     </div>
                   </Box>
                 </Paper>
-                <AgeExpressions
-                  ageResult={ageResult}
-                  birthDate={birthDate!}
-                  showAllAvailable={true}
-                />
+                {birthDate && !isNaN(birthDate.getTime()) && (
+                  <AgeExpressions
+                    ageResult={ageResult}
+                    birthDate={birthDate}
+                    showAllAvailable={true}
+                  />
+                )}
               </>
             )}
           </CardContent>
