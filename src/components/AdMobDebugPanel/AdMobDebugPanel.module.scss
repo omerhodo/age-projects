@@ -1,0 +1,39 @@
+.debugPanel {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.debugPanel :global(.MuiCardContent-root) {
+  padding: 16px !important;
+}
+
+.debugPanel :global(.MuiButton-root) {
+  text-transform: none;
+  font-size: 0.75rem;
+}
+
+.debugPanel :global(.MuiChip-root) {
+  font-size: 0.7rem;
+  height: 20px;
+}
+
+.debugPanel :global(.MuiAlert-root) {
+  font-size: 0.75rem;
+  padding: 8px 12px;
+}
+
+.debugPanel :global(.MuiTypography-subtitle2) {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .debugPanel {
+    width: calc(100vw - 20px) !important;
+    right: 10px !important;
+    left: 10px !important;
+  }
+}

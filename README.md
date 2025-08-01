@@ -138,7 +138,14 @@ The project uses BEM (Block Element Modifier) methodology for CSS class naming:
 .age-calculator__button--primary { }
 ```
 
-## 🔧 Development
+## �🔧 Documentation
+
+Detaylı kurulum ve konfigürasyon rehberleri için [`docs/`](./docs/) klasörüne bakın:
+
+- [Environment Variables Setup](./docs/setup/ENVIRONMENT_SETUP.md) - AdMob ve environment variables kurulumu
+- [Android Security Setup](./docs/setup/ANDROID_SECURITY_SETUP.md) - Android keystore ve güvenlik konfigürasyonu
+
+## �🔧 Development
 
 ### Creating Components
 When creating new components:

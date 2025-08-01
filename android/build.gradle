@@ -22,6 +22,23 @@ allprojects {
         google()
         mavenCentral()
     }
+    
+    // Force Java 21 for all subprojects to match AdMob plugin
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            project.android {
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_21
+                    targetCompatibility JavaVersion.VERSION_21
+                }
+            }
+        }
+        
+        // Set Kotlin JVM target for Kotlin tasks
+        project.tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked"
+        }
+    }
 }
 
 task clean(type: Delete) {

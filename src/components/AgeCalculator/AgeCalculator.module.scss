@@ -170,9 +170,11 @@ $mobile: 480px;
   &__result {
     padding: 24px !important;
     border-radius: 12px !important;
-    background: linear-gradient(135deg,
-        $background-gradient-start 0%,
-        $background-gradient-end 100%) !important;
+    background: linear-gradient(
+      135deg,
+      $background-gradient-start 0%,
+      $background-gradient-end 100%
+    ) !important;
     border: 1px solid $border-color !important;
   }
 

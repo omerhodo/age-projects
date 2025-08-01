@@ -1,5 +1,6 @@
 'use client';
 
+import { useAdMobContext } from '@/providers/AdMobProvider';
 import { usePlatform } from '@hooks';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import {
@@ -15,7 +16,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { enUS, tr } from 'date-fns/locale';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AgeExpressions from '../AgeExpressions';
 import AgeSlider from '../AgeSlider';
@@ -33,9 +34,11 @@ interface AgeResult {
 const AgeCalculator: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { isMobile, isNative } = usePlatform();
+  const { showInterstitial, isInterstitialReady } = useAdMobContext();
   const [birthDate, setBirthDate] = useState<Date | null>(null);
   const [ageResult, setAgeResult] = useState<AgeResult | null>(null);
   const [error, setError] = useState<string>('');
+  const calculationCount = useRef(0);
 
   const getDateLocale = () => {
     return i18n.language === 'tr' ? tr : enUS;
@@ -47,7 +50,7 @@ const AgeCalculator: React.FC = () => {
     }
   };
 
-  const calculateAge = () => {
+  const calculateAge = async () => {
     if (!birthDate) {
       setError(t('ageCalculator.errors.selectBirthDate'));
       return;
@@ -91,6 +94,14 @@ const AgeCalculator: React.FC = () => {
       totalHours,
       totalMinutes,
     });
+
+    calculationCount.current += 1;
+    if (calculationCount.current >= 3 && isInterstitialReady && isMobile) {
+      calculationCount.current = 0;
+      setTimeout(() => {
+        showInterstitial();
+      }, 1000);
+    }
   };
 
   const handleReset = () => {

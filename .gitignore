@@ -38,6 +38,7 @@ lerna-debug.log*
 # Environment files (can opt-in for committing if needed)
 .env*
 .env.local
+!.env.production.template
 .env.development.local
 .env.test.local
 .env.production.local
@@ -205,3 +206,6 @@ gradle.properties.local
 # Local development configurations
 local.properties
 *.local.json
+
+# Documentation
+/docs
