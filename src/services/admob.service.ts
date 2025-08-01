@@ -19,7 +19,7 @@ export class AdMobService {
     return AdMobService.instance;
   }
 
-  private constructor() { }
+  private constructor() {}
 
   async initialize(): Promise<void> {
     if (this.isInitialized) return;
