@@ -1,6 +1,5 @@
 'use client';
 
-import { usePlatform } from '@hooks';
 import CakeIcon from '@mui/icons-material/Cake';
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import React from 'react';
@@ -12,12 +11,8 @@ interface BirthdayCountdownProps {
   currentAge: number;
 }
 
-const BirthdayCountdown: React.FC<BirthdayCountdownProps> = ({
-  birthDate,
-  currentAge,
-}) => {
-  const { t, i18n } = useTranslation();
-  const { isMobile } = usePlatform();
+const BirthdayCountdown: React.FC<BirthdayCountdownProps> = ({ birthDate }) => {
+  const { t } = useTranslation();
 
   const calculateDaysUntilBirthday = () => {
     const today = new Date();
@@ -53,16 +48,7 @@ const BirthdayCountdown: React.FC<BirthdayCountdownProps> = ({
     return { days, nextBirthday, isToday: false };
   };
 
-  const { days, nextBirthday, isToday } = calculateDaysUntilBirthday();
-  const nextAge = currentAge + 1;
-
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString(i18n.language === 'tr' ? 'tr-TR' : 'en-US', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    });
-  };
+  const { days, isToday } = calculateDaysUntilBirthday();
 
   return (
     <Card className={`${styles['birthday-countdown']}`} elevation={2}>
