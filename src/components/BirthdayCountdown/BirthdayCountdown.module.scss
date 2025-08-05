@@ -1,0 +1,137 @@
+// Variables
+$spacing-xs: 8px;
+$spacing-sm: 12px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$mobile: 480px;
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: $mobile) {
+      @content;
+    }
+  }
+}
+
+.birthday-countdown {
+  margin-top: $spacing-lg;
+  border-radius: 12px !important;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &--mobile {
+    margin-top: $spacing-md;
+  }
+
+  &__content {
+    padding: $spacing-lg !important;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: $spacing-lg;
+    gap: $spacing-sm;
+  }
+
+  &__icon {
+    font-size: 2rem;
+    color: #1976d2;
+  }
+
+  &__title {
+    color: #2d3436;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__main {
+    text-align: center;
+  }
+
+  &__today {
+    padding: $spacing-lg;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+  }
+
+  &__today-text {
+    color: #1976d2;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__days {
+    margin-bottom: $spacing-lg;
+  }
+
+  &__days-number {
+    color: #1976d2;
+    font-weight: 600 !important;
+    font-size: 4rem !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: $spacing-xs;
+
+    @include respond-to(mobile) {
+      font-size: 3rem;
+    }
+  }
+
+  &__days-text {
+    color: #2d3436;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+
+  &__details {
+    background: rgba(255, 255, 255, 0.3);
+    padding: $spacing-md;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+  }
+
+  &__next-age {
+    color: #2d3436;
+    font-weight: 600;
+    margin-bottom: $spacing-xs !important;
+  }
+
+  &__next-date {
+    color: #636e72;
+    font-weight: 500;
+    opacity: 0.8;
+  }
+}
+
+// Mobile specific styles
+@include respond-to(mobile) {
+  .birthday-countdown {
+    &__content {
+      padding: $spacing-md !important;
+    }
+
+    &__header {
+      margin-bottom: $spacing-md;
+    }
+
+    &__icon {
+      font-size: 1.5rem;
+    }
+
+    &__title {
+      font-size: 1.25rem;
+    }
+
+    &__today-text {
+      font-size: 1.5rem;
+    }
+
+    &__details {
+      padding: $spacing-sm;
+    }
+  }
+}

@@ -20,6 +20,7 @@ import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AgeExpressions from '../AgeExpressions';
 import AgeSlider from '../AgeSlider';
+import BirthdayCountdown from '../BirthdayCountdown';
 import styles from './AgeCalculator.module.scss';
 
 interface AgeResult {
@@ -252,6 +253,12 @@ const AgeCalculator: React.FC = () => {
                     </div>
                   </Box>
                 </Paper>
+                {birthDate && !isNaN(birthDate.getTime()) && (
+                  <BirthdayCountdown
+                    birthDate={birthDate}
+                    currentAge={ageResult.years}
+                  />
+                )}
                 {birthDate && !isNaN(birthDate.getTime()) && (
                   <AgeExpressions
                     ageResult={ageResult}

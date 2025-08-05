@@ -28,6 +28,14 @@
       "since": "Since your birth:",
       "youHaveLived": "You have lived for"
     },
+    "birthdayCountdown": {
+      "title": "Next Birthday Countdown",
+      "today": "Today is your birthday! 🎉",
+      "daysLeft": "days until your birthday",
+      "dayLeft": "day until your birthday",
+      "nextAge": "You will turn {{age}} years old",
+      "nextBirthday": "Next birthday: {{date}}"
+    },
     "ageExpressions": {
       "title": "Age Expressions",
       "variant1": "You are {{age}} years old.",

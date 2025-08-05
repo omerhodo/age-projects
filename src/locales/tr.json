@@ -28,6 +28,14 @@
       "since": "Doğumunuzdan bu yana:",
       "youHaveLived": "Toplamda yaşadığınız süre"
     },
+    "birthdayCountdown": {
+      "title": "Doğum Günü Geri Sayımı",
+      "today": "Bugün doğum gününüz! 🎉",
+      "daysLeft": "gün kaldı",
+      "dayLeft": "gün kaldı",
+      "nextAge": "{{age}} yaşına gireceksiniz",
+      "nextBirthday": "Bir sonraki doğum günü: {{date}}"
+    },
     "ageExpressions": {
       "title": "Yaş İfadeleri",
       "variant1": "{{age}} yaşındasınız.",
