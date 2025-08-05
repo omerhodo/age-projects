@@ -1,12 +1,16 @@
 import type { NextConfig } from 'next';
 
+const isCapacitorBuild = process.env.BUILD_TARGET === 'capacitor';
+
 const nextConfig: NextConfig = {
   /* config options here */
-  output: 'export',
-  trailingSlash: true,
-  images: {
-    unoptimized: true,
-  },
+  ...(isCapacitorBuild && {
+    output: 'export',
+    trailingSlash: true,
+    images: {
+      unoptimized: true,
+    },
+  }),
   env: {
     // Explicitly declare environment variables for better IDE support
     NEXT_PUBLIC_ADMOB_IOS_APP_ID: process.env.NEXT_PUBLIC_ADMOB_IOS_APP_ID,
