@@ -41,7 +41,7 @@
       "variant1": "{{age}} yaşındasınız.",
       "variant2": "{{nextAge}} yaşından gün alıyorsunuz.",
       "variant3": "{{years}} yaş {{months}} ay yaşlandınız.",
-      "variant4": "{{nextAge}} yaşının içindesin.",
+      "variant4": "{{nextAge}} yaşının içindesiniz.",
       "variant5": "Seneye {{nextBirthday}} tarihinde {{nextAge}} yaşını doldurmuş olacaksınız.",
       "variant6": "{{years}} yıl {{months}} ay {{days}} gün yaşam tecrübeniz var.",
       "variant7": "{{years}} yıl {{months}} aydır yaşıyorsunuz.",
