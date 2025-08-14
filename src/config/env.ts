@@ -120,7 +120,7 @@ export const config: AppConfig = {
         'NEXT_PUBLIC_ADMOB_TESTING_MODE',
         true
       ),
-      disableAds: getEnvBoolean('NEXT_PUBLIC_DISABLE_ADS', true),
+      disableAds: getEnvBoolean('NEXT_PUBLIC_DISABLE_ADS', false),
     },
   },
 };
@@ -139,6 +139,11 @@ if (isDevelopment && typeof window !== 'undefined') {
   console.log('Environment:', environment);
   console.log('Is Production:', isProduction);
   console.log('AdMob Testing Mode:', admobConfig.testing.isTestingMode);
+  console.log('AdMob Disable Ads:', admobConfig.testing.disableAds);
+  console.log(
+    'NEXT_PUBLIC_DISABLE_ADS env:',
+    process.env.NEXT_PUBLIC_DISABLE_ADS
+  );
   console.log('AdMob App IDs:', admobConfig.appIds);
   console.groupEnd();
 }

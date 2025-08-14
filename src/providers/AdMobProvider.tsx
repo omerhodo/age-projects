@@ -38,6 +38,12 @@ export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const shouldShowAds = isMobile && !admobConfig.testing.disableAds;
+    console.log('🚀 AdMob Provider Debug:', {
+      isMobile,
+      disableAds: admobConfig.testing.disableAds,
+      shouldShowAds,
+      env_disable_ads: process.env.NEXT_PUBLIC_DISABLE_ADS,
+    });
     setShowAds(shouldShowAds);
   }, [isMobile]);
 
