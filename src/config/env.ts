@@ -24,6 +24,7 @@ export interface AdMobConfig {
     isTestingMode: boolean;
     testingDevices: string[];
     initializeForTesting: boolean;
+    disableAds: boolean;
   };
 }
 
@@ -119,6 +120,7 @@ export const config: AppConfig = {
         'NEXT_PUBLIC_ADMOB_TESTING_MODE',
         true
       ),
+      disableAds: getEnvBoolean('NEXT_PUBLIC_DISABLE_ADS', true),
     },
   },
 };

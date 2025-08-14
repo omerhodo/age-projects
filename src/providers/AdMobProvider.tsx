@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { admobConfig } from '../config/env';
 import { useAdMob } from '../hooks/useAdMob';
 import { usePlatform } from '../hooks/usePlatform';
 
@@ -36,7 +37,8 @@ export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
   const [showAds, setShowAds] = useState(false);
 
   useEffect(() => {
-    setShowAds(isMobile);
+    const shouldShowAds = isMobile && !admobConfig.testing.disableAds;
+    setShowAds(shouldShowAds);
   }, [isMobile]);
 
   const contextValue: AdMobContextType = {
