@@ -16,10 +16,19 @@ import styles from './LanguageSwitcher.module.scss';
 const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
   const { isMobile, isNative } = usePlatform();
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const handleLanguageChange = (event: SelectChangeEvent<string>) => {
     const selectedLanguage = event.target.value;
     i18n.changeLanguage(selectedLanguage);
+  };
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -32,8 +41,17 @@ const LanguageSwitcher: React.FC = () => {
           <Select
             value={i18n.language}
             onChange={handleLanguageChange}
+            onOpen={handleOpen}
+            onClose={handleClose}
             className={styles['language-switcher__select']}
             variant='outlined'
+            sx={{
+              '& .MuiSelect-icon': {
+                color: 'white !important',
+                transform: isOpen ? 'rotate(0deg)' : 'rotate(180deg)',
+                transition: 'transform 0.2s ease',
+              },
+            }}
             MenuProps={{
               className: styles['language-switcher__menu'],
               anchorOrigin: {
