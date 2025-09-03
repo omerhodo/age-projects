@@ -70,7 +70,7 @@ $mobile: 480px;
   }
 
   &__icon {
-    color: $white;
+    color: $white !important;
     font-size: 20px !important;
 
     @media (max-width: $tablet) {
@@ -99,6 +99,10 @@ $mobile: 480px;
       color: $white !important;
     }
 
+    svg {
+      color: #cdcdcd;
+    }
+
     .MuiOutlinedInput-notchedOutline {
       border-color: $white-alpha-dark-border !important;
     }
@@ -114,7 +118,7 @@ $mobile: 480px;
   }
 
   &__menu {
-    margin-top: 4px;
+    margin-bottom: 4px;
 
     .MuiPaper-root {
       border-radius: 8px;

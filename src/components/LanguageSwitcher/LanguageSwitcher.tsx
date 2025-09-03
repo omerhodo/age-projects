@@ -36,6 +36,14 @@ const LanguageSwitcher: React.FC = () => {
             variant='outlined'
             MenuProps={{
               className: styles['language-switcher__menu'],
+              anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'left',
+              },
+              transformOrigin: {
+                vertical: 'bottom',
+                horizontal: 'left',
+              },
             }}
           >
             <MenuItem value='tr' className={styles['language-switcher__item']}>
