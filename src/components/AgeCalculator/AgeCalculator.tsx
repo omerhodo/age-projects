@@ -1,6 +1,7 @@
 'use client';
 
 import { useAdMobContext } from '@/providers/AdMobProvider';
+import { formatNumberForLocale } from '@/utils/numberFormat';
 import { usePlatform } from '@hooks';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import {
@@ -214,7 +215,10 @@ const AgeCalculator: React.FC = () => {
                         variant='h6'
                         className={styles['age-calculator__stat-number']}
                       >
-                        {ageResult.totalDays.toLocaleString()}
+                        {formatNumberForLocale(
+                          ageResult.totalDays,
+                          i18n.language
+                        )}
                       </Typography>
                       <Typography
                         variant='body2'
@@ -228,7 +232,10 @@ const AgeCalculator: React.FC = () => {
                         variant='h6'
                         className={styles['age-calculator__stat-number']}
                       >
-                        {ageResult.totalHours.toLocaleString()}
+                        {formatNumberForLocale(
+                          ageResult.totalHours,
+                          i18n.language
+                        )}
                       </Typography>
                       <Typography
                         variant='body2'
@@ -242,7 +249,10 @@ const AgeCalculator: React.FC = () => {
                         variant='h6'
                         className={styles['age-calculator__stat-number']}
                       >
-                        {ageResult.totalMinutes.toLocaleString()}
+                        {formatNumberForLocale(
+                          ageResult.totalMinutes,
+                          i18n.language
+                        )}
                       </Typography>
                       <Typography
                         variant='body2'
