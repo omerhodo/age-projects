@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "yarn build:vercel",
+  "buildCommand": "yarn build",
   "outputDirectory": ".next",
   "framework": "nextjs",
   "installCommand": "yarn install --frozen-lockfile",
