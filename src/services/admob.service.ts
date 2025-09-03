@@ -22,7 +22,16 @@ export class AdMobService {
   private constructor() {}
 
   async initialize(): Promise<void> {
-    if (this.isInitialized) return;
+    if (this.isInitialized) {
+      console.log('🔧 AdMob already initialized');
+      return;
+    }
+
+    console.log('🚀 Initializing AdMob with config:', {
+      testingDevices: admobConfig.testing.testingDevices,
+      initializeForTesting: admobConfig.testing.initializeForTesting,
+      isTestingMode: admobConfig.testing.isTestingMode,
+    });
 
     try {
       await AdMob.initialize({
@@ -31,9 +40,9 @@ export class AdMobService {
       });
 
       this.isInitialized = true;
-      console.log('AdMob initialized successfully');
+      console.log('✅ AdMob initialized successfully');
     } catch (error) {
-      console.error('Error initializing AdMob:', error);
+      console.error('❌ Error initializing AdMob:', error);
       throw error;
     }
   }
@@ -51,6 +60,7 @@ export class AdMobService {
     position: BannerAdPosition = BannerAdPosition.BOTTOM_CENTER
   ): Promise<void> {
     if (!this.isInitialized) {
+      console.log('🔧 AdMob not initialized, initializing...');
       await this.initialize();
     }
 
@@ -64,11 +74,19 @@ export class AdMobService {
       isTesting: admobConfig.testing.isTestingMode,
     };
 
+    console.log('🚀 Showing banner ad with options:', {
+      platform,
+      adId: options.adId,
+      isTesting: options.isTesting,
+      position: options.position,
+    });
+
     try {
       await AdMob.showBanner(options);
-      console.log('Banner ad shown successfully');
+      console.log('✅ Banner ad shown successfully');
     } catch (error) {
-      console.error('Error showing banner ad:', error);
+      console.error('❌ Error showing banner ad:', error);
+      throw error;
     }
   }
 

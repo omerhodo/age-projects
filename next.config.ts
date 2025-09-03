@@ -11,6 +11,19 @@ const nextConfig: NextConfig = {
       unoptimized: true,
     },
   }),
+  async headers() {
+    return [
+      {
+        source: '/app-ads.txt',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'text/plain',
+          },
+        ],
+      },
+    ];
+  },
   env: {
     // Explicitly declare environment variables for better IDE support
     NEXT_PUBLIC_ADMOB_IOS_APP_ID: process.env.NEXT_PUBLIC_ADMOB_IOS_APP_ID,

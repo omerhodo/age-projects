@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "buildCommand": "yarn build:vercel",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "installCommand": "yarn install --frozen-lockfile",
+  "devCommand": "yarn dev",
+  "rewrites": [
+    {
+      "source": "/app-ads.txt",
+      "destination": "/app-ads.txt"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/app-ads.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain"
+        }
+      ]
+    }
+  ]
+}

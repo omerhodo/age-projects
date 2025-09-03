@@ -40,7 +40,9 @@
     "add:ios": "npx cap add ios",
     "add:android": "npx cap add android",
     "open:ios": "npx cap open ios",
-    "open:android": "npx cap open android"
+    "open:android": "npx cap open android",
+    "deploy": "vercel --prod",
+    "deploy:preview": "vercel"
   },
   "dependencies": {
     "@capacitor-community/admob": "^7.0.3",
