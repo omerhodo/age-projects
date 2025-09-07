@@ -74,11 +74,11 @@ export const config: AppConfig = {
     appIds: {
       ios: getEnvVar(
         'NEXT_PUBLIC_ADMOB_IOS_APP_ID',
-        'ca-app-pub-3940256099942544~1458002511'
+        'ca-app-pub-9796784353160604~6909970738'
       ),
       android: getEnvVar(
         'NEXT_PUBLIC_ADMOB_ANDROID_APP_ID',
-        'ca-app-pub-3940256099942544~3347511713'
+        'ca-app-pub-9796784353160604~3080791969'
       ),
     },
     adIds: {
