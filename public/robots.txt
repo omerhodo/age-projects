@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Important files
+Allow: /app-ads.txt
+Allow: /sitemap.xml
+
+Sitemap: https://yashesapla.vercel.app/sitemap.xml

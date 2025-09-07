@@ -1,1 +1,6 @@
+# App-ads.txt file for Age Calculator app
+# Publisher: Ömer Hodo
+# Contact: hodo.development@gmail.com
+# Updated: 2025-09-07
+
 google.com, pub-9796784353160604, DIRECT, f08c47fec0942fa0
