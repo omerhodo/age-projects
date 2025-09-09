@@ -270,7 +270,7 @@ export class ConsentService {
   /**
    * Kullanıcı rızasını ayarlar
    */
-  private setConsent(granted: boolean): void {
+  setConsent(granted: boolean): void {
     const consentValue = granted ? 'granted' : 'denied';
 
     // localStorage'a kaydet

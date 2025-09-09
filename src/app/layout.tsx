@@ -1,3 +1,4 @@
+import ConsentBanner from '@/components/ConsentBanner/ConsentBanner';
 import Navbar from '@/components/Navbar';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -24,8 +25,10 @@ export const metadata: Metadata = {
     'doğum tarihi',
     'birth date',
     'yaş',
+    'yas',
     'age',
     'hesaplama',
+    'hesapla',
     'calculator',
   ],
   authors: [{ name: 'Ömer Hodo' }],
@@ -66,6 +69,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           {children}
+          <ConsentBanner />
         </Providers>
       </body>
     </html>

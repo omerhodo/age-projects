@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 import { usePlatform } from '../../hooks/usePlatform';
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
+import { PrivacyDropdown } from '../PrivacyDropdown/PrivacyDropdown';
 import styles from './Navbar.module.scss';
 
 const Navbar: React.FC = () => {
@@ -31,6 +32,7 @@ const Navbar: React.FC = () => {
         </div>
 
         <div className={styles.navbar__right}>
+          <PrivacyDropdown />
           <LanguageSwitcher />
         </div>
       </div>

@@ -98,5 +98,11 @@
     "contactText": "Gizlilik konularında sorularınız varsa bizimle iletişime geçebilirsiniz:",
     "email": "Email:",
     "goBackButton": "Geri Dön"
+  },
+  "consentBanner": {
+    "title": "Çerezler ve Gizlilik",
+    "description": "Bu uygulama deneyiminizi iyileştirmek için çerezler kullanır. Devam ederek çerez kullanımını kabul etmiş olursunuz.",
+    "acceptButton": "Kabul Et",
+    "rejectButton": "Reddet"
   }
 }

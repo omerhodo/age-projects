@@ -2,7 +2,6 @@
 
 import { useTranslation } from 'react-i18next';
 import { usePlatform } from '../../hooks/usePlatform';
-import { PrivacyDropdown } from '../PrivacyDropdown';
 import styles from './Footer.module.scss';
 
 const Footer = () => {
@@ -18,9 +17,6 @@ const Footer = () => {
           © 2025 {t('footer.madeBy')}{' '}
           <span className={styles.footer__author}>Ömer Hodo</span>
         </p>
-        <div className={styles.footer__privacy}>
-          <PrivacyDropdown className={styles.footer__privacyDropdown} />
-        </div>
       </div>
     </footer>
   );

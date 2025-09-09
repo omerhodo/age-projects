@@ -63,7 +63,7 @@ export const PrivacyDropdown: React.FC<PrivacyDropdownProps> = ({
           <span
             className={styles.dropdown__arrow}
             style={{
-              transform: isOpen ? 'rotate(0deg)' : 'rotate(180deg)',
+              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
               transition: 'transform 0.2s ease',
             }}
           >
@@ -94,7 +94,7 @@ export const PrivacyDropdown: React.FC<PrivacyDropdownProps> = ({
         <span
           className={styles.dropdown__arrow}
           style={{
-            transform: isOpen ? 'rotate(0deg)' : 'rotate(180deg)',
+            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
             transition: 'transform 0.2s ease',
           }}
         >

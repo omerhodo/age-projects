@@ -98,5 +98,11 @@
     "contactText": "If you have questions about privacy matters, you can contact us:",
     "email": "Email:",
     "goBackButton": "Go Back"
+  },
+  "consentBanner": {
+    "title": "Cookies and Privacy",
+    "description": "This app uses cookies to improve your experience. By continuing, you agree to the use of cookies.",
+    "acceptButton": "Accept",
+    "rejectButton": "Reject"
   }
 }
