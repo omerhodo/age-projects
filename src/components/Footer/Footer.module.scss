@@ -47,14 +47,16 @@
 
   &__text {
     margin: 0;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.95);
+    font-family: Arial, sans-serif;
   }
 
   &__author {
-    font-weight: 600;
+    font-weight: 500;
     color: #fff;
+    font-family: Arial, sans-serif;
   }
 
   &__privacy {
@@ -70,12 +72,14 @@
   }
 
   &__link {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 400;
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
     transition: all 0.2s ease;
+    font-family: Arial, sans-serif;
 
     &:hover {
       color: #fff;

@@ -21,9 +21,7 @@ const Navbar: React.FC = () => {
         </div>
 
         <div className={styles.navbar__center}>
-          <Link href='/' className={styles.navbar__titleLink}>
-            <h1 className={styles.navbar__title}>{t('home.title')}</h1>
-          </Link>
+          <Link href='/' className={styles.navbar__titleLink}></Link>
         </div>
 
         <div className={styles.navbar__right}>

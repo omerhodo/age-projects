@@ -4,26 +4,23 @@
 
   &__trigger {
     background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     padding: 0.5rem 0.75rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    font-weight: 400;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     transition: all 0.2s ease;
     min-width: 65px;
+    font-family: Arial, sans-serif;
 
     &:hover {
       background: rgba(255, 255, 255, 0.15);
       border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
     }
   }
 
@@ -47,7 +44,7 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    min-width: 140px;
+    min-width: 50px;
     max-width: calc(100vw - 2rem);
     margin-top: 0.25rem;
     z-index: 1000;
@@ -106,10 +103,6 @@
       min-width: 55px;
     }
 
-    &__menu {
-      min-width: 120px;
-    }
-
     &__item {
       padding: 0.6rem 0.8rem;
       font-size: 0.8rem;
@@ -130,10 +123,6 @@
 
     &__flag {
       font-size: 1rem;
-    }
-
-    &__menu {
-      min-width: 110px;
     }
 
     &__item {

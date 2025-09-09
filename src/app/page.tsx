@@ -30,7 +30,6 @@ export default function Home() {
       <main
         className={`${styles.home__main} ${isMobile ? styles['home__main--mobile'] : ''}`}
       >
-        <p className={styles.home__description}>{t('home.description')}</p>
         <AgeCalculator />
       </main>
       <Footer />

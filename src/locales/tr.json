@@ -9,7 +9,7 @@
     "description": "Doğum tarihinizi girerek mevcut yaşınızı öğrenin"
   },
   "ageCalculator": {
-    "title": "Yaş Hesaplayıcı",
+    "title": "Yaş Hesapla",
     "birthDateLabel": "Doğum Tarihiniz",
     "calculateButton": "Yaşı Hesapla",
     "clearButton": "Temizle",

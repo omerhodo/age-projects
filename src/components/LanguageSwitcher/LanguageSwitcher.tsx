@@ -62,7 +62,6 @@ const LanguageSwitcher: React.FC = () => {
             onClick={() => handleLanguageChange('tr')}
           >
             <span className={styles.languageSwitcher__flag}>🇹🇷</span>
-            <span className={styles.languageSwitcher__label}>Türkçe</span>
           </button>
 
           <button
@@ -70,7 +69,6 @@ const LanguageSwitcher: React.FC = () => {
             onClick={() => handleLanguageChange('en')}
           >
             <span className={styles.languageSwitcher__flag}>🇺🇸</span>
-            <span className={styles.languageSwitcher__label}>English</span>
           </button>
         </div>
       )}

@@ -126,13 +126,24 @@ const AgeCalculator: React.FC = () => {
         >
           <CardContent className={styles['age-calculator__content']}>
             <Box className={styles['age-calculator__header']}>
-              <CalendarTodayIcon className={styles['age-calculator__icon']} />
-              <Typography
-                variant='h4'
-                className={styles['age-calculator__title']}
-              >
-                {t('ageCalculator.title')}
-              </Typography>
+              <Box className={styles['age-calculator__title-row']}>
+                <CalendarTodayIcon className={styles['age-calculator__icon']} />
+                <Typography
+                  variant='h4'
+                  className={styles['age-calculator__title']}
+                  style={{ margin: 0 }} // Inline style ile margin'ı zorla sıfırla
+                >
+                  {t('ageCalculator.title')}
+                </Typography>
+              </Box>
+              {!error && !ageResult && (
+                <Typography
+                  variant='h6'
+                  className={styles['age-calculator__subtitle']}
+                >
+                  {t('home.description')}
+                </Typography>
+              )}
             </Box>
 
             <Box className={styles['age-calculator__form']}>

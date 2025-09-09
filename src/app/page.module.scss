@@ -80,36 +80,6 @@ $small-mobile: 600px;
       padding-left: calc(20px + env(safe-area-inset-left, 0));
       padding-right: calc(20px + env(safe-area-inset-right, 0));
     }
-
-    @media (max-width: $tablet) {
-      padding: 80px 16px 20px 16px;
-
-      .home__native & {
-        padding-left: calc(16px + env(safe-area-inset-left, 0));
-        padding-right: calc(16px + env(safe-area-inset-right, 0));
-      }
-    }
-
-    @media (max-width: $mobile) {
-      padding: 70px 16px 20px 16px;
-
-      .home__native & {
-        padding-left: calc(16px + env(safe-area-inset-left, 0));
-        padding-right: calc(16px + env(safe-area-inset-right, 0));
-      }
-    }
-
-    &--mobile {
-      padding: 100px 16px 20px 16px;
-
-      @media (max-width: $tablet) {
-        padding: 80px 16px 20px 16px;
-      }
-
-      @media (max-width: $mobile) {
-        padding: 70px 16px 20px 16px;
-      }
-    }
   }
 
   &__title {
@@ -125,24 +95,6 @@ $small-mobile: 600px;
 
     @media (max-width: $mobile) {
       font-size: 1.8rem;
-    }
-  }
-
-  &__description {
-    color: $white-transparent;
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-    max-width: $description-max-width;
-    @include center-content;
-    line-height: 1.6;
-
-    @media (max-width: $tablet) {
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-    }
-
-    @media (max-width: $mobile) {
-      font-size: 1rem;
     }
   }
 }
@@ -173,7 +125,7 @@ $small-mobile: 600px;
   }
 
   code {
-    font-family: inherit;
+    font-family: Arial, sans-serif;
     background: var(--gray-alpha-100);
     padding: 2px 4px;
     border-radius: 4px;
