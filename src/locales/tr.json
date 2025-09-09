@@ -54,5 +54,20 @@
   "footer": {
     "madeBy": "Geliştiren",
     "privacyPolicy": "Gizlilik Politikası"
+  },
+  "consent": {
+    "title": "Gizlilik ve Çerezler",
+    "description": "Bu uygulama deneyiminizi iyileştirmek için çerezleri ve kişiselleştirilmiş reklamları kullanır. Devam ederek <link>Gizlilik Politikamızı</link> kabul etmiş olursunuz.",
+    "acceptButton": "Kabul Et",
+    "rejectButton": "Reddet",
+    "privacyOptionsButton": "Gizlilik Seçenekleri",
+    "learnMore": "Daha fazla bilgi için",
+    "privacyPolicy": "gizlilik politikamızı",
+    "readText": "okuyabilirsiniz.",
+    "optOut": {
+      "text": "Reklamları Devre Dışı Bırak",
+      "title": "Kişiselleştirilmiş reklamları devre dışı bırak",
+      "confirmMessage": "Kişiselleştirilmiş reklamları devre dışı bırakmak istediğinizden emin misiniz? Bu işlem sayfayı yeniden yükleyecektir."
+    }
   }
 }

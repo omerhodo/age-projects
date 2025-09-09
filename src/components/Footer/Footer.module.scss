@@ -14,10 +14,13 @@
     text-align: center;
     max-width: 1200px;
     padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   &__text {
-    margin: 0 0 0.25rem 0;
+    margin: 0;
     font-size: 0.9rem;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.9);
@@ -26,6 +29,15 @@
   &__author {
     font-weight: 600;
     color: #fff;
+  }
+
+  &__privacy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.25rem;
+    flex-wrap: wrap;
   }
 
   &__links {
@@ -47,6 +59,30 @@
     }
   }
 
+  &__privacyBtn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    font-size: 0.8rem !important;
+    padding: 0.25rem 0.5rem !important;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2) !important;
+      color: #fff !important;
+    }
+  }
+
+  &__optOutLink {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 0.8rem !important;
+    text-decoration: underline !important;
+
+    &:hover {
+      color: #fff !important;
+      text-decoration: none !important;
+    }
+  }
+
   &__secondary {
     margin: 0;
     font-size: 0.8rem;
@@ -61,8 +97,24 @@
     padding: 0.75rem 0;
     min-height: 50px;
 
+    &__content {
+      gap: 0.25rem;
+    }
+
     &__text {
       font-size: 0.8rem;
+    }
+
+    &__privacy {
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    &__link,
+    &__privacyBtn,
+    &__optOutLink {
+      font-size: 0.7rem !important;
+      padding: 0.2rem 0.4rem !important;
     }
 
     &__secondary {

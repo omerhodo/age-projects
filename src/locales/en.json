@@ -54,5 +54,20 @@
   "footer": {
     "madeBy": "Developed by",
     "privacyPolicy": "Privacy Policy"
+  },
+  "consent": {
+    "title": "Privacy and Cookies",
+    "description": "This app uses cookies and personalized ads to enhance your experience. By continuing, you accept our <link>Privacy Policy</link>.",
+    "acceptButton": "Accept",
+    "rejectButton": "Reject",
+    "privacyOptionsButton": "Privacy Options",
+    "learnMore": "For more information, you can",
+    "privacyPolicy": "read our privacy policy",
+    "readText": ".",
+    "optOut": {
+      "text": "Opt Out of Ads",
+      "title": "Disable personalized advertisements",
+      "confirmMessage": "Are you sure you want to disable personalized advertisements? This will reload the page."
+    }
   }
 }

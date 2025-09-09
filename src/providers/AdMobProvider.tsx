@@ -4,6 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { admobConfig } from '../config/env';
 import { useAdMob } from '../hooks/useAdMob';
 import { usePlatform } from '../hooks/usePlatform';
+import { useConsent } from './ConsentProvider';
 
 interface AdMobContextType {
   isInitialized: boolean;
@@ -33,19 +34,22 @@ interface AdMobProviderProps {
 
 export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
   const { isMobile } = usePlatform();
+  const { canShowAds } = useConsent();
   const adMob = useAdMob();
   const [showAds, setShowAds] = useState(false);
 
   useEffect(() => {
-    const shouldShowAds = isMobile && !admobConfig.testing.disableAds;
+    const shouldShowAds =
+      isMobile && !admobConfig.testing.disableAds && canShowAds;
     console.log('🚀 AdMob Provider Debug:', {
       isMobile,
       disableAds: admobConfig.testing.disableAds,
+      canShowAds,
       shouldShowAds,
       env_disable_ads: process.env.NEXT_PUBLIC_DISABLE_ADS,
     });
     setShowAds(shouldShowAds);
-  }, [isMobile]);
+  }, [isMobile, canShowAds]);
 
   const contextValue: AdMobContextType = {
     ...adMob,
