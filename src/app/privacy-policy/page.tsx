@@ -1,12 +1,27 @@
-import { Metadata } from 'next';
+'use client';
+
+import { useEffect } from 'react';
 import styles from './PrivacyPolicy.module.scss';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy | Age Calculator',
-  description: 'Privacy Policy for Age Calculator application',
-};
-
 export default function PrivacyPolicy() {
+  useEffect(() => {
+    document.body.style.overflow = 'auto';
+    document.documentElement.style.overflow = 'auto';
+    document.body.style.position = 'static';
+    document.documentElement.style.position = 'static';
+    document.body.style.height = 'auto';
+    document.documentElement.style.height = 'auto';
+
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.position = '';
+      document.documentElement.style.position = '';
+      document.body.style.height = '';
+      document.documentElement.style.height = '';
+    };
+  }, []);
+
   return (
     <div className={styles.privacyPolicy}>
       <div className={styles.container}>

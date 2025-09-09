@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useConsent } from '../../providers/ConsentProvider';
@@ -14,6 +15,7 @@ export const PrivacyDropdown: React.FC<PrivacyDropdownProps> = ({
 }) => {
   const { t } = useTranslation();
   const { showPrivacyOptions, consentInfo } = useConsent();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -40,12 +42,12 @@ export const PrivacyDropdown: React.FC<PrivacyDropdownProps> = ({
   };
 
   const handleOptOut = () => {
-    window.open('/opt-out', '_blank');
+    router.push('/opt-out');
     setIsOpen(false);
   };
 
   const handlePrivacyPolicy = () => {
-    window.open('/privacy-policy', '_blank');
+    router.push('/privacy-policy');
     setIsOpen(false);
   };
 

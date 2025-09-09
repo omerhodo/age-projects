@@ -1,15 +1,17 @@
 'use client';
 
+import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { usePlatform } from '../../hooks/usePlatform';
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import styles from './Navbar.module.scss';
 
 const Navbar: React.FC = () => {
-  const { t } = useTranslation();
   const { isNative } = usePlatform();
+  const pathname = usePathname();
+  const isNotHomePage = pathname !== '/';
 
   return (
     <nav
@@ -17,7 +19,11 @@ const Navbar: React.FC = () => {
     >
       <div className={styles.navbar__container}>
         <div className={styles.navbar__left}>
-          {/* Boş alan - gelecekte başka öğeler eklenebilir */}
+          {isNotHomePage && (
+            <Link href='/' className={styles.navbar__homeLink}>
+              <HomeIcon className={styles.navbar__homeIcon} />
+            </Link>
+          )}
         </div>
 
         <div className={styles.navbar__center}>

@@ -43,6 +43,26 @@ $navbar-backdrop: blur(10px);
     align-items: center;
   }
 
+  &__homeLink {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+  }
+
+  &__homeIcon {
+    font-size: 24px !important;
+    color: inherit;
+  }
+
   &__center {
     display: flex;
     justify-content: center;
