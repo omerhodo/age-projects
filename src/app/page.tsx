@@ -11,7 +11,7 @@ import styles from './page.module.scss';
 
 export default function Home() {
   const { t } = useTranslation();
-  const { isMobile } = usePlatform();
+  const { isMobile, isNative } = usePlatform();
   const { isInitialized, showBanner } = useAdMobContext();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function Home() {
   }, [isInitialized, isMobile, showBanner]);
 
   return (
-    <div className={styles.home}>
+    <div className={`${styles.home} ${isNative ? styles.home__native : ''}`}>
       <AdMobDebugPanel />
       <main
         className={`${styles.home__main} ${isMobile ? styles['home__main--mobile'] : ''}`}

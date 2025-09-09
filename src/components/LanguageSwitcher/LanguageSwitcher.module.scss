@@ -41,12 +41,14 @@
   &__menu {
     position: absolute;
     top: 100%;
-    left: 0;
+    right: 0;
+    left: auto;
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     min-width: 140px;
+    max-width: calc(100vw - 2rem);
     margin-top: 0.25rem;
     z-index: 1000;
     overflow: hidden;

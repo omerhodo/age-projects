@@ -16,6 +16,10 @@ $navbar-backdrop: blur(10px);
   z-index: 1000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
+  &__native {
+    height: calc(#{$navbar-height} + env(safe-area-inset-top, 0));
+  }
+
   &__container {
     max-width: 1200px;
     margin: 0 auto;
@@ -25,6 +29,12 @@ $navbar-backdrop: blur(10px);
     grid-template-columns: 1fr 2fr 1fr;
     align-items: center;
     gap: 1rem;
+
+    .navbar__native & {
+      padding-top: env(safe-area-inset-top, 0);
+      padding-left: calc(1rem + env(safe-area-inset-left, 0));
+      padding-right: calc(1rem + env(safe-area-inset-right, 0));
+    }
   }
 
   &__left {
@@ -76,6 +86,10 @@ $navbar-backdrop: blur(10px);
   @media (max-width: 768px) {
     height: 60px;
 
+    &.navbar__native {
+      height: calc(60px + env(safe-area-inset-top, 0));
+    }
+
     &__container {
       grid-template-columns: auto 1fr auto;
       gap: 0.5rem;
@@ -84,6 +98,10 @@ $navbar-backdrop: blur(10px);
 
   @media (max-width: 480px) {
     height: 50px;
+
+    &.navbar__native {
+      height: calc(50px + env(safe-area-inset-top, 0));
+    }
 
     &__container {
       padding: 0 0.75rem;

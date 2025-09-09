@@ -39,6 +39,7 @@
     border-radius: 6px;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
     min-width: 180px;
+    max-width: calc(100vw - 2rem);
     margin-bottom: 0.5rem;
     z-index: 1000;
     overflow: hidden;
@@ -67,16 +68,6 @@
     &:focus {
       outline: none;
       background: #e3f2fd;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .dropdown {
-    &__menu {
-      right: auto;
-      left: 0;
-      min-width: 160px;
     }
   }
 }

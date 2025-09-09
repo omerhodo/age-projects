@@ -1,14 +1,18 @@
 'use client';
 
 import { useTranslation } from 'react-i18next';
+import { usePlatform } from '../../hooks/usePlatform';
 import { PrivacyDropdown } from '../PrivacyDropdown';
 import styles from './Footer.module.scss';
 
 const Footer = () => {
   const { t } = useTranslation();
+  const { isNative } = usePlatform();
 
   return (
-    <footer className={styles.footer}>
+    <footer
+      className={`${styles.footer} ${isNative ? styles.footer__native : ''}`}
+    >
       <div className={styles.footer__content}>
         <p className={styles.footer__text}>
           © 2025 {t('footer.madeBy')}{' '}
