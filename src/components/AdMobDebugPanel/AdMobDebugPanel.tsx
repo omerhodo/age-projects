@@ -107,7 +107,7 @@ const AdMobDebugPanel: React.FC = () => {
             {/* Banner Controls */}
             <Box mb={2}>
               <Typography variant='subtitle2' gutterBottom>
-                Banner Controls:
+                Banner Controls (Safe Area Bottom):
               </Typography>
               <Box display='flex' gap={1} flexDirection='column'>
                 <Button
@@ -116,7 +116,7 @@ const AdMobDebugPanel: React.FC = () => {
                   onClick={showBanner}
                   disabled={!isInitialized}
                 >
-                  Show Banner
+                  Show Banner (Bottom + Safe Area)
                 </Button>
                 <Button
                   variant='outlined'

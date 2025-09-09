@@ -66,11 +66,14 @@ export class AdMobService {
 
     const platform = this.getPlatform();
     const adIds = this.getAdIds();
+
+    const safeAreaMargin = platform === 'ios' ? 60 : 80;
+
     const options: BannerAdOptions = {
       adId: adIds[platform].banner,
       adSize: BannerAdSize.BANNER,
       position: position,
-      margin: 0,
+      margin: safeAreaMargin,
       isTesting: admobConfig.testing.isTestingMode,
     };
 
@@ -79,6 +82,8 @@ export class AdMobService {
       adId: options.adId,
       isTesting: options.isTesting,
       position: options.position,
+      margin: options.margin,
+      safeAreaAdjustment: `${safeAreaMargin}px for ${platform}`,
     });
 
     try {

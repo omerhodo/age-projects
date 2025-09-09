@@ -6,11 +6,9 @@ import Footer from '@/components/Footer';
 import { useAdMobContext } from '@/providers/AdMobProvider';
 import { usePlatform } from '@hooks';
 import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import styles from './page.module.scss';
 
 export default function Home() {
-  const { t } = useTranslation();
   const { isMobile, isNative } = usePlatform();
   const { isInitialized, showBanner } = useAdMobContext();
 
