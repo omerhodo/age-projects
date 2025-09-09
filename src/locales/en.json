@@ -52,6 +52,7 @@
     }
   },
   "footer": {
-    "madeBy": "Developed by"
+    "madeBy": "Developed by",
+    "privacyPolicy": "Privacy Policy"
   }
 }
