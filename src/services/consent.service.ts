@@ -97,6 +97,7 @@ export class ConsentService {
   /**
    * Rıza bilgilerini günceller
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private requestConsentInfoUpdate(_settings: ConsentSettings): Promise<void> {
     return new Promise((resolve, reject) => {
       if (!window.googletag) {

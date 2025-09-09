@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { admobConfig } from '../config/env';
-import { useConsentModal } from '../hooks/useConsentModal';
 import { ConsentInfo, consentService } from '../services/consent.service';
 
 interface ConsentContextType {
@@ -31,7 +30,6 @@ interface ConsentProviderProps {
 export const ConsentProvider: React.FC<ConsentProviderProps> = ({
   children,
 }) => {
-  const { createLocalizedConsentModal } = useConsentModal();
   const [consentInfo, setConsentInfo] = useState<ConsentInfo>({
     consentStatus: 'UNKNOWN',
     formStatus: 'UNKNOWN',
