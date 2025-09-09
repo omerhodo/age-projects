@@ -1,4 +1,4 @@
-.languageSwitcher {
+.dropdown {
   position: relative;
   display: inline-block;
 
@@ -8,13 +8,12 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     padding: 0.5rem 0.75rem;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     transition: all 0.2s ease;
-    min-width: 65px;
 
     &:hover {
       background: rgba(255, 255, 255, 0.15);
@@ -27,27 +26,20 @@
     }
   }
 
-  &__flag {
-    font-size: 1.2rem;
-    line-height: 1;
-  }
-
   &__arrow {
     font-size: 0.7rem;
-    margin-left: auto;
-    transition: transform 0.2s ease;
   }
 
   &__menu {
     position: absolute;
-    top: 100%;
-    left: 0;
+    bottom: 100%;
+    right: 0;
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    min-width: 140px;
-    margin-top: 0.25rem;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 180px;
+    margin-bottom: 0.5rem;
     z-index: 1000;
     overflow: hidden;
   }
@@ -59,13 +51,10 @@
     color: #333;
     border: none;
     text-align: left;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     cursor: pointer;
     transition: background-color 0.2s ease;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
 
     &:last-child {
       border-bottom: none;
@@ -79,63 +68,15 @@
       outline: none;
       background: #e3f2fd;
     }
-
-    &_active {
-      background: #e8f5e8;
-      color: #2e7d32;
-      font-weight: 500;
-
-      &:hover {
-        background: #e8f5e8;
-      }
-    }
-  }
-
-  &__label {
-    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 768px) {
-  .languageSwitcher {
-    &__trigger {
-      padding: 0.4rem 0.6rem;
-      font-size: 0.8rem;
-      min-width: 55px;
-    }
-
+  .dropdown {
     &__menu {
-      min-width: 120px;
-    }
-
-    &__item {
-      padding: 0.6rem 0.8rem;
-      font-size: 0.8rem;
-    }
-
-    &__label {
-      font-size: 0.8rem;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .languageSwitcher {
-    &__trigger {
-      padding: 0.3rem 0.5rem;
-      min-width: 50px;
-    }
-
-    &__flag {
-      font-size: 1rem;
-    }
-
-    &__menu {
-      min-width: 110px;
-    }
-
-    &__item {
-      padding: 0.5rem 0.7rem;
+      right: auto;
+      left: 0;
+      min-width: 160px;
     }
   }
 }

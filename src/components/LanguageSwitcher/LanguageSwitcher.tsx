@@ -1,82 +1,81 @@
 'use client';
 
-import { usePlatform } from '@hooks';
-import LanguageIcon from '@mui/icons-material/Language';
-import {
-  Box,
-  FormControl,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from '@mui/material';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './LanguageSwitcher.module.scss';
 
 const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
-  const { isMobile, isNative } = usePlatform();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleLanguageChange = (event: SelectChangeEvent<string>) => {
-    const selectedLanguage = event.target.value;
-    i18n.changeLanguage(selectedLanguage);
-  };
+  // Dropdown dışına tıklandığında kapat
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
 
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
-  const handleClose = () => {
+  const handleLanguageChange = (language: string) => {
+    i18n.changeLanguage(language);
     setIsOpen(false);
   };
 
+  const getCurrentFlag = () => {
+    return i18n.language === 'tr' ? '🇹🇷' : '🇺🇸';
+  };
+
   return (
-    <div
-      className={`${styles['language-switcher']} ${isMobile ? styles['language-switcher--mobile'] : ''} ${isNative ? styles['language-switcher--native'] : ''}`}
-    >
-      <Box className={styles['language-switcher__container']}>
-        <LanguageIcon className={styles['language-switcher__icon']} />
-        <FormControl className={styles['language-switcher__form']} size='small'>
-          <Select
-            value={i18n.language}
-            onChange={handleLanguageChange}
-            onOpen={handleOpen}
-            onClose={handleClose}
-            className={styles['language-switcher__select']}
-            variant='outlined'
-            sx={{
-              '& .MuiSelect-icon': {
-                color: 'white !important',
-                transform: isOpen ? 'rotate(0deg)' : 'rotate(180deg)',
-                transition: 'transform 0.2s ease',
-              },
-            }}
-            MenuProps={{
-              className: styles['language-switcher__menu'],
-              anchorOrigin: {
-                vertical: 'top',
-                horizontal: 'left',
-              },
-              transformOrigin: {
-                vertical: 'bottom',
-                horizontal: 'left',
-              },
-            }}
+    <div ref={dropdownRef} className={styles.languageSwitcher}>
+      <button
+        className={styles.languageSwitcher__trigger}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span className={styles.languageSwitcher__flag}>
+          {getCurrentFlag()}
+        </span>
+        <span
+          className={styles.languageSwitcher__arrow}
+          style={{
+            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.2s ease',
+          }}
+        >
+          ▼
+        </span>
+      </button>
+
+      {isOpen && (
+        <div className={styles.languageSwitcher__menu}>
+          <button
+            className={`${styles.languageSwitcher__item} ${i18n.language === 'tr' ? styles.languageSwitcher__item_active : ''
+              }`}
+            onClick={() => handleLanguageChange('tr')}
           >
-            <MenuItem value='tr' className={styles['language-switcher__item']}>
-              <div className={styles['language-switcher__option']}>
-                <span className={styles['language-switcher__flag']}>🇹🇷</span>
-              </div>
-            </MenuItem>
-            <MenuItem value='en' className={styles['language-switcher__item']}>
-              <div className={styles['language-switcher__option']}>
-                <span className={styles['language-switcher__flag']}>🇺🇸</span>
-              </div>
-            </MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
+            <span className={styles.languageSwitcher__flag}>🇹🇷</span>
+            <span className={styles.languageSwitcher__label}>Türkçe</span>
+          </button>
+
+          <button
+            className={`${styles.languageSwitcher__item} ${i18n.language === 'en' ? styles.languageSwitcher__item_active : ''
+              }`}
+            onClick={() => handleLanguageChange('en')}
+          >
+            <span className={styles.languageSwitcher__flag}>🇺🇸</span>
+            <span className={styles.languageSwitcher__label}>English</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

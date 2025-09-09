@@ -3,7 +3,6 @@
 import AdMobDebugPanel from '@/components/AdMobDebugPanel';
 import AgeCalculator from '@/components/AgeCalculator/AgeCalculator';
 import Footer from '@/components/Footer';
-import LanguageSwitcher from '@/components/LanguageSwitcher/LanguageSwitcher';
 import { useAdMobContext } from '@/providers/AdMobProvider';
 import { usePlatform } from '@hooks';
 import { useEffect } from 'react';
@@ -27,12 +26,10 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
-      <LanguageSwitcher />
       <AdMobDebugPanel />
       <main
         className={`${styles.home__main} ${isMobile ? styles['home__main--mobile'] : ''}`}
       >
-        <h1 className={styles.home__title}>{t('home.title')}</h1>
         <p className={styles.home__description}>{t('home.description')}</p>
         <AgeCalculator />
       </main>
