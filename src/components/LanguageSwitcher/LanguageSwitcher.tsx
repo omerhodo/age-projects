@@ -58,8 +58,7 @@ const LanguageSwitcher: React.FC = () => {
       {isOpen && (
         <div className={styles.languageSwitcher__menu}>
           <button
-            className={`${styles.languageSwitcher__item} ${i18n.language === 'tr' ? styles.languageSwitcher__item_active : ''
-              }`}
+            className={`${styles.languageSwitcher__item} ${i18n.language === 'tr' ? styles.languageSwitcher__item_active : ''}`}
             onClick={() => handleLanguageChange('tr')}
           >
             <span className={styles.languageSwitcher__flag}>🇹🇷</span>
@@ -67,8 +66,7 @@ const LanguageSwitcher: React.FC = () => {
           </button>
 
           <button
-            className={`${styles.languageSwitcher__item} ${i18n.language === 'en' ? styles.languageSwitcher__item_active : ''
-              }`}
+            className={`${styles.languageSwitcher__item} ${i18n.language === 'en' ? styles.languageSwitcher__item_active : ''}`}
             onClick={() => handleLanguageChange('en')}
           >
             <span className={styles.languageSwitcher__flag}>🇺🇸</span>
