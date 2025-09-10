@@ -49,6 +49,20 @@
       "variant9": "You will turn {{nextAge}} in {{daysUntilBirthday}} days.",
       "variant10": "Your next birthday is on {{nextBirthday}}, {{daysUntilBirthday}} days away.",
       "variant11": "You are {{years}} years and {{months}} months old."
+    },
+    "planetaryAges": {
+      "title": "Your Age on Other Planets",
+      "subtitle": "Discover how old you would be on other planets in our solar system",
+      "yearsOld": "years old.",
+      "planets": {
+        "mercury": "Mercury",
+        "venus": "Venus",
+        "mars": "Mars",
+        "jupiter": "Jupiter",
+        "saturn": "Saturn",
+        "uranus": "Uranus",
+        "neptune": "Neptune"
+      }
     }
   },
   "footer": {

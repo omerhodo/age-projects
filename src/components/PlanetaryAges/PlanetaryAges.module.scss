@@ -1,0 +1,98 @@
+$primary-color: #1976d2;
+$white: #ffffff;
+$text-primary: #1a1a1a;
+$text-secondary: #666666;
+$border-light: rgba(25, 32, 72, 0.1);
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+
+.planetary-ages {
+  margin: 16px 0 !important;
+  padding: 24px !important;
+  border-radius: 12px !important;
+  background: linear-gradient(
+    135deg,
+    rgba(25, 32, 72, 0.05) 0%,
+    rgba(15, 76, 129, 0.05) 100%
+  ) !important;
+  border: 1px solid $border-light !important;
+
+  &__header {
+    margin-bottom: 24px !important;
+    text-align: center;
+  }
+
+  &__title {
+    color: $primary-color !important;
+    font-weight: 600 !important;
+    margin-bottom: 8px !important;
+  }
+
+  &__subtitle {
+    color: $text-secondary !important;
+    font-style: italic !important;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__item {
+    padding: 12px 16px !important;
+    border-radius: 8px !important;
+    background: rgba(255, 255, 255, 0.7) !important;
+    border: 1px solid $border-light !important;
+    transition: all 0.2s ease !important;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.9) !important;
+      border-color: $primary-color !important;
+      transform: translateY(-1px) !important;
+      box-shadow: 0 2px 8px rgba(25, 32, 72, 0.1) !important;
+    }
+  }
+
+  &__planet-info {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  &__planet-icon {
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+    padding: 4px !important;
+    border: 1px solid $border-light !important;
+  }
+
+  &__planet-text {
+    color: $text-primary !important;
+    font-weight: 500 !important;
+    font-size: 0.95rem !important;
+  }
+
+  @media (max-width: $mobile) {
+    margin: 12px 0 !important;
+    padding: 16px !important;
+
+    .planetary-ages__content {
+      gap: 8px !important;
+    }
+
+    .planetary-ages__item {
+      padding: 8px 12px !important;
+    }
+
+    .planetary-ages__planet-text {
+      font-size: 0.9rem !important;
+    }
+
+    .planetary-ages__planet-icon {
+      width: 64px !important;
+      height: 64px !important;
+    }
+  }
+}

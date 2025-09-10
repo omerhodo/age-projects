@@ -49,6 +49,20 @@
       "variant9": "{{daysUntilBirthday}} gün sonra {{nextAge}} yaşına gireceksiniz.",
       "variant10": "Bir sonraki doğum gününüz {{nextBirthday}} tarihinde, {{daysUntilBirthday}} gün sonra.",
       "variant11": "{{years}} yıl {{months}} aylıksınız."
+    },
+    "planetaryAges": {
+      "title": "Diğer Gezegenlerdeki Yaşınız",
+      "subtitle": "Güneş sistemimizdeki diğer gezegenlerde kaç yaşında olduğunuzu öğrenin",
+      "yearsOld": "yaşındasınız.",
+      "planets": {
+        "mercury": "Merkür",
+        "venus": "Venüs",
+        "mars": "Mars",
+        "jupiter": "Jüpiter",
+        "saturn": "Satürn",
+        "uranus": "Uranüs",
+        "neptune": "Neptün"
+      }
     }
   },
   "footer": {

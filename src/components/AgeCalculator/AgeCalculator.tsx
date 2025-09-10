@@ -22,6 +22,7 @@ import { useTranslation } from 'react-i18next';
 import AgeExpressions from '../AgeExpressions';
 import AgeSlider from '../AgeSlider';
 import BirthdayCountdown from '../BirthdayCountdown';
+import PlanetaryAges from '../PlanetaryAges';
 import styles from './AgeCalculator.module.scss';
 
 interface AgeResult {
@@ -286,6 +287,9 @@ const AgeCalculator: React.FC = () => {
                     birthDate={birthDate}
                     showAllAvailable={true}
                   />
+                )}
+                {birthDate && !isNaN(birthDate.getTime()) && (
+                  <PlanetaryAges ageResult={ageResult} />
                 )}
               </>
             )}
