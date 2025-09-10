@@ -51,12 +51,14 @@
       "variant11": "You are {{years}} years and {{months}} months old."
     },
     "planetaryAges": {
-      "title": "Your Age on Other Planets",
-      "subtitle": "Discover how old you would be on other planets in our solar system",
-      "yearsOld": "years old.",
+      "title": "Your Age on Solar System Planets",
+      "subtitle": "Discover how old you would be on planets in our solar system",
+      "yearsOld": "years old",
+      "nextBirthday": "Next birthday",
       "planets": {
         "mercury": "Mercury",
         "venus": "Venus",
+        "earth": "Earth",
         "mars": "Mars",
         "jupiter": "Jupiter",
         "saturn": "Saturn",

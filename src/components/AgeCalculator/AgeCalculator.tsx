@@ -289,7 +289,7 @@ const AgeCalculator: React.FC = () => {
                   />
                 )}
                 {birthDate && !isNaN(birthDate.getTime()) && (
-                  <PlanetaryAges ageResult={ageResult} />
+                  <PlanetaryAges ageResult={ageResult} birthDate={birthDate} />
                 )}
               </>
             )}

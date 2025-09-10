@@ -51,12 +51,14 @@
       "variant11": "{{years}} yıl {{months}} aylıksınız."
     },
     "planetaryAges": {
-      "title": "Diğer Gezegenlerdeki Yaşınız",
-      "subtitle": "Güneş sistemimizdeki diğer gezegenlerde kaç yaşında olduğunuzu öğrenin",
+      "title": "Güneş Sistemindeki Gezegenlerdeki Yaşınız",
+      "subtitle": "Güneş sistemimizdeki gezegenlerde kaç yaşında olduğunuzu öğrenin",
       "yearsOld": "yaşındasınız.",
+      "nextBirthday": "Bir sonraki doğum günü",
       "planets": {
         "mercury": "Merkür",
         "venus": "Venüs",
+        "earth": "Dünya",
         "mars": "Mars",
         "jupiter": "Jüpiter",
         "saturn": "Satürn",

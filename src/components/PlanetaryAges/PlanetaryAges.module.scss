@@ -61,6 +61,19 @@ $desktop: 1024px;
     gap: 12px !important;
   }
 
+  &__planet-details {
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: start !important;
+    gap: 4px !important;
+  }
+
+  &__next-birthday {
+    color: $text-secondary !important;
+    font-size: 0.8rem !important;
+    font-style: italic !important;
+  }
+
   &__planet-icon {
     border-radius: 50% !important;
     background: rgba(255, 255, 255, 0.8) !important;

@@ -1,6 +1,8 @@
 'use client';
 
 import { Box, Paper, Typography } from '@mui/material';
+import { format } from 'date-fns';
+import { enUS, tr } from 'date-fns/locale';
 import Image from 'next/image';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +19,7 @@ interface AgeResult {
 
 interface PlanetaryAgesProps {
   ageResult: AgeResult;
+  birthDate: Date;
 }
 
 interface Planet {
@@ -26,8 +29,15 @@ interface Planet {
   nameKey: string;
 }
 
-const PlanetaryAges: React.FC<PlanetaryAgesProps> = ({ ageResult }) => {
-  const { t } = useTranslation();
+const PlanetaryAges: React.FC<PlanetaryAgesProps> = ({
+  ageResult,
+  birthDate,
+}) => {
+  const { t, i18n } = useTranslation();
+
+  const getDateLocale = () => {
+    return i18n.language === 'tr' ? tr : enUS;
+  };
 
   const planets: Planet[] = [
     {
@@ -41,6 +51,12 @@ const PlanetaryAges: React.FC<PlanetaryAgesProps> = ({ ageResult }) => {
       nameKey: 'venus',
       orbitalPeriod: 225,
       icon: '/planets/2venus.svg',
+    },
+    {
+      name: 'Earth',
+      nameKey: 'earth',
+      orbitalPeriod: 365,
+      icon: '/planets/3earth.svg',
     },
     {
       name: 'Mars',
@@ -81,6 +97,27 @@ const PlanetaryAges: React.FC<PlanetaryAgesProps> = ({ ageResult }) => {
     return Math.round((totalDays / orbitalPeriod) * 10) / 10;
   };
 
+  const calculateNextPlanetBirthday = (
+    birthDate: Date,
+    orbitalPeriod: number
+  ): string => {
+    if (!birthDate || isNaN(birthDate.getTime())) {
+      return '';
+    }
+
+    const today = new Date();
+    const daysSinceBirth = Math.floor(
+      (today.getTime() - birthDate.getTime()) / (1000 * 3600 * 24)
+    );
+
+    const planetAge = Math.floor(daysSinceBirth / orbitalPeriod);
+    const nextBirthdayInDays = (planetAge + 1) * orbitalPeriod;
+    const nextBirthdayDate = new Date(birthDate);
+    nextBirthdayDate.setDate(nextBirthdayDate.getDate() + nextBirthdayInDays);
+
+    return format(nextBirthdayDate, 'dd/MM/yyyy', { locale: getDateLocale() });
+  };
+
   return (
     <Paper className={styles['planetary-ages']} elevation={2}>
       <Box className={styles['planetary-ages__header']}>
@@ -101,6 +138,10 @@ const PlanetaryAges: React.FC<PlanetaryAgesProps> = ({ ageResult }) => {
             ageResult.totalDays,
             planet.orbitalPeriod
           );
+          const nextBirthday = calculateNextPlanetBirthday(
+            birthDate,
+            planet.orbitalPeriod
+          );
 
           return (
             <Box key={planet.name} className={styles['planetary-ages__item']}>
@@ -114,13 +155,24 @@ const PlanetaryAges: React.FC<PlanetaryAgesProps> = ({ ageResult }) => {
                   height={32}
                   className={styles['planetary-ages__planet-icon']}
                 />
-                <Typography
-                  variant='body1'
-                  className={styles['planetary-ages__planet-text']}
-                >
-                  {t(`ageCalculator.planetaryAges.planets.${planet.nameKey}`)}:{' '}
-                  {planetAge} {t('ageCalculator.planetaryAges.yearsOld')}
-                </Typography>
+                <Box className={styles['planetary-ages__planet-details']}>
+                  <Typography
+                    variant='body1'
+                    className={styles['planetary-ages__planet-text']}
+                  >
+                    {t(`ageCalculator.planetaryAges.planets.${planet.nameKey}`)}
+                    : {planetAge} {t('ageCalculator.planetaryAges.yearsOld')}
+                  </Typography>
+                  {nextBirthday && (
+                    <Typography
+                      variant='body2'
+                      className={styles['planetary-ages__next-birthday']}
+                    >
+                      {t('ageCalculator.planetaryAges.nextBirthday')}:{' '}
+                      {nextBirthday}
+                    </Typography>
+                  )}
+                </Box>
               </Box>
             </Box>
           );
