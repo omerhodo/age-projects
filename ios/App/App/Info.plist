@@ -314,5 +314,7 @@
 			<string>44n7hlldy6.skadnetwork</string>
 		</dict>
 	</array>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>This app would like to access app-related data to provide you with personalized ads. You can still use the app without allowing tracking, and will see generic ads instead.</string>
 </dict>
 </plist>

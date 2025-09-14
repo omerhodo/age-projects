@@ -116,9 +116,68 @@
     "goBackButton": "Go Back"
   },
   "consentBanner": {
-    "title": "Cookies and Privacy",
-    "description": "This app uses cookies to improve your experience. By continuing, you agree to the use of cookies.",
-    "acceptButton": "Accept",
-    "rejectButton": "Reject"
+    "title": "Privacy and Ads",
+    "description": "This app shows ads to support development. We respect your privacy and only show personalized ads with your consent.",
+    "acceptButton": "Allow Personalized Ads",
+    "rejectButton": "Show Generic Ads"
+  },
+  "privacyPolicyContent": {
+    "title": "Privacy Policy for Age Calculator",
+    "lastUpdated": "Last updated: September 14, 2025",
+    "sections": {
+      "1": {
+        "title": "Information We Collect",
+        "content": "Age Calculator is designed to calculate your age based on your birth date. We do not collect, store, or transmit any personal information or birth dates."
+      },
+      "2": {
+        "title": "Data Storage",
+        "content": "All calculations are performed locally on your device. No birth dates or personal information are stored or transmitted to our servers. We may store your language preference and ad consent locally on your device."
+      },
+      "3": {
+        "title": "App Tracking Transparency (iOS)",
+        "content": "On iOS devices, we comply with Apple's App Tracking Transparency framework. If you choose to allow tracking, we may show personalized advertisements. If you choose not to allow tracking, you will see generic, non-personalized advertisements. You can change your tracking preference at any time in iOS Settings > Privacy & Security > Tracking."
+      },
+      "4": {
+        "title": "Third-Party Services",
+        "content": "Our app uses Google AdMob to display advertisements. AdMob may collect and use certain information for advertising purposes, but only with your explicit consent on iOS devices through the App Tracking Transparency framework."
+      },
+      "5": {
+        "title": "Advertising",
+        "content": "We use Google AdMob to show advertisements in our app. Depending on your consent:",
+        "list": [
+          "With tracking consent: AdMob may show personalized ads based on your interests",
+          "Without tracking consent: AdMob will show generic, non-personalized ads"
+        ]
+      },
+      "6": {
+        "title": "Data We Do NOT Collect",
+        "content": "We do not collect, store, or transmit:",
+        "list": [
+          "Your birth date or age information",
+          "Personal identification information",
+          "Location data",
+          "Device contacts or photos",
+          "Any data without your explicit consent"
+        ]
+      },
+      "7": {
+        "title": "Children's Privacy",
+        "content": "Our app does not knowingly collect personal information from children under 13. If you are under 13, please do not use this app without parental supervision."
+      },
+      "8": {
+        "title": "Your Rights",
+        "content": "You have the right to:",
+        "list": [
+          "Control ad personalization through your device settings",
+          "Reset your ad consent preferences in the app",
+          "Contact us with any privacy concerns"
+        ]
+      },
+      "9": {
+        "title": "Contact Us",
+        "content": "If you have any questions about this Privacy Policy, please contact us at:",
+        "email": "devhodo@gmail.com"
+      }
+    }
   }
 }

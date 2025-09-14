@@ -1,6 +1,6 @@
 {
   "name": "age-projects",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "private": true,
   "packageManager": "yarn@1.22.22",
   "engines": {
@@ -50,6 +50,7 @@
     "@mui/icons-material": "^7.2.0",
     "@mui/material": "^7.2.0",
     "@mui/x-date-pickers": "^8.9.0",
+    "capacitor-plugin-app-tracking-transparency": "^2.0.5",
     "date-fns": "^4.1.0",
     "i18next": "^25.3.2",
     "i18next-browser-languagedetector": "^8.2.0",

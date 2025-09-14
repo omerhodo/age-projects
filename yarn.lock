@@ -1491,6 +1491,11 @@ caniuse-lite@^1.0.30001579:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001731.tgz#277c07416ea4613ec564e5b0ffb47e7b60f32e2f"
   integrity sha512-lDdp2/wrOmTRWuoB5DpfNkC0rJDU8DqRa6nYL6HK6sytw70QMopt/NIc/9SM7ylItlBWfACXk0tEn37UWM/+mg==
 
+capacitor-plugin-app-tracking-transparency@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/capacitor-plugin-app-tracking-transparency/-/capacitor-plugin-app-tracking-transparency-2.0.5.tgz#5a86e734ecfe2ad026925f134b9f72de7f465cd7"
+  integrity sha512-+u3MUM/tYZfwgBPOYqhu8I50qT0z7YsDXVCe9M5ILBpEkGqEGMFjwgoSvEGkbv8l1Nf47wXAveGz01cdknVvvw==
+
 chalk@^4.0.0:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"

@@ -34,22 +34,22 @@ interface AdMobProviderProps {
 
 export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
   const { isMobile } = usePlatform();
-  const { canShowAds } = useConsent();
+  const { canShowAdsSync } = useConsent();
   const adMob = useAdMob();
   const [showAds, setShowAds] = useState(false);
 
   useEffect(() => {
     const shouldShowAds =
-      isMobile && !admobConfig.testing.disableAds && canShowAds;
+      isMobile && !admobConfig.testing.disableAds && canShowAdsSync;
     console.log('🚀 AdMob Provider Debug:', {
       isMobile,
       disableAds: admobConfig.testing.disableAds,
-      canShowAds,
+      canShowAdsSync,
       shouldShowAds,
       env_disable_ads: process.env.NEXT_PUBLIC_DISABLE_ADS,
     });
     setShowAds(shouldShowAds);
-  }, [isMobile, canShowAds]);
+  }, [isMobile, canShowAdsSync]);
 
   const contextValue: AdMobContextType = {
     ...adMob,

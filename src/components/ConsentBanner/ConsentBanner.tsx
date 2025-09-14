@@ -78,7 +78,7 @@ const ConsentBanner = () => {
       <div className={styles.content}>
         <div className={styles.text}>
           <h3>{t('consentBanner.title')}</h3>
-          <p>{t('consentBanner.description')}</p>
+          <p className={styles.description}>{t('consentBanner.description')}</p>
         </div>
         <div className={styles.buttons}>
           <button className={styles.rejectBtn} onClick={handleReject}>

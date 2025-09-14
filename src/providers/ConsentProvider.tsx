@@ -7,7 +7,8 @@ import { ConsentInfo, consentService } from '../services/consent.service';
 interface ConsentContextType {
   consentInfo: ConsentInfo;
   isInitialized: boolean;
-  canShowAds: boolean;
+  canShowAds: () => Promise<boolean>;
+  canShowAdsSync: boolean;
   showConsentForm: () => Promise<void>;
   showPrivacyOptions: () => Promise<void>;
   resetConsent: () => void;
@@ -97,7 +98,8 @@ export const ConsentProvider: React.FC<ConsentProviderProps> = ({
   const contextValue: ConsentContextType = {
     consentInfo,
     isInitialized,
-    canShowAds: consentService.canShowAds(),
+    canShowAds: () => consentService.canShowAds(),
+    canShowAdsSync: consentService.canShowAdsSync(),
     showConsentForm,
     showPrivacyOptions,
     resetConsent,

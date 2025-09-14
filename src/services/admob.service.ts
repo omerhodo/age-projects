@@ -7,6 +7,7 @@ import {
 } from '@capacitor-community/admob';
 import { Capacitor } from '@capacitor/core';
 import { admobConfig } from '../config/env';
+import { appTrackingService } from './app-tracking.service';
 
 export class AdMobService {
   private static instance: AdMobService;
@@ -34,6 +35,10 @@ export class AdMobService {
     });
 
     try {
+      // Check ATT status on iOS before initializing AdMob
+      const canShowPersonalizedAds = await appTrackingService.canShowAds();
+      console.log('🍎 Can show personalized ads:', canShowPersonalizedAds);
+
       await AdMob.initialize({
         testingDevices: admobConfig.testing.testingDevices,
         initializeForTesting: admobConfig.testing.initializeForTesting,

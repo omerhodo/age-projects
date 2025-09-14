@@ -116,9 +116,68 @@
     "goBackButton": "Geri Dön"
   },
   "consentBanner": {
-    "title": "Çerezler ve Gizlilik",
-    "description": "Bu uygulama deneyiminizi iyileştirmek için çerezler kullanır. Devam ederek çerez kullanımını kabul etmiş olursunuz.",
-    "acceptButton": "Kabul Et",
-    "rejectButton": "Reddet"
+    "title": "Gizlilik ve Reklamlar",
+    "description": "Bu uygulama geliştirmeyi desteklemek için reklamlar gösterir. Gizliliğinize saygı duyuyoruz ve kişiselleştirilmiş reklamları sadece izninizle gösteriyoruz.",
+    "acceptButton": "Kişiselleştirilmiş Reklamlara İzin Ver",
+    "rejectButton": "Genel Reklamları Göster"
+  },
+  "privacyPolicyContent": {
+    "title": "Yaş Hesaplama Uygulaması Gizlilik Politikası",
+    "lastUpdated": "Son güncelleme: 14 Eylül 2025",
+    "sections": {
+      "1": {
+        "title": "Topladığımız Bilgiler",
+        "content": "Yaş Hesaplama uygulaması, doğum tarihinize göre yaşınızı hesaplamak için tasarlanmıştır. Hiçbir kişisel bilgi, doğum tarihi veya veri toplamaz, saklamaz veya iletmeyiz."
+      },
+      "2": {
+        "title": "Veri Saklama",
+        "content": "Tüm hesaplamalar cihazınızda yerel olarak gerçekleştirilir. Hiçbir doğum tarihi veya kişisel bilgi saklanmaz veya sunucularımıza iletilmez. Sadece dil tercihinizi ve reklam iznini cihazınızda yerel olarak saklayabiliriz."
+      },
+      "3": {
+        "title": "Uygulama Takip Şeffaflığı (iOS)",
+        "content": "iOS cihazlarda Apple'ın Uygulama Takip Şeffaflığı çerçevesine uygun davranıyoruz. Takip etmeyi seçerseniz, kişiselleştirilmiş reklamlar gösterebiliriz. Takip etmemeyi seçerseniz, genel ve kişiselleştirilmemiş reklamlar görürsünüz. Takip tercihini iOS Ayarlar > Gizlilik ve Güvenlik > Takip bölümünden istediğiniz zaman değiştirebilirsiniz."
+      },
+      "4": {
+        "title": "Üçüncü Taraf Hizmetleri",
+        "content": "Uygulamamız reklamları göstermek için Google AdMob kullanır. AdMob belirli bilgileri reklam amaçları için toplayabilir ve kullanabilir, ancak iOS cihazlarda sadece Uygulama Takip Şeffaflığı çerçevesi aracılığıyla açık izninizle."
+      },
+      "5": {
+        "title": "Reklamcılık",
+        "content": "Uygulamamızda reklamları göstermek için Google AdMob kullanıyoruz. İzninize bağlı olarak:",
+        "list": [
+          "Takip izni ile: AdMob ilgi alanlarınıza göre kişiselleştirilmiş reklamlar gösterebilir",
+          "Takip izni olmadan: AdMob genel, kişiselleştirilmemiş reklamlar gösterir"
+        ]
+      },
+      "6": {
+        "title": "Toplamadığımız Veriler",
+        "content": "Aşağıdakileri toplamaz, saklamaz veya iletmeyiz:",
+        "list": [
+          "Doğum tarihiniz veya yaş bilginiz",
+          "Kişisel kimlik bilgileri",
+          "Konum verisi",
+          "Cihaz kişileri veya fotoğrafları",
+          "Açık izniniz olmadan herhangi bir veri"
+        ]
+      },
+      "7": {
+        "title": "Çocukların Gizliliği",
+        "content": "Uygulamamız 13 yaş altındaki çocuklardan bilerek kişisel bilgi toplamaz. 13 yaşından küçükseniz, lütfen bu uygulamayı ebeveyn gözetimi olmadan kullanmayın."
+      },
+      "8": {
+        "title": "Haklarınız",
+        "content": "Aşağıdaki haklara sahipsiniz:",
+        "list": [
+          "Cihaz ayarlarınız aracılığıyla reklam kişiselleştirmeyi kontrol etme",
+          "Uygulamada reklam izin tercihlerinizi sıfırlama",
+          "Gizlilik endişeleriniz için bizimle iletişime geçme"
+        ]
+      },
+      "9": {
+        "title": "İletişim",
+        "content": "Bu Gizlilik Politikası hakkında herhangi bir sorunuz varsa, lütfen bizimle iletişime geçin:",
+        "email": "devhodo@gmail.com"
+      }
+    }
   }
 }

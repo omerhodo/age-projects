@@ -1,3 +1,5 @@
+import { appTrackingService } from './app-tracking.service';
+
 export interface ConsentInfo {
   consentStatus: 'UNKNOWN' | 'NOT_REQUIRED' | 'REQUIRED' | 'OBTAINED';
   formStatus: 'UNKNOWN' | 'AVAILABLE' | 'UNAVAILABLE';
@@ -53,8 +55,18 @@ export class ConsentService {
     }
 
     try {
+      // Initialize App Tracking Transparency first (iOS only)
+      await appTrackingService.initialize();
+
       await this.loadUMPScript();
       await this.requestConsentInfoUpdate(settings);
+
+      // Check if ATT permission is needed (iOS only)
+      const needsATT = await appTrackingService.needsTrackingPrompt();
+      if (needsATT) {
+        console.log('🍎 Requesting App Tracking Transparency permission...');
+        await appTrackingService.requestTrackingPermission();
+      }
 
       // Gerekirse rıza formunu göster
       if (this.consentInfo.formStatus === 'AVAILABLE') {
@@ -315,8 +327,24 @@ export class ConsentService {
 
   /**
    * Reklamların gösterilip gösterilemeyeceğini kontrol eder
+   * iOS'ta App Tracking Transparency izni de kontrol eder
    */
-  canShowAds(): boolean {
+  async canShowAds(): Promise<boolean> {
+    // Önce genel GDPR rızasını kontrol et
+    if (!this.consentInfo.canRequestAds) {
+      return false;
+    }
+
+    // iOS'ta ATT iznini de kontrol et
+    const canShowPersonalizedAds = await appTrackingService.canShowAds();
+    return canShowPersonalizedAds;
+  }
+
+  /**
+   * Reklamların gösterilip gösterilemeyeceğini senkron olarak kontrol eder (eski metod)
+   * @deprecated Use canShowAds() instead for ATT support
+   */
+  canShowAdsSync(): boolean {
     return this.consentInfo.canRequestAds;
   }
 
