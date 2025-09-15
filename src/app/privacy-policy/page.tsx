@@ -1,9 +1,12 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './PrivacyPolicy.module.scss';
 
 export default function PrivacyPolicy() {
+  const { t } = useTranslation();
+
   useEffect(() => {
     document.body.style.overflow = 'auto';
     document.documentElement.style.overflow = 'auto';
@@ -22,81 +25,53 @@ export default function PrivacyPolicy() {
     };
   }, []);
 
+  const renderSection = (key: string) => {
+    const section = t(`privacyPolicyContent.sections.${key}`, {
+      returnObjects: true,
+    }) as {
+      title: string;
+      content: string;
+      list?: string[];
+      email?: string;
+    };
+
+    if (!section || typeof section !== 'object') return null;
+
+    return (
+      <section key={key} className={styles.section}>
+        <h2 className={styles.subtitle}>
+          {key}. {section.title}
+        </h2>
+        <p className={styles.paragraph}>{section.content}</p>
+        {section.list && (
+          <ul className={styles.list}>
+            {section.list.map((item: string, index: number) => (
+              <li key={index} className={styles.listItem}>
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+        {section.email && (
+          <p className={styles.paragraph}>
+            <a href={`mailto:${section.email}`} className={styles.link}>
+              {section.email}
+            </a>
+          </p>
+        )}
+      </section>
+    );
+  };
+
   return (
     <div className={styles.privacyPolicy}>
       <div className={styles.container}>
-        <h1 className={styles.title}>Privacy Policy for Age Calculator</h1>
-        <p className={styles.lastUpdated}>Last updated: August 1, 2025</p>
+        <h1 className={styles.title}>{t('privacyPolicyContent.title')}</h1>
+        <p className={styles.lastUpdated}>
+          {t('privacyPolicyContent.lastUpdated')}
+        </p>
 
-        <section className={styles.section}>
-          <h2 className={styles.subtitle}>1. Information We Collect</h2>
-          <p className={styles.paragraph}>
-            Age Calculator is designed to calculate your age based on your birth
-            date. We do not collect, store, or transmit any personal
-            information.
-          </p>
-        </section>
-
-        <section className={styles.section}>
-          <h2 className={styles.subtitle}>2. Data Storage</h2>
-          <p className={styles.paragraph}>
-            All calculations are performed locally on your device. No birth
-            dates or personal information are stored or transmitted to our
-            servers.
-          </p>
-        </section>
-
-        <section className={styles.section}>
-          <h2 className={styles.subtitle}>3. Third-Party Services</h2>
-          <p className={styles.paragraph}>
-            Our app uses Google AdMob to display advertisements. AdMob may
-            collect and use certain information for advertising purposes. Please
-            refer to Google&apos;s Privacy Policy for more information about how
-            Google handles data.
-          </p>
-        </section>
-
-        <section className={styles.section}>
-          <h2 className={styles.subtitle}>4. Advertising</h2>
-          <p className={styles.paragraph}>
-            We use Google AdMob to show advertisements in our app. AdMob may use
-            advertising identifiers and may collect information such as:
-          </p>
-          <ul className={styles.list}>
-            <li className={styles.listItem}>Device information</li>
-            <li className={styles.listItem}>IP address</li>
-            <li className={styles.listItem}>App usage information</li>
-            <li className={styles.listItem}>Advertising ID</li>
-          </ul>
-        </section>
-
-        <section className={styles.section}>
-          <h2 className={styles.subtitle}>5. Children&apos;s Privacy</h2>
-          <p className={styles.paragraph}>
-            Our app does not collect any personal information from anyone,
-            including children under 13. If you are a parent and believe your
-            child has provided personal information, please contact us.
-          </p>
-        </section>
-
-        <section className={styles.section}>
-          <h2 className={styles.subtitle}>6. Changes to This Privacy Policy</h2>
-          <p className={styles.paragraph}>
-            We may update our Privacy Policy from time to time. Any changes will
-            be posted on this page with an updated revision date.
-          </p>
-        </section>
-
-        <section className={styles.section}>
-          <h2 className={styles.subtitle}>7. Contact Us</h2>
-          <p className={styles.paragraph}>
-            If you have any questions about this Privacy Policy, please contact
-            us at:{' '}
-            <a href='mailto:devhodo@gmail.com' className={styles.link}>
-              devhodo@gmail.com
-            </a>
-          </p>
-        </section>
+        {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(renderSection)}
       </div>
     </div>
   );
