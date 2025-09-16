@@ -17,22 +17,35 @@ const ConsentBanner = () => {
 
     setTimeout(() => {
       try {
-        const consent = localStorage.getItem('simple_consent');
-        console.log('🎯 ConsentBanner - localStorage consent:', consent);
+        const consent = localStorage.getItem('gdpr_consent');
+        console.log('🎯 ConsentBanner - localStorage gdpr_consent:', consent);
         console.log('🎯 ConsentBanner - isClient:', true);
 
         if (!consent) {
           setShowConsentBanner(true);
-          console.log('✅ ConsentBanner - Showing banner');
+          console.log('✅ ConsentBanner - Showing banner (no stored consent)');
+        } else if (consent === 'granted') {
+          console.log(
+            '✅ ConsentBanner - Consent already granted, starting ads'
+          );
+          showBanner().catch((err) =>
+            console.error(
+              '❌ ConsentBanner - Error starting ads on mount:',
+              err
+            )
+          );
         } else {
-          console.log('🚫 ConsentBanner - Consent already given:', consent);
+          console.log(
+            '🚫 ConsentBanner - Consent already denied or not granted:',
+            consent
+          );
         }
       } catch (error) {
         console.error('❌ ConsentBanner - localStorage error:', error);
         setShowConsentBanner(true);
       }
     }, 100);
-  }, []);
+  }, [showBanner]);
 
   if (!isClient) {
     return null;
@@ -40,7 +53,7 @@ const ConsentBanner = () => {
 
   const handleAccept = async () => {
     try {
-      localStorage.setItem('simple_consent', 'true');
+      localStorage.setItem('gdpr_consent', 'granted');
       consentService.setConsent(true);
       await showBanner();
 
@@ -53,7 +66,7 @@ const ConsentBanner = () => {
   };
 
   const handleReject = () => {
-    localStorage.setItem('simple_consent', 'false');
+    localStorage.setItem('gdpr_consent', 'denied');
     consentService.setConsent(false);
     setShowConsentBanner(false);
     console.log('❌ Consent rejected');

@@ -47,9 +47,19 @@ export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
       canShowAdsSync,
       shouldShowAds,
       env_disable_ads: process.env.NEXT_PUBLIC_DISABLE_ADS,
+      adMobInitialized: adMob.isInitialized,
     });
     setShowAds(shouldShowAds);
-  }, [isMobile, canShowAdsSync]);
+
+    if (shouldShowAds && adMob.isInitialized && !adMob.isBannerVisible) {
+      adMob
+        .showBanner()
+        .catch((err) =>
+          console.error('❌ AdMobProvider - Failed to auto-show banner:', err)
+        );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMobile, canShowAdsSync, adMob.isInitialized, adMob.isBannerVisible]);
 
   const contextValue: AdMobContextType = {
     ...adMob,
