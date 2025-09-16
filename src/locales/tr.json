@@ -85,7 +85,7 @@
       "description": "Bu uygulama, deneyiminizi iyileştirmek için kişiselleştirilmiş reklamlar gösterir. Kişiselleştirilmiş reklamları devre dışı bırakmak isterseniz, aşağıdaki adımları takip edebilirsiniz:",
       "mobileAppSection": "Mobil Uygulama İçinde:",
       "mobileSteps": {
-        "step1": "Uygulamanın alt kısmındaki \"Reklamları Devre Dışı Bırak\" bağlantısına tıklayın",
+        "step1": "Üst menüdeki \"Gizlilik\" seçeneğini açın ve içindeki \"Reklamları Devre Dışı Bırak\" öğesine tıklayın",
         "step2": "Onay mesajında \"Tamam\" butonuna basın",
         "step3": "Uygulama otomatik olarak yeniden yüklenecektir"
       },

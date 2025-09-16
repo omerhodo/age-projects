@@ -43,6 +43,17 @@ export const ConsentProvider: React.FC<ConsentProviderProps> = ({
     initializeConsent();
   }, []);
 
+  useEffect(() => {
+    const onConsentChanged = () => {
+      setConsentInfo(consentService.getConsentInfo());
+    };
+
+    window.addEventListener('consent:changed', onConsentChanged);
+    return () => {
+      window.removeEventListener('consent:changed', onConsentChanged);
+    };
+  }, []);
+
   const initializeConsent = async () => {
     try {
       console.log('🔒 Initializing Consent Management...');

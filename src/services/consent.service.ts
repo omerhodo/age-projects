@@ -193,6 +193,12 @@ export class ConsentService {
     }
 
     console.log('🔒 Consent set:', consentValue);
+    try {
+      const event = new CustomEvent('consent:changed', { detail: { granted } });
+      window.dispatchEvent(event);
+    } catch {
+      // ignore
+    }
   }
 
   getConsentInfo(): ConsentInfo {
@@ -242,6 +248,16 @@ export class ConsentService {
       isPrivacyOptionsRequired: false,
     };
     console.log('🔄 Consent reset');
+    try {
+      const event = new CustomEvent('consent:changed', {
+        detail: {
+          granted: false,
+        },
+      });
+      window.dispatchEvent(event);
+    } catch {
+      // ignore
+    }
   }
 }
 

@@ -85,7 +85,7 @@
       "description": "This app shows personalized ads to enhance your experience. If you want to disable personalized ads, you can follow these steps:",
       "mobileAppSection": "Within the Mobile App:",
       "mobileSteps": {
-        "step1": "Click on the \"Opt Out of Ads\" link at the bottom of the app",
+        "step1": "Open the top menu's \"Privacy\" dropdown and select the \"Opt Out of Ads\" option",
         "step2": "Press \"OK\" in the confirmation message",
         "step3": "The app will automatically reload"
       },

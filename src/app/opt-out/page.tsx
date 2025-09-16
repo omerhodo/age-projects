@@ -23,7 +23,7 @@ export default function OptOutPage() {
         style={{
           flex: 1,
           padding: '2rem',
-          paddingTop: 'calc(70px + 2rem)',
+          paddingTop: 'calc(96px + 2rem)',
           maxWidth: '800px',
           margin: '0 auto',
           lineHeight: '1.6',
