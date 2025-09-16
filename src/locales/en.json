@@ -72,48 +72,41 @@
     "privacyPolicy": "Privacy Policy"
   },
   "consent": {
-    "title": "Privacy and Cookies",
-    "description": "This app uses cookies and personalized ads to enhance your experience. By continuing, you accept our <link>Privacy Policy</link>.",
-    "acceptButton": "Accept",
-    "rejectButton": "Reject",
     "privacyOptionsButton": "Privacy Options",
-    "learnMore": "For more information, you can",
-    "privacyPolicy": "read our privacy policy",
-    "readText": ".",
     "optOut": {
       "text": "Opt Out of Ads",
       "title": "Disable personalized advertisements",
       "confirmMessage": "Are you sure you want to disable personalized advertisements? This will reload the page."
+    },
+    "optOutPage": {
+      "title": "Opt Out of Ads",
+      "turkish": "Türkçe",
+      "english": "English",
+      "description": "This app shows personalized ads to enhance your experience. If you want to disable personalized ads, you can follow these steps:",
+      "mobileAppSection": "Within the Mobile App:",
+      "mobileSteps": {
+        "step1": "Click on the \"Opt Out of Ads\" link at the bottom of the app",
+        "step2": "Press \"OK\" in the confirmation message",
+        "step3": "The app will automatically reload"
+      },
+      "deviceSettingsSection": "Through Device Settings:",
+      "iosDevices": "iOS Devices:",
+      "iosSteps": {
+        "step1": "Settings > Privacy & Security > Apple Advertising",
+        "step2": "Turn off \"Personalized Ads\""
+      },
+      "androidDevices": "Android Devices:",
+      "androidSteps": {
+        "step1": "Settings > Google > Ads > Ad Personalization",
+        "step2": "Turn off \"Ad personalization\""
+      },
+      "webBrowserSection": "Through Web Browser:",
+      "webBrowserText": "Visit Google Ad Settings page:",
+      "contactSection": "Contact",
+      "contactText": "If you have questions about privacy matters, you can contact us:",
+      "email": "Email:",
+      "goBackButton": "Go Back"
     }
-  },
-  "optOutPage": {
-    "title": "Opt Out of Ads",
-    "turkish": "Türkçe",
-    "english": "English",
-    "description": "This app shows personalized ads to enhance your experience. If you want to disable personalized ads, you can follow these steps:",
-    "mobileAppSection": "Within the Mobile App:",
-    "mobileSteps": {
-      "step1": "Click on the \"Opt Out of Ads\" link at the bottom of the app",
-      "step2": "Press \"OK\" in the confirmation message",
-      "step3": "The app will automatically reload"
-    },
-    "deviceSettingsSection": "Through Device Settings:",
-    "iosDevices": "iOS Devices:",
-    "iosSteps": {
-      "step1": "Settings > Privacy & Security > Apple Advertising",
-      "step2": "Turn off \"Personalized Ads\""
-    },
-    "androidDevices": "Android Devices:",
-    "androidSteps": {
-      "step1": "Settings > Google > Ads > Ad Personalization",
-      "step2": "Turn off \"Ad personalization\""
-    },
-    "webBrowserSection": "Through Web Browser:",
-    "webBrowserText": "Visit Google Ad Settings page:",
-    "contactSection": "Contact",
-    "contactText": "If you have questions about privacy matters, you can contact us:",
-    "email": "Email:",
-    "goBackButton": "Go Back"
   },
   "consentBanner": {
     "title": "Privacy and Ads",

@@ -158,98 +158,9 @@ export class ConsentService {
         window.dispatchEvent(event);
         resolve();
       } catch {
-        this.createConsentModal(resolve);
+        resolve();
       }
     });
-  }
-
-  private createConsentModal(callback: () => void): void {
-    const modal = document.createElement('div');
-    modal.id = 'gdpr-consent-modal';
-    modal.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    `;
-
-    const content = document.createElement('div');
-    content.style.cssText = `
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 500px;
-      margin: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    `;
-
-    const title = document.createElement('h2');
-    title.textContent = 'Gizlilik ve Çerezler';
-    title.style.cssText = 'margin: 0 0 15px 0; color: #333; font-size: 24px;';
-
-    const text = document.createElement('p');
-    text.innerHTML = `
-      Bu uygulama deneyiminizi iyileştirmek için çerezleri ve kişiselleştirilmiş reklamları kullanır.
-      Devam ederek <a href="/privacy-policy" target="_blank" style="color: #1976d2;">Gizlilik Politikamızı</a>
-      kabul etmiş olursunuz.
-    `;
-    text.style.cssText = 'color: #666; line-height: 1.5; margin: 0 0 25px 0;';
-
-    const buttonContainer = document.createElement('div');
-    buttonContainer.style.cssText =
-      'display: flex; gap: 10px; justify-content: flex-end;';
-
-    const rejectButton = document.createElement('button');
-    rejectButton.textContent = 'Reddet';
-    rejectButton.style.cssText = `
-      padding: 12px 24px;
-      border: 1px solid #ddd;
-      background: white;
-      color: #666;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-    `;
-
-    const acceptButton = document.createElement('button');
-    acceptButton.textContent = 'Kabul Et';
-    acceptButton.style.cssText = `
-      padding: 12px 24px;
-      border: none;
-      background: #1976d2;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-    `;
-
-    acceptButton.onclick = () => {
-      this.setConsent(true);
-      document.body.removeChild(modal);
-      callback();
-    };
-
-    rejectButton.onclick = () => {
-      this.setConsent(false);
-      document.body.removeChild(modal);
-      callback();
-    };
-
-    buttonContainer.appendChild(rejectButton);
-    buttonContainer.appendChild(acceptButton);
-    content.appendChild(title);
-    content.appendChild(text);
-    content.appendChild(buttonContainer);
-    modal.appendChild(content);
-
-    document.body.appendChild(modal);
   }
 
   setConsent(granted: boolean): void {

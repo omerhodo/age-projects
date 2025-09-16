@@ -30,34 +30,34 @@ export default function OptOutPage() {
         }}
       >
         <div>
-          <h1>{t('optOutPage.title')}</h1>
+          <h1>{t('consent.optOutPage.title')}</h1>
 
           <div style={{ marginBottom: '2rem' }}>
-            <p>{t('optOutPage.description')}</p>
+            <p>{t('consent.optOutPage.description')}</p>
 
-            <h3>{t('optOutPage.mobileAppSection')}</h3>
+            <h3>{t('consent.optOutPage.mobileAppSection')}</h3>
             <ol>
-              <li>{t('optOutPage.mobileSteps.step1')}</li>
-              <li>{t('optOutPage.mobileSteps.step2')}</li>
-              <li>{t('optOutPage.mobileSteps.step3')}</li>
+              <li>{t('consent.optOutPage.mobileSteps.step1')}</li>
+              <li>{t('consent.optOutPage.mobileSteps.step2')}</li>
+              <li>{t('consent.optOutPage.mobileSteps.step3')}</li>
             </ol>
 
-            <h3>{t('optOutPage.deviceSettingsSection')}</h3>
-            <h4>{t('optOutPage.iosDevices')}</h4>
+            <h3>{t('consent.optOutPage.deviceSettingsSection')}</h3>
+            <h4>{t('consent.optOutPage.iosDevices')}</h4>
             <ol>
-              <li>{t('optOutPage.iosSteps.step1')}</li>
-              <li>{t('optOutPage.iosSteps.step2')}</li>
+              <li>{t('consent.optOutPage.iosSteps.step1')}</li>
+              <li>{t('consent.optOutPage.iosSteps.step2')}</li>
             </ol>
 
-            <h4>{t('optOutPage.androidDevices')}</h4>
+            <h4>{t('consent.optOutPage.androidDevices')}</h4>
             <ol>
-              <li>{t('optOutPage.androidSteps.step1')}</li>
-              <li>{t('optOutPage.androidSteps.step2')}</li>
+              <li>{t('consent.optOutPage.androidSteps.step1')}</li>
+              <li>{t('consent.optOutPage.androidSteps.step2')}</li>
             </ol>
 
-            <h3>{t('optOutPage.webBrowserSection')}</h3>
+            <h3>{t('consent.optOutPage.webBrowserSection')}</h3>
             <p>
-              {t('optOutPage.webBrowserText')}{' '}
+              {t('consent.optOutPage.webBrowserText')}{' '}
               <a
                 href='https://adssettings.google.com'
                 target='_blank'
@@ -76,10 +76,10 @@ export default function OptOutPage() {
               marginBottom: '2rem',
             }}
           >
-            <h3>{t('optOutPage.contactSection')}</h3>
-            <p>{t('optOutPage.contactText')}</p>
+            <h3>{t('consent.optOutPage.contactSection')}</h3>
+            <p>{t('consent.optOutPage.contactText')}</p>
             <p>
-              <strong>{t('optOutPage.email')}</strong> devhodo@gmail.com
+              <strong>{t('consent.optOutPage.email')}</strong> devhodo@gmail.com
             </p>
           </div>
 
@@ -96,7 +96,7 @@ export default function OptOutPage() {
                 fontSize: '16px',
               }}
             >
-              {t('optOutPage.goBackButton')}
+              {t('consent.optOutPage.goBackButton')}
             </button>
           </div>
         </div>

@@ -53,7 +53,6 @@ const ConsentBanner = () => {
     };
 
     const onShowPrivacyOptions = () => {
-      // For now we reuse the same banner UI for privacy options
       setShowConsentBanner(true);
     };
 
