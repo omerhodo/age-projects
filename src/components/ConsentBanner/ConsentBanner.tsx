@@ -1,6 +1,6 @@
 'use client';
 
-import { useAdMob } from '@/hooks/useAdMob';
+import { useAdMobContext } from '@/providers/AdMobProvider';
 import { consentService } from '@/services/consent.service';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import styles from './ConsentBanner.module.scss';
 
 const ConsentBanner = () => {
   const { t } = useTranslation();
-  const { showBanner } = useAdMob();
+  const { showBanner } = useAdMobContext();
   const [showConsentBanner, setShowConsentBanner] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
@@ -93,7 +93,6 @@ const ConsentBanner = () => {
     // User chose to see general (non-personalized) ads
     try {
       consentService.setNonPersonalizedConsent();
-      // attempt to start banner for non-personalized ads
       showBanner().catch((err) =>
         console.error(
           '❌ ConsentBanner - Error starting non-personalized ads:',
@@ -111,11 +110,6 @@ const ConsentBanner = () => {
     console.log('ℹ️ User opted for general (non-personalized) ads');
   };
 
-  // Debug için: Banner'ı her zaman göster (geçici)
-  console.log('🔍 ConsentBanner - showConsentBanner:', showConsentBanner);
-  console.log('🔍 ConsentBanner - isClient:', isClient);
-
-  // Normal çalışma modu - showConsentBanner state'ini kullan
   const shouldShowBanner = showConsentBanner;
 
   if (!shouldShowBanner) {

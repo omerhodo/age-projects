@@ -1,5 +1,5 @@
 import { BannerAdPosition } from '@capacitor-community/admob';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { adMobService } from '../services/admob.service';
 
 export const useAdMob = () => {
@@ -7,19 +7,32 @@ export const useAdMob = () => {
   const [isBannerVisible, setIsBannerVisible] = useState(false);
   const [isInterstitialReady, setIsInterstitialReady] = useState(false);
   const [isRewardReady, setIsRewardReady] = useState(false);
+  const isShowingRef = useRef(false);
 
   const showBanner = async (
     position: BannerAdPosition = BannerAdPosition.BOTTOM_CENTER
   ) => {
+    if (isBannerVisible) {
+      console.log('useAdMob - showBanner called but banner already visible');
+      return;
+    }
+    if (isShowingRef.current) {
+      console.log(
+        'useAdMob - showBanner called while show in progress, ignoring'
+      );
+      return;
+    }
+    isShowingRef.current = true;
     try {
       await adMobService.showBanner(position);
       setIsInitialized(true);
       setIsBannerVisible(true);
-
       prepareInterstitial();
       prepareReward();
     } catch (error) {
       console.error('Failed to show banner:', error);
+    } finally {
+      isShowingRef.current = false;
     }
   };
 
@@ -72,7 +85,6 @@ export const useAdMob = () => {
       await adMobService.prepareReward();
       setIsRewardReady(true);
     } catch (error) {
-      console.error('Failed to prepare reward:', error);
       setIsRewardReady(false);
     }
   };

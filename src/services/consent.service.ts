@@ -32,6 +32,8 @@ declare global {
 export class ConsentService {
   private static instance: ConsentService;
   private isInitialized = false;
+  // track UMP script load promise to avoid duplicate inserts
+  private umpLoadPromise: Promise<void> | null = null;
   private consentInfo: ConsentInfo = {
     consentStatus: 'UNKNOWN',
     formStatus: 'UNKNOWN',
@@ -78,22 +80,82 @@ export class ConsentService {
   }
 
   private loadUMPScript(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      if (document.querySelector('script[src*="stub.js"]')) {
-        resolve();
-        return;
-      }
+    // Return the existing promise if load already in progress/finished
+    if (this.umpLoadPromise) return this.umpLoadPromise;
 
-      const script = document.createElement('script');
-      script.src =
-        'https://fundingchoicesmessages.google.com/i/pub-' +
-        this.getPublisherId() +
-        '?ers=1';
-      script.async = true;
-      script.onload = () => resolve();
-      script.onerror = () => reject(new Error('Failed to load UMP script'));
-      document.head.appendChild(script);
+    this.umpLoadPromise = new Promise((resolve, reject) => {
+      try {
+        if (
+          document.querySelector(
+            'script[src*="fundingchoicesmessages.google.com"]'
+          )
+        ) {
+          console.log('UMP script already present');
+          resolve();
+          return;
+        }
+
+        const script = document.createElement('script');
+        script.src =
+          'https://fundingchoicesmessages.google.com/i/pub-' +
+          this.getPublisherId() +
+          '?ers=1';
+        script.async = true;
+
+        const cleanup = () => {
+          script.onload = null;
+          script.onerror = null;
+        };
+
+        script.onload = () => {
+          cleanup();
+          console.log('UMP script loaded');
+          resolve();
+        };
+
+        script.onerror = (ev) => {
+          cleanup();
+          console.error('UMP script failed to load', ev);
+          reject(new Error('Failed to load UMP script'));
+        };
+
+        // Safety timeout: reject if script doesn't load in 5 seconds
+        const to = setTimeout(() => {
+          console.warn('UMP script load timed out');
+          cleanup();
+          reject(new Error('UMP script load timeout'));
+        }, 5000);
+
+        // Wrap resolve/reject to clear timeout
+        const wrapResolve = () => {
+          clearTimeout(to);
+          resolve();
+        };
+        const wrapReject = (err: Error) => {
+          clearTimeout(to);
+          reject(err);
+        };
+
+        // set handlers to wrapped versions
+        script.onload = () => {
+          cleanup();
+          console.log('UMP script loaded');
+          wrapResolve();
+        };
+        script.onerror = (ev) => {
+          cleanup();
+          console.error('UMP script failed to load', ev);
+          wrapReject(new Error('Failed to load UMP script'));
+        };
+
+        document.head.appendChild(script);
+      } catch (err) {
+        console.error('Unexpected error while inserting UMP script', err);
+        reject(err as Error);
+      }
     });
+
+    return this.umpLoadPromise;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -201,18 +263,11 @@ export class ConsentService {
     }
   }
 
-  /**
-   * Allow ads but mark them as non-personalized (general ads).
-   * This keeps `canRequestAds = true` while instructing tag managers / GPT
-   * to use limitedAds (non-personalized targeting).
-   */
   setNonPersonalizedConsent(): void {
     const consentValue = 'granted';
 
-    // Store consent as granted so the app knows ads may be requested
     localStorage.setItem('gdpr_consent', consentValue);
     localStorage.setItem('gdpr_consent_time', Date.now().toString());
-    // mark personalization preference
     localStorage.setItem('gdpr_personalization', 'non_personalized');
 
     this.consentInfo = {
@@ -222,7 +277,6 @@ export class ConsentService {
       isPrivacyOptionsRequired: false,
     };
 
-    // tell analytics/gtag that ad_storage is granted but personalization denied
     if (window.gtag) {
       window.gtag('consent', 'update', {
         ad_storage: consentValue,
@@ -233,7 +287,6 @@ export class ConsentService {
       });
     }
 
-    // instruct GPT / googletag to limit ads (non-personalized)
     if (window.googletag && window.googletag.pubads) {
       window.googletag.pubads().setPrivacySettings({ limitedAds: true });
     }
