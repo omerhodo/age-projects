@@ -47,6 +47,31 @@ const ConsentBanner = () => {
     }, 100);
   }, [showBanner]);
 
+  useEffect(() => {
+    const onShowForm = () => {
+      setShowConsentBanner(true);
+    };
+
+    const onShowPrivacyOptions = () => {
+      // For now we reuse the same banner UI for privacy options
+      setShowConsentBanner(true);
+    };
+
+    window.addEventListener('consent:show-form', onShowForm);
+    window.addEventListener(
+      'consent:show-privacy-options',
+      onShowPrivacyOptions
+    );
+
+    return () => {
+      window.removeEventListener('consent:show-form', onShowForm);
+      window.removeEventListener(
+        'consent:show-privacy-options',
+        onShowPrivacyOptions
+      );
+    };
+  }, []);
+
   if (!isClient) {
     return null;
   }

@@ -55,22 +55,15 @@ export class ConsentService {
     }
 
     try {
-      // Initialize App Tracking Transparency first (iOS only)
       await appTrackingService.initialize();
 
       await this.loadUMPScript();
       await this.requestConsentInfoUpdate(settings);
 
-      // Check if ATT permission is needed (iOS only)
       const needsATT = await appTrackingService.needsTrackingPrompt();
       if (needsATT) {
         console.log('🍎 Requesting App Tracking Transparency permission...');
         await appTrackingService.requestTrackingPermission();
-      }
-
-      // Gerekirse rıza formunu göster
-      if (this.consentInfo.formStatus === 'AVAILABLE') {
-        await this.loadAndShowConsentFormIfRequired();
       }
 
       this.isInitialized = true;
@@ -84,9 +77,6 @@ export class ConsentService {
     }
   }
 
-  /**
-   * Google UMP SDK script'ini yükler
-   */
   private loadUMPScript(): Promise<void> {
     return new Promise((resolve, reject) => {
       if (document.querySelector('script[src*="stub.js"]')) {
@@ -106,9 +96,6 @@ export class ConsentService {
     });
   }
 
-  /**
-   * Rıza bilgilerini günceller
-   */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private requestConsentInfoUpdate(_settings: ConsentSettings): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -130,18 +117,13 @@ export class ConsentService {
     });
   }
 
-  /**
-   * Rıza durumunu kontrol eder
-   */
   private checkConsentStatus(): void {
-    // localStorage'dan önceki rıza durumunu kontrol et
     const storedConsent = localStorage.getItem('gdpr_consent');
     const consentTime = localStorage.getItem('gdpr_consent_time');
 
     const now = Date.now();
-    const thirtyDays = 30 * 24 * 60 * 60 * 1000; // 30 gün milisaniye cinsinden
+    const thirtyDays = 30 * 24 * 60 * 60 * 1000;
 
-    // Eğer rıza varsa ve 30 günden eski değilse
     if (
       storedConsent &&
       consentTime &&
@@ -154,7 +136,6 @@ export class ConsentService {
         isPrivacyOptionsRequired: false,
       };
     } else {
-      // Yeni rıza gerekli
       this.consentInfo = {
         consentStatus: 'REQUIRED',
         formStatus: 'AVAILABLE',
@@ -164,30 +145,25 @@ export class ConsentService {
     }
   }
 
-  /**
-   * Gerekirse rıza formunu yükler ve gösterir
-   */
   private async loadAndShowConsentFormIfRequired(): Promise<void> {
     if (this.consentInfo.consentStatus === 'REQUIRED') {
       return this.showConsentForm();
     }
   }
 
-  /**
-   * Rıza formunu gösterir
-   */
   showConsentForm(): Promise<void> {
     return new Promise((resolve) => {
-      // Basit bir rıza formu göster
-      this.createConsentModal(resolve);
+      try {
+        const event = new CustomEvent('consent:show-form', { detail: {} });
+        window.dispatchEvent(event);
+        resolve();
+      } catch {
+        this.createConsentModal(resolve);
+      }
     });
   }
 
-  /**
-   * Basit rıza modalı oluşturur
-   */
   private createConsentModal(callback: () => void): void {
-    // Modal container
     const modal = document.createElement('div');
     modal.id = 'gdpr-consent-modal';
     modal.style.cssText = `
@@ -204,7 +180,6 @@ export class ConsentService {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     `;
 
-    // Modal content
     const content = document.createElement('div');
     content.style.cssText = `
       background: white;
@@ -255,7 +230,6 @@ export class ConsentService {
       font-size: 14px;
     `;
 
-    // Event listeners
     acceptButton.onclick = () => {
       this.setConsent(true);
       document.body.removeChild(modal);
@@ -268,7 +242,6 @@ export class ConsentService {
       callback();
     };
 
-    // Assemble modal
     buttonContainer.appendChild(rejectButton);
     buttonContainer.appendChild(acceptButton);
     content.appendChild(title);
@@ -279,17 +252,12 @@ export class ConsentService {
     document.body.appendChild(modal);
   }
 
-  /**
-   * Kullanıcı rızasını ayarlar
-   */
   setConsent(granted: boolean): void {
     const consentValue = granted ? 'granted' : 'denied';
 
-    // localStorage'a kaydet
     localStorage.setItem('gdpr_consent', consentValue);
     localStorage.setItem('gdpr_consent_time', Date.now().toString());
 
-    // Consent bilgilerini güncelle
     this.consentInfo = {
       consentStatus: 'OBTAINED',
       formStatus: 'UNAVAILABLE',
@@ -297,7 +265,6 @@ export class ConsentService {
       isPrivacyOptionsRequired: false,
     };
 
-    // Google Analytics consent
     if (window.gtag) {
       window.gtag('consent', 'update', {
         ad_storage: consentValue,
@@ -308,7 +275,6 @@ export class ConsentService {
       });
     }
 
-    // AdMob consent
     if (window.googletag && window.googletag.pubads) {
       window.googletag.pubads().setPrivacySettings({
         limitedAds: !granted,
@@ -318,53 +284,43 @@ export class ConsentService {
     console.log('🔒 Consent set:', consentValue);
   }
 
-  /**
-   * Mevcut rıza bilgilerini döndürür
-   */
   getConsentInfo(): ConsentInfo {
     return { ...this.consentInfo };
   }
 
-  /**
-   * Reklamların gösterilip gösterilemeyeceğini kontrol eder
-   * iOS'ta App Tracking Transparency izni de kontrol eder
-   */
   async canShowAds(): Promise<boolean> {
-    // Önce genel GDPR rızasını kontrol et
     if (!this.consentInfo.canRequestAds) {
       return false;
     }
 
-    // iOS'ta ATT iznini de kontrol et
     const canShowPersonalizedAds = await appTrackingService.canShowAds();
     return canShowPersonalizedAds;
   }
 
-  /**
-   * Reklamların gösterilip gösterilemeyeceğini senkron olarak kontrol eder (eski metod)
-   * @deprecated Use canShowAds() instead for ATT support
-   */
   canShowAdsSync(): boolean {
     return this.consentInfo.canRequestAds;
   }
 
-  /**
-   * Gizlilik seçenekleri menüsünü gösterir
-   */
   showPrivacyOptionsForm(): Promise<void> {
-    return this.showConsentForm();
+    return new Promise((resolve) => {
+      try {
+        const event = new CustomEvent('consent:show-privacy-options', {
+          detail: {},
+        });
+        window.dispatchEvent(event);
+        resolve();
+      } catch {
+        this.showConsentForm()
+          .then(resolve)
+          .catch(() => resolve());
+      }
+    });
   }
 
-  /**
-   * Publisher ID'yi döndürür (ortam değişkeninden)
-   */
   private getPublisherId(): string {
     return process.env.NEXT_PUBLIC_ADMOB_PUBLISHER_ID || 'test-publisher-id';
   }
 
-  /**
-   * Rızayı sıfırlar (test amaçlı)
-   */
   resetConsent(): void {
     localStorage.removeItem('gdpr_consent');
     localStorage.removeItem('gdpr_consent_time');
