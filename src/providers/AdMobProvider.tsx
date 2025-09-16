@@ -61,6 +61,34 @@ export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile, canShowAdsSync, adMob.isInitialized, adMob.isBannerVisible]);
 
+  // Listen for consent changes and remove/hide ads when consent is revoked/reset
+  useEffect(() => {
+    const onConsentChanged = (e: Event) => {
+      try {
+        const ce = e as CustomEvent<{ granted: boolean }>;
+        const granted = ce?.detail?.granted;
+        if (granted === false) {
+          adMob
+            .removeBanner()
+            .catch((err) =>
+              console.error(
+                '❌ AdMobProvider - failed to remove banner on consent reset:',
+                err
+              )
+            );
+          setShowAds(false);
+        }
+      } catch (err) {
+        console.error('Error handling consent:changed in AdMobProvider', err);
+      }
+    };
+
+    window.addEventListener('consent:changed', onConsentChanged);
+    return () => {
+      window.removeEventListener('consent:changed', onConsentChanged);
+    };
+  }, [adMob]);
+
   const contextValue: AdMobContextType = {
     ...adMob,
     showBanner: async () => {

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useConsent } from '../../providers/ConsentProvider';
+import { useAdMob } from '../../hooks/useAdMob';
 import styles from './PrivacyDropdown.module.scss';
 
 interface PrivacyDropdownProps {
@@ -14,7 +15,8 @@ export const PrivacyDropdown: React.FC<PrivacyDropdownProps> = ({
   className = '',
 }) => {
   const { t } = useTranslation();
-  const { showPrivacyOptions, consentInfo } = useConsent();
+  const { showPrivacyOptions, consentInfo, resetConsent } = useConsent();
+  const adMob = useAdMob();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -41,8 +43,26 @@ export const PrivacyDropdown: React.FC<PrivacyDropdownProps> = ({
     setIsOpen(false);
   };
 
-  const handleOptOut = () => {
-    router.push('/opt-out');
+  const handleOptOut = async () => {
+    // Show confirmation similar to the OptOutLink behavior
+    if (
+      window.confirm(
+        t('consent.optOut.confirmMessage', {
+          defaultValue:
+            'Kişiselleştirilmiş reklamları devre dışı bırakmak istediğinizden emin misiniz? Bu işlem sayfayı yeniden yükleyecektir.',
+        })
+      )
+    ) {
+      try {
+        await adMob.removeBanner();
+      } catch (err) {
+        console.error('Error removing banner before opt-out:', err);
+      }
+
+      // Use the provider's resetConsent and then reload
+      resetConsent();
+      window.location.reload();
+    }
     setIsOpen(false);
   };
 

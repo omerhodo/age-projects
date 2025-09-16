@@ -201,6 +201,54 @@ export class ConsentService {
     }
   }
 
+  /**
+   * Allow ads but mark them as non-personalized (general ads).
+   * This keeps `canRequestAds = true` while instructing tag managers / GPT
+   * to use limitedAds (non-personalized targeting).
+   */
+  setNonPersonalizedConsent(): void {
+    const consentValue = 'granted';
+
+    // Store consent as granted so the app knows ads may be requested
+    localStorage.setItem('gdpr_consent', consentValue);
+    localStorage.setItem('gdpr_consent_time', Date.now().toString());
+    // mark personalization preference
+    localStorage.setItem('gdpr_personalization', 'non_personalized');
+
+    this.consentInfo = {
+      consentStatus: 'OBTAINED',
+      formStatus: 'UNAVAILABLE',
+      canRequestAds: true,
+      isPrivacyOptionsRequired: false,
+    };
+
+    // tell analytics/gtag that ad_storage is granted but personalization denied
+    if (window.gtag) {
+      window.gtag('consent', 'update', {
+        ad_storage: consentValue,
+        analytics_storage: consentValue,
+        personalization_storage: 'denied',
+        ad_user_data: consentValue,
+        ad_personalization: 'denied',
+      });
+    }
+
+    // instruct GPT / googletag to limit ads (non-personalized)
+    if (window.googletag && window.googletag.pubads) {
+      window.googletag.pubads().setPrivacySettings({ limitedAds: true });
+    }
+
+    console.log('🔒 Non-personalized consent set (general ads allowed)');
+    try {
+      const event = new CustomEvent('consent:changed', {
+        detail: { granted: true, nonPersonalized: true },
+      });
+      window.dispatchEvent(event);
+    } catch {
+      // ignore
+    }
+  }
+
   getConsentInfo(): ConsentInfo {
     return { ...this.consentInfo };
   }

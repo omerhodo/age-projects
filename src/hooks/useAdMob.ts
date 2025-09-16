@@ -1,5 +1,5 @@
 import { BannerAdPosition } from '@capacitor-community/admob';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { adMobService } from '../services/admob.service';
 
 export const useAdMob = () => {
@@ -8,31 +8,16 @@ export const useAdMob = () => {
   const [isInterstitialReady, setIsInterstitialReady] = useState(false);
   const [isRewardReady, setIsRewardReady] = useState(false);
 
-  useEffect(() => {
-    initializeAdMob();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const initializeAdMob = async () => {
-    try {
-      await adMobService.initialize();
-      setIsInitialized(true);
-
-      prepareInterstitial();
-      prepareReward();
-    } catch (error) {
-      console.error('Failed to initialize AdMob:', error);
-    }
-  };
-
   const showBanner = async (
     position: BannerAdPosition = BannerAdPosition.BOTTOM_CENTER
   ) => {
-    if (!isInitialized) return;
-
     try {
       await adMobService.showBanner(position);
+      setIsInitialized(true);
       setIsBannerVisible(true);
+
+      prepareInterstitial();
+      prepareReward();
     } catch (error) {
       console.error('Failed to show banner:', error);
     }

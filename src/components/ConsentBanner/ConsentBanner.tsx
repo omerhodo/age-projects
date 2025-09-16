@@ -90,10 +90,25 @@ const ConsentBanner = () => {
   };
 
   const handleReject = () => {
-    localStorage.setItem('gdpr_consent', 'denied');
-    consentService.setConsent(false);
+    // User chose to see general (non-personalized) ads
+    try {
+      consentService.setNonPersonalizedConsent();
+      // attempt to start banner for non-personalized ads
+      showBanner().catch((err) =>
+        console.error(
+          '❌ ConsentBanner - Error starting non-personalized ads:',
+          err
+        )
+      );
+    } catch (err) {
+      console.error(
+        '❌ ConsentBanner - Failed to set non-personalized consent',
+        err
+      );
+    }
+
     setShowConsentBanner(false);
-    console.log('❌ Consent rejected');
+    console.log('ℹ️ User opted for general (non-personalized) ads');
   };
 
   // Debug için: Banner'ı her zaman göster (geçici)

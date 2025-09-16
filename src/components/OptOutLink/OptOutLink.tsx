@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAdMob } from '../../hooks/useAdMob';
 import { useConsent } from '../../providers/ConsentProvider';
 
 interface OptOutLinkProps {
@@ -17,6 +18,7 @@ export const OptOutLink: React.FC<OptOutLinkProps> = ({
 }) => {
   const { t } = useTranslation();
   const { resetConsent, consentInfo } = useConsent();
+  const adMob = useAdMob();
 
   if (
     consentInfo.consentStatus === 'NOT_REQUIRED' ||
@@ -25,7 +27,7 @@ export const OptOutLink: React.FC<OptOutLinkProps> = ({
     return null;
   }
 
-  const handleOptOut = () => {
+  const handleOptOut = async () => {
     if (variant === 'link') {
       window.open('/opt-out', '_blank');
       return;
@@ -39,6 +41,12 @@ export const OptOutLink: React.FC<OptOutLinkProps> = ({
         })
       )
     ) {
+      try {
+        await adMob.removeBanner();
+      } catch (err) {
+        console.error('Error removing banner before opt-out:', err);
+      }
+
       resetConsent();
       window.location.reload();
     }
