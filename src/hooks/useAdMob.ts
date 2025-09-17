@@ -29,8 +29,8 @@ export const useAdMob = () => {
       setIsBannerVisible(true);
       prepareInterstitial();
       prepareReward();
-    } catch (error) {
-      console.error('Failed to show banner:', error);
+    } catch (err) {
+      console.error('Failed to show banner:', err);
     } finally {
       isShowingRef.current = false;
     }
@@ -40,8 +40,8 @@ export const useAdMob = () => {
     try {
       await adMobService.hideBanner();
       setIsBannerVisible(false);
-    } catch (error) {
-      console.error('Failed to hide banner:', error);
+    } catch (err) {
+      console.error('Failed to hide banner:', err);
     }
   };
 
@@ -49,8 +49,8 @@ export const useAdMob = () => {
     try {
       await adMobService.removeBanner();
       setIsBannerVisible(false);
-    } catch (error) {
-      console.error('Failed to remove banner:', error);
+    } catch (err) {
+      console.error('Failed to remove banner:', err);
     }
   };
 
@@ -60,8 +60,8 @@ export const useAdMob = () => {
     try {
       await adMobService.prepareInterstitial();
       setIsInterstitialReady(true);
-    } catch (error) {
-      console.error('Failed to prepare interstitial:', error);
+    } catch (err) {
+      console.error('Failed to prepare interstitial:', err);
       setIsInterstitialReady(false);
     }
   };
@@ -73,8 +73,8 @@ export const useAdMob = () => {
       await adMobService.showInterstitial();
       setIsInterstitialReady(false);
       setTimeout(() => prepareInterstitial(), 1000);
-    } catch (error) {
-      console.error('Failed to show interstitial:', error);
+    } catch (err) {
+      console.error('Failed to show interstitial:', err);
     }
   };
 
@@ -84,7 +84,8 @@ export const useAdMob = () => {
     try {
       await adMobService.prepareReward();
       setIsRewardReady(true);
-    } catch (error) {
+    } catch (err) {
+      console.error('Failed to prepare reward:', err);
       setIsRewardReady(false);
     }
   };
@@ -96,8 +97,8 @@ export const useAdMob = () => {
       await adMobService.showReward();
       setIsRewardReady(false);
       setTimeout(() => prepareReward(), 1000);
-    } catch (error) {
-      console.error('Failed to show reward:', error);
+    } catch (err) {
+      console.error('Failed to show reward:', err);
     }
   };
 
