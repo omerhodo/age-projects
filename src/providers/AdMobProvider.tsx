@@ -4,6 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { admobConfig } from '../config/env';
 import { useAdMob } from '../hooks/useAdMob';
 import { usePlatform } from '../hooks/usePlatform';
+import { consentService } from '../services/consent.service';
 import { useConsent } from './ConsentProvider';
 
 interface AdMobContextType {
@@ -51,17 +52,15 @@ export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
     });
     setShowAds(shouldShowAds);
 
-    if (shouldShowAds && adMob.isInitialized && !adMob.isBannerVisible) {
+    if (shouldShowAds && !adMob.isBannerVisible) {
       adMob
         .showBanner()
         .catch((err) =>
           console.error('❌ AdMobProvider - Failed to auto-show banner:', err)
         );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile, canShowAdsSync, adMob.isInitialized, adMob.isBannerVisible]);
 
-  // Listen for consent changes and remove/hide ads when consent is revoked/reset
   useEffect(() => {
     const onConsentChanged = (e: Event) => {
       try {
@@ -94,16 +93,56 @@ export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
     showBanner: async () => {
       if (showAds) {
         await adMob.showBanner();
+        return;
+      }
+
+      try {
+        const consentSync = consentService.canShowAdsSync();
+        const stored =
+          typeof window !== 'undefined'
+            ? localStorage.getItem('gdpr_consent')
+            : null;
+
+        if (
+          consentSync ||
+          stored === 'granted' ||
+          stored === 'non_personalized'
+        ) {
+          console.log(
+            'AdMobProvider - fallback detected stored consent, attempting to show banner'
+          );
+          await adMob.showBanner();
+        } else {
+          console.log(
+            'AdMobProvider - no consent detected in fallback, skipping showBanner'
+          );
+        }
+      } catch (err) {
+        console.error('AdMobProvider - fallback showBanner failed:', err);
       }
     },
     hideBanner: async () => {
       if (showAds) {
         await adMob.hideBanner();
+        return;
+      }
+
+      try {
+        await adMob.hideBanner();
+      } catch (err) {
+        console.error('AdMobProvider - fallback hideBanner failed:', err);
       }
     },
     removeBanner: async () => {
       if (showAds) {
         await adMob.removeBanner();
+        return;
+      }
+
+      try {
+        await adMob.removeBanner();
+      } catch (err) {
+        console.error('AdMobProvider - fallback removeBanner failed:', err);
       }
     },
     showInterstitial: async () => {
