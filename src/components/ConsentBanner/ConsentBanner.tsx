@@ -56,10 +56,25 @@ const ConsentBanner = () => {
       setShowConsentBanner(true);
     };
 
+    const onConsentChanged = (e: Event) => {
+      try {
+        const detail = (e as CustomEvent).detail || {};
+        if (detail.granted === true || detail.nonPersonalized === true) {
+          setShowConsentBanner(false);
+        }
+      } catch {
+        // ignore
+      }
+    };
+
     window.addEventListener('consent:show-form', onShowForm);
     window.addEventListener(
       'consent:show-privacy-options',
       onShowPrivacyOptions
+    );
+    window.addEventListener(
+      'consent:changed',
+      onConsentChanged as EventListener
     );
 
     return () => {
@@ -67,6 +82,10 @@ const ConsentBanner = () => {
       window.removeEventListener(
         'consent:show-privacy-options',
         onShowPrivacyOptions
+      );
+      window.removeEventListener(
+        'consent:changed',
+        onConsentChanged as EventListener
       );
     };
   }, []);

@@ -37,11 +37,36 @@ export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
   const { isMobile } = usePlatform();
   const { canShowAdsSync } = useConsent();
   const adMob = useAdMob();
+  const [attAllowed, setAttAllowed] = React.useState<boolean | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const mod = await import('../services/app-tracking.service');
+        const allowed = await mod.appTrackingService.canShowAds();
+        if (mounted) setAttAllowed(allowed);
+      } catch (err) {
+        console.warn(
+          'Unable to determine ATT status, defaulting to allow for non-iOS',
+          err
+        );
+        if (mounted) setAttAllowed(true);
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
   const [showAds, setShowAds] = useState(false);
 
   useEffect(() => {
     const shouldShowAds =
-      isMobile && !admobConfig.testing.disableAds && canShowAdsSync;
+      isMobile &&
+      !admobConfig.testing.disableAds &&
+      canShowAdsSync &&
+      (attAllowed === null ? false : attAllowed);
     console.log('🚀 AdMob Provider Debug:', {
       isMobile,
       disableAds: admobConfig.testing.disableAds,
@@ -59,7 +84,14 @@ export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
           console.error('❌ AdMobProvider - Failed to auto-show banner:', err)
         );
     }
-  }, [isMobile, canShowAdsSync, adMob.isInitialized, adMob.isBannerVisible]);
+  }, [
+    isMobile,
+    canShowAdsSync,
+    adMob.isInitialized,
+    adMob.isBannerVisible,
+    attAllowed,
+    adMob,
+  ]);
 
   useEffect(() => {
     const onConsentChanged = (e: Event) => {
@@ -108,9 +140,6 @@ export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
           stored === 'granted' ||
           stored === 'non_personalized'
         ) {
-          console.log(
-            'AdMobProvider - fallback detected stored consent, attempting to show banner'
-          );
           await adMob.showBanner();
         } else {
           console.log(

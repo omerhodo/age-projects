@@ -1,4 +1,7 @@
-import { appTrackingService } from './app-tracking.service';
+import {
+  appTrackingService,
+  TrackingAuthorizationStatus,
+} from './app-tracking.service';
 
 export interface ConsentInfo {
   consentStatus: 'UNKNOWN' | 'NOT_REQUIRED' | 'REQUIRED' | 'OBTAINED';
@@ -58,15 +61,22 @@ export class ConsentService {
 
     try {
       await appTrackingService.initialize();
+      const needsATT = await appTrackingService.needsTrackingPrompt();
+      if (needsATT) {
+        const attStatus = await appTrackingService.requestTrackingPermission();
+
+        if (
+          attStatus === TrackingAuthorizationStatus.denied ||
+          attStatus === TrackingAuthorizationStatus.restricted
+        ) {
+          this.setNonPersonalizedConsent();
+        } else if (attStatus === TrackingAuthorizationStatus.authorized) {
+          this.setConsent(true);
+        }
+      }
 
       await this.loadUMPScript();
       await this.requestConsentInfoUpdate(settings);
-
-      const needsATT = await appTrackingService.needsTrackingPrompt();
-      if (needsATT) {
-        console.log('🍎 Requesting App Tracking Transparency permission...');
-        await appTrackingService.requestTrackingPermission();
-      }
 
       this.isInitialized = true;
       console.log(
@@ -80,7 +90,6 @@ export class ConsentService {
   }
 
   private loadUMPScript(): Promise<void> {
-    // Return the existing promise if load already in progress/finished
     if (this.umpLoadPromise) return this.umpLoadPromise;
 
     this.umpLoadPromise = new Promise((resolve, reject) => {

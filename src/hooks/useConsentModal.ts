@@ -95,27 +95,29 @@ export const useConsentModal = () => {
       acceptButton.style.background = '#1976d2';
     };
 
-    acceptButton.onclick = () => {
-      modal.style.animation = 'slideOutDown 0.3s ease-in';
-      setTimeout(() => {
-        document.body.removeChild(modal);
-        callback();
-      }, 300);
-
-      // Consent'i kabul et
-      consentService['setConsent'](true);
+    const onConsentChanged = (e: Event) => {
+      try {
+        const detail = (e as CustomEvent).detail || {};
+        if (detail.granted === true || detail.nonPersonalized === true) {
+          modal.style.animation = 'slideOutDown 0.3s ease-in';
+          setTimeout(() => {
+            if (document.body.contains(modal)) {
+              document.body.removeChild(modal);
+            }
+            try {
+              callback();
+            } catch {}
+          }, 300);
+        }
+      } catch {
+        // ignore
+      }
     };
 
-    rejectButton.onclick = () => {
-      modal.style.animation = 'slideOutDown 0.3s ease-in';
-      setTimeout(() => {
-        document.body.removeChild(modal);
-        callback();
-      }, 300);
-
-      // Consent'i reddet
-      consentService['setConsent'](false);
-    };
+    window.addEventListener(
+      'consent:changed',
+      onConsentChanged as EventListener
+    );
 
     // ESC tuşu ile kapatma
     const escapeHandler = (e: KeyboardEvent) => {
@@ -125,6 +127,48 @@ export const useConsentModal = () => {
       }
     };
     document.addEventListener('keydown', escapeHandler);
+
+    const cleanupListeners = () => {
+      try {
+        window.removeEventListener(
+          'consent:changed',
+          onConsentChanged as EventListener
+        );
+      } catch {
+        // ignore
+      }
+      try {
+        document.removeEventListener('keydown', escapeHandler);
+      } catch {
+        // ignore
+      }
+    };
+
+    acceptButton.onclick = () => {
+      cleanupListeners();
+      modal.style.animation = 'slideOutDown 0.3s ease-in';
+      setTimeout(() => {
+        if (document.body.contains(modal)) document.body.removeChild(modal);
+        try {
+          callback();
+        } catch {}
+      }, 300);
+
+      consentService['setConsent'](true);
+    };
+
+    rejectButton.onclick = () => {
+      cleanupListeners();
+      modal.style.animation = 'slideOutDown 0.3s ease-in';
+      setTimeout(() => {
+        if (document.body.contains(modal)) document.body.removeChild(modal);
+        try {
+          callback();
+        } catch {}
+      }, 300);
+
+      consentService['setConsent'](false);
+    };
 
     if (!document.getElementById('consent-modal-styles')) {
       const style = document.createElement('style');
