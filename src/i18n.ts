@@ -19,16 +19,15 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'tr', // Default language set to Turkish
+    lng: 'tr',
     fallbackLng: 'tr',
     debug: process.env.NODE_ENV === 'development',
 
     detection: {
-      order: ['localStorage', 'querystring', 'cookie', 'navigator', 'htmlTag'],
+      order: ['localStorage', 'querystring', 'navigator', 'htmlTag'],
       lookupLocalStorage: 'i18nextLng',
-      lookupCookie: 'i18next',
       lookupQuerystring: 'lng',
-      caches: ['localStorage', 'cookie'],
+      caches: ['localStorage'],
     },
 
     interpolation: {

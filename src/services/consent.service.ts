@@ -77,12 +77,9 @@ export class ConsentService {
 
       await this.loadUMPScript();
       await this.requestConsentInfoUpdate(settings);
+      await this.loadAndShowConsentFormIfRequired();
 
       this.isInitialized = true;
-      console.log(
-        '✅ Consent Service initialized successfully',
-        this.consentInfo
-      );
     } catch (error) {
       console.error('❌ Error initializing Consent Service:', error);
       throw error;
@@ -128,14 +125,12 @@ export class ConsentService {
           reject(new Error('Failed to load UMP script'));
         };
 
-        // Safety timeout: reject if script doesn't load in 5 seconds
         const to = setTimeout(() => {
           console.warn('UMP script load timed out');
           cleanup();
           reject(new Error('UMP script load timeout'));
         }, 5000);
 
-        // Wrap resolve/reject to clear timeout
         const wrapResolve = () => {
           clearTimeout(to);
           resolve();
@@ -145,7 +140,6 @@ export class ConsentService {
           reject(err);
         };
 
-        // set handlers to wrapped versions
         script.onload = () => {
           cleanup();
           console.log('UMP script loaded');
@@ -167,7 +161,6 @@ export class ConsentService {
     return this.umpLoadPromise;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private requestConsentInfoUpdate(_settings: ConsentSettings): Promise<void> {
     return new Promise((resolve, reject) => {
       if (!window.googletag) {
@@ -200,10 +193,12 @@ export class ConsentService {
       consentTime &&
       now - parseInt(consentTime) < thirtyDays
     ) {
+      const allowAds =
+        storedConsent === 'granted' || storedConsent === 'non_personalized';
       this.consentInfo = {
         consentStatus: 'OBTAINED',
         formStatus: 'UNAVAILABLE',
-        canRequestAds: storedConsent === 'granted',
+        canRequestAds: allowAds,
         isPrivacyOptionsRequired: false,
       };
     } else {
@@ -273,7 +268,7 @@ export class ConsentService {
   }
 
   setNonPersonalizedConsent(): void {
-    const consentValue = 'granted';
+    const consentValue = 'non_personalized';
 
     localStorage.setItem('gdpr_consent', consentValue);
     localStorage.setItem('gdpr_consent_time', Date.now().toString());
@@ -288,10 +283,10 @@ export class ConsentService {
 
     if (window.gtag) {
       window.gtag('consent', 'update', {
-        ad_storage: consentValue,
-        analytics_storage: consentValue,
+        ad_storage: 'granted',
+        analytics_storage: 'denied',
         personalization_storage: 'denied',
-        ad_user_data: consentValue,
+        ad_user_data: 'granted',
         ad_personalization: 'denied',
       });
     }
