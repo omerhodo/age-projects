@@ -34,6 +34,16 @@ const ConsentBanner = () => {
               err
             )
           );
+        } else if (consent === 'non_personalized') {
+          console.log(
+            'ℹ️ ConsentBanner - Non-personalized consent found, starting general ads'
+          );
+          showBanner().catch((err) =>
+            console.error(
+              '❌ ConsentBanner - Error starting non-personalized ads on mount:',
+              err
+            )
+          );
         } else {
           console.log(
             '🚫 ConsentBanner - Consent already denied or not granted:',

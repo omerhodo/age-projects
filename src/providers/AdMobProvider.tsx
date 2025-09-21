@@ -62,11 +62,18 @@ export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
   const [showAds, setShowAds] = useState(false);
 
   useEffect(() => {
+    let storedConsent: string | null = null;
+    if (typeof window !== 'undefined') {
+      storedConsent = localStorage.getItem('gdpr_consent');
+    }
+
+    const allowForNonPersonalized = storedConsent === 'non_personalized';
+
     const shouldShowAds =
       isMobile &&
       !admobConfig.testing.disableAds &&
-      canShowAdsSync &&
-      (attAllowed === null ? false : attAllowed);
+      ((canShowAdsSync && (attAllowed === null ? false : attAllowed)) ||
+        allowForNonPersonalized);
     console.log('🚀 AdMob Provider Debug:', {
       isMobile,
       disableAds: admobConfig.testing.disableAds,
