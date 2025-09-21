@@ -56,9 +56,6 @@ export const ConsentProvider: React.FC<ConsentProviderProps> = ({
 
   const initializeConsent = async () => {
     try {
-      console.log('🔒 Initializing Consent Management...');
-
-      // Publisher ID'yi environment'dan al
       const publisherId = process.env.NEXT_PUBLIC_ADMOB_PUBLISHER_ID;
       if (!publisherId) {
         console.warn('⚠️ No publisher ID found, using test ID');
