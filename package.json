@@ -1,6 +1,6 @@
 {
   "name": "age-projects",
-  "version": "1.8.6",
+  "version": "1.8.7",
   "private": true,
   "packageManager": "yarn@1.22.22",
   "engines": {
@@ -35,7 +35,9 @@
     "ios:add": "npx cap add ios",
     "mobile:build": "BUILD_TARGET=capacitor npm run build:capacitor && npx cap sync",
     "release:android": "BUILD_TARGET=capacitor npm run build:capacitor && npx cap sync android && cd android && ./gradlew bundleRelease",
+    "release:android:production": "cp .env.production.local .env.local && BUILD_TARGET=capacitor npm run build:capacitor && npx cap sync android && cd android && ./gradlew bundleRelease",
     "release:ios": "BUILD_TARGET=capacitor npm run build:capacitor && npx cap sync ios && npx cap open ios",
+    "release:ios:production": "cp .env.production.local .env.local && BUILD_TARGET=capacitor npm run build:capacitor && npx cap sync ios && npx cap open ios",
     "deploy": "vercel --prod",
     "deploy:preview": "vercel"
   },
