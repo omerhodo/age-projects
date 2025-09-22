@@ -34,9 +34,9 @@
     "ios:open": "npx cap open ios",
     "ios:add": "npx cap add ios",
     "mobile:build": "BUILD_TARGET=capacitor npm run build:capacitor && npx cap sync",
-    "release:android": "BUILD_TARGET=capacitor npm run build:capacitor && npx cap sync android && cd android && ./gradlew bundleRelease",
+    "release:android": "[ -f .env.test.local ] && cp .env.test.local .env.local || [ -f .env.development.local ] && cp .env.development.local .env.local || true && BUILD_TARGET=capacitor npm run build:capacitor && npx cap sync android && cd android && ./gradlew bundleRelease",
     "release:android:production": "cp .env.production.local .env.local && BUILD_TARGET=capacitor npm run build:capacitor && npx cap sync android && cd android && ./gradlew bundleRelease",
-    "release:ios": "BUILD_TARGET=capacitor npm run build:capacitor && npx cap sync ios && npx cap open ios",
+    "release:ios": "[ -f .env.test.local ] && cp .env.test.local .env.local || [ -f .env.development.local ] && cp .env.development.local .env.local || true && BUILD_TARGET=capacitor npm run build:capacitor && npx cap sync ios && npx cap open ios",
     "release:ios:production": "cp .env.production.local .env.local && BUILD_TARGET=capacitor npm run build:capacitor && npx cap sync ios && npx cap open ios",
     "deploy": "vercel --prod",
     "deploy:preview": "vercel"
