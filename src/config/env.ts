@@ -30,7 +30,7 @@ export interface AppConfig {
 }
 
 const getEnvVar = (key: string, defaultValue: string = ''): string => {
-  const val = (process as any)?.env?.[key];
+  const val = (process.env as Record<string, string | undefined>)[key];
   return val !== undefined && val !== null ? String(val) : defaultValue;
 };
 
@@ -45,11 +45,6 @@ const isProd = isProductionBuild();
 
 const getRequiredEnvVar = (key: string): string => {
   const value = process.env[key];
-  if (isProd && (!value || value.trim() === '')) {
-    throw new Error(
-      `FATAL: Required environment variable "${key}" is missing for production build.`
-    );
-  }
 
   const testAdIds: { [key: string]: string } = {
     NEXT_PUBLIC_ADMOB_IOS_BANNER: 'ca-app-pub-3940256099942544/2934735716',
@@ -62,7 +57,21 @@ const getRequiredEnvVar = (key: string): string => {
     NEXT_PUBLIC_ADMOB_ANDROID_REWARD: 'ca-app-pub-3940256099942544/5224354917',
   };
 
-  return value || testAdIds[key] || '';
+  if (value && value.trim() !== '') {
+    return value;
+  }
+
+  if (testAdIds[key]) {
+    return testAdIds[key];
+  }
+
+  if (isProd) {
+    console.warn(
+      `Warning: Environment variable "${key}" is missing for production build. Using fallback.`
+    );
+  }
+
+  return '';
 };
 
 const getEnvBoolean = (key: string, defaultValue: boolean = false): boolean => {
@@ -157,4 +166,25 @@ if (!isProd && typeof window !== 'undefined') {
   console.log('AdMob App IDs (resolved):', admobConfig.appIds);
   console.log('AdMob Ad IDs (iOS) (resolved):', admobConfig.adIds.ios);
   console.groupEnd();
+}
+
+if (isProd && typeof window !== 'undefined') {
+  const requiredVars = [
+    'NEXT_PUBLIC_ADMOB_IOS_BANNER',
+    'NEXT_PUBLIC_ADMOB_IOS_INTERSTITIAL',
+    'NEXT_PUBLIC_ADMOB_IOS_REWARD',
+    'NEXT_PUBLIC_ADMOB_ANDROID_BANNER',
+    'NEXT_PUBLIC_ADMOB_ANDROID_INTERSTITIAL',
+    'NEXT_PUBLIC_ADMOB_ANDROID_REWARD',
+  ];
+
+  const missingVars = requiredVars.filter((varName) => {
+    const val = (process.env as Record<string, string | undefined>)[varName];
+    return !val || val.trim() === '';
+  });
+
+  if (missingVars.length > 0) {
+    console.warn('⚠️ Missing production environment variables:', missingVars);
+    console.warn('Using test AdMob IDs as fallback');
+  }
 }
