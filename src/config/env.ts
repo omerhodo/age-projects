@@ -182,6 +182,7 @@ if (isProd && typeof window !== 'undefined') {
   console.log('All process.env keys:', Object.keys(process.env));
   console.log('NODE_ENV:', process.env.NODE_ENV);
   console.log('NEXT_PUBLIC_NODE_ENV:', process.env.NEXT_PUBLIC_NODE_ENV);
+  console.log('NEXT_PUBLIC_TEST_VAR:', process.env.NEXT_PUBLIC_TEST_VAR);
 
   requiredVars.forEach((varName) => {
     const val = (process.env as Record<string, string | undefined>)[varName];
