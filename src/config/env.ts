@@ -178,6 +178,19 @@ if (isProd && typeof window !== 'undefined') {
     'NEXT_PUBLIC_ADMOB_ANDROID_REWARD',
   ];
 
+  console.group('🔍 Production Environment Debug');
+  console.log('All process.env keys:', Object.keys(process.env));
+  console.log('NODE_ENV:', process.env.NODE_ENV);
+  console.log('NEXT_PUBLIC_NODE_ENV:', process.env.NEXT_PUBLIC_NODE_ENV);
+
+  requiredVars.forEach((varName) => {
+    const val = (process.env as Record<string, string | undefined>)[varName];
+    console.log(
+      `${varName}:`,
+      val ? `"${val.substring(0, 20)}..."` : 'MISSING'
+    );
+  });
+
   const missingVars = requiredVars.filter((varName) => {
     const val = (process.env as Record<string, string | undefined>)[varName];
     return !val || val.trim() === '';
@@ -186,5 +199,8 @@ if (isProd && typeof window !== 'undefined') {
   if (missingVars.length > 0) {
     console.warn('⚠️ Missing production environment variables:', missingVars);
     console.warn('Using test AdMob IDs as fallback');
+  } else {
+    console.log('✅ All production environment variables found');
   }
+  console.groupEnd();
 }
