@@ -35,7 +35,7 @@ const getEnvVar = (key: string, defaultValue: string = ''): string => {
 };
 
 const RESOLVED_NEXT_PUBLIC_NODE_ENV =
-  getEnvVar('NEXT_PUBLIC_NODE_ENV', '') || getEnvVar('NODE_ENV', 'development');
+  process.env.NEXT_PUBLIC_NODE_ENV || process.env.NODE_ENV || 'development';
 
 const isProductionBuild = (): boolean => {
   return RESOLVED_NEXT_PUBLIC_NODE_ENV === 'production';
