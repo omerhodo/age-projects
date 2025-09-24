@@ -1,6 +1,6 @@
 {
   "name": "age-projects",
-  "version": "1.8.8",
+  "version": "1.8.9",
   "private": true,
   "packageManager": "yarn@1.22.22",
   "engines": {
@@ -39,7 +39,9 @@
     "release:ios": "[ -f .env.test.local ] && cp .env.test.local .env.local || [ -f .env.development.local ] && cp .env.development.local .env.local || true && BUILD_TARGET=capacitor npm run build:capacitor && npx cap sync ios && npx cap open ios",
     "release:ios:production": "cp .env.production.local .env.local && BUILD_TARGET=capacitor npm run build:capacitor && npx cap sync ios && npx cap open ios",
     "deploy": "vercel --prod",
-    "deploy:preview": "vercel"
+    "deploy:preview": "vercel",
+    "cache:alldelete:dry": "bash ./scripts/clear-caches.sh --dry-run",
+    "cache:alldelete": "bash ./scripts/clear-caches.sh --yes --full"
   },
   "dependencies": {
     "@capacitor-community/admob": "^7.0.3",

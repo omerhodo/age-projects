@@ -63,7 +63,24 @@ export class AdMobService {
   }
 
   private getAdIds() {
-    return admobConfig.adIds;
+    const adIds = admobConfig.adIds;
+    const platform = this.getPlatform();
+
+    if (!admobConfig.testing.isTestingMode) {
+      const platformAdIds = adIds[platform];
+      const hasEmptyAdIds = Object.values(platformAdIds).some(
+        (id) => !id || id.includes('3940256099942544')
+      );
+
+      if (hasEmptyAdIds) {
+        console.warn(
+          '⚠️ Production mode detected but using test/empty ad IDs. Please configure production ad IDs in environment variables.'
+        );
+        console.warn('Current ad IDs:', platformAdIds);
+      }
+    }
+
+    return adIds;
   }
 
   async showBanner(
