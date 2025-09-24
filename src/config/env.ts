@@ -30,13 +30,15 @@ export interface AppConfig {
 }
 
 const getEnvVar = (key: string, defaultValue: string = ''): string => {
-  return process.env[key] || defaultValue;
+  const val = (process as any)?.env?.[key];
+  return val !== undefined && val !== null ? String(val) : defaultValue;
 };
 
+const RESOLVED_NEXT_PUBLIC_NODE_ENV =
+  getEnvVar('NEXT_PUBLIC_NODE_ENV', '') || getEnvVar('NODE_ENV', 'development');
+
 const isProductionBuild = (): boolean => {
-  const nodeEnv = getEnvVar('NODE_ENV', 'development');
-  const nextPublicEnv = getEnvVar('NEXT_PUBLIC_NODE_ENV', 'development');
-  return nodeEnv === 'production' || nextPublicEnv === 'production';
+  return RESOLVED_NEXT_PUBLIC_NODE_ENV === 'production';
 };
 
 const isProd = isProductionBuild();
@@ -79,12 +81,11 @@ const getEnvArray = (key: string, defaultValue: string[] = []): string[] => {
 };
 
 export const config: AppConfig = {
-  environment: getEnvVar('NEXT_PUBLIC_NODE_ENV', 'development') as
+  environment: RESOLVED_NEXT_PUBLIC_NODE_ENV as
     | 'development'
     | 'production'
     | 'test',
-  isProduction:
-    getEnvVar('NEXT_PUBLIC_NODE_ENV', 'development') === 'production',
+  isProduction: isProd,
 
   admob: {
     appIds: {
@@ -130,20 +131,30 @@ export const isProduction = config.isProduction;
 export const environment = config.environment;
 export const isDevelopment = environment === 'development';
 
-if (isDevelopment && typeof window !== 'undefined') {
+// Emit a clear, consistent debug block on the client in non-production builds. This
+// intentionally prints both the resolved build-time values and the raw process.env
+// fields so any mismatch (e.g. build vs runtime) is obvious during debugging.
+if (!isProd && typeof window !== 'undefined') {
   console.group('🔧 Environment Configuration');
-  console.log('Environment:', environment);
-  console.log('Is Production:', isProduction);
-  console.log('Is Production Build:', isProductionBuild());
-  console.log('AdMob Testing Mode:', admobConfig.testing.isTestingMode);
-  console.log('AdMob Disable Ads:', admobConfig.testing.disableAds);
-  console.log('NODE_ENV:', process.env.NODE_ENV);
-  console.log('NEXT_PUBLIC_NODE_ENV:', process.env.NEXT_PUBLIC_NODE_ENV);
+  console.log('Resolved environment (build-time):', environment);
+  console.log('Is Production (resolved):', isProduction);
+  console.log('Is Production Build (resolved):', isProd);
   console.log(
-    'NEXT_PUBLIC_ADMOB_TESTING_MODE:',
+    'AdMob Testing Mode (resolved):',
+    admobConfig.testing.isTestingMode
+  );
+  console.log('AdMob Disable Ads (resolved):', admobConfig.testing.disableAds);
+  // Raw process.env values (these are inlined by Next at build-time)
+  console.log('raw process.env.NODE_ENV:', process.env.NODE_ENV);
+  console.log(
+    'raw process.env.NEXT_PUBLIC_NODE_ENV:',
+    process.env.NEXT_PUBLIC_NODE_ENV
+  );
+  console.log(
+    'raw process.env.NEXT_PUBLIC_ADMOB_TESTING_MODE:',
     process.env.NEXT_PUBLIC_ADMOB_TESTING_MODE
   );
-  console.log('AdMob App IDs:', admobConfig.appIds);
-  console.log('AdMob Ad IDs (iOS):', admobConfig.adIds.ios);
+  console.log('AdMob App IDs (resolved):', admobConfig.appIds);
+  console.log('AdMob Ad IDs (iOS) (resolved):', admobConfig.adIds.ios);
   console.groupEnd();
 }
