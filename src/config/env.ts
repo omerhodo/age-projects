@@ -1,8 +1,3 @@
-/**
- * Environment Configuration
- * This file reads environment variables and provides typed configuration
- */
-
 export interface AdMobConfig {
   appIds: {
     ios: string;
@@ -34,13 +29,7 @@ export interface AppConfig {
   isProduction: boolean;
 }
 
-// Helper function to safely get environment variables
 const getEnvVar = (key: string, defaultValue: string = ''): string => {
-  if (typeof window !== 'undefined') {
-    // Client-side
-    return process.env[key] || defaultValue;
-  }
-  // Server-side
   return process.env[key] || defaultValue;
 };
 
@@ -50,14 +39,36 @@ const isProductionBuild = (): boolean => {
   return nodeEnv === 'production' || nextPublicEnv === 'production';
 };
 
-// Helper function to parse boolean environment variables
+const isProd = isProductionBuild();
+
+const getRequiredEnvVar = (key: string): string => {
+  const value = process.env[key];
+  if (isProd && (!value || value.trim() === '')) {
+    throw new Error(
+      `FATAL: Required environment variable "${key}" is missing for production build.`
+    );
+  }
+
+  const testAdIds: { [key: string]: string } = {
+    NEXT_PUBLIC_ADMOB_IOS_BANNER: 'ca-app-pub-3940256099942544/2934735716',
+    NEXT_PUBLIC_ADMOB_IOS_INTERSTITIAL:
+      'ca-app-pub-3940256099942544/4411468910',
+    NEXT_PUBLIC_ADMOB_IOS_REWARD: 'ca-app-pub-3940256099942544/1712485313',
+    NEXT_PUBLIC_ADMOB_ANDROID_BANNER: 'ca-app-pub-3940256099942544/6300978111',
+    NEXT_PUBLIC_ADMOB_ANDROID_INTERSTITIAL:
+      'ca-app-pub-3940256099942544/1033173712',
+    NEXT_PUBLIC_ADMOB_ANDROID_REWARD: 'ca-app-pub-3940256099942544/5224354917',
+  };
+
+  return value || testAdIds[key] || '';
+};
+
 const getEnvBoolean = (key: string, defaultValue: boolean = false): boolean => {
   const value = getEnvVar(key);
   if (value === '') return defaultValue;
   return value.toLowerCase() === 'true';
 };
 
-// Helper function to parse array environment variables
 const getEnvArray = (key: string, defaultValue: string[] = []): string[] => {
   const value = getEnvVar(key);
   if (value === '') return defaultValue;
@@ -67,7 +78,6 @@ const getEnvArray = (key: string, defaultValue: string[] = []): string[] => {
     .filter((item) => item !== '');
 };
 
-// Main configuration object
 export const config: AppConfig = {
   environment: getEnvVar('NEXT_PUBLIC_NODE_ENV', 'development') as
     | 'development'
@@ -89,60 +99,37 @@ export const config: AppConfig = {
     },
     adIds: {
       ios: {
-        banner: getEnvVar(
-          'NEXT_PUBLIC_ADMOB_IOS_BANNER',
-          isProductionBuild() ? '' : 'ca-app-pub-3940256099942544/2934735716'
-        ),
-        interstitial: getEnvVar(
-          'NEXT_PUBLIC_ADMOB_IOS_INTERSTITIAL',
-          isProductionBuild() ? '' : 'ca-app-pub-3940256099942544/4411468910'
-        ),
-        reward: getEnvVar(
-          'NEXT_PUBLIC_ADMOB_IOS_REWARD',
-          isProductionBuild() ? '' : 'ca-app-pub-3940256099942544/1712485313'
-        ),
+        banner: getRequiredEnvVar('NEXT_PUBLIC_ADMOB_IOS_BANNER'),
+        interstitial: getRequiredEnvVar('NEXT_PUBLIC_ADMOB_IOS_INTERSTITIAL'),
+        reward: getRequiredEnvVar('NEXT_PUBLIC_ADMOB_IOS_REWARD'),
       },
       android: {
-        banner: getEnvVar(
-          'NEXT_PUBLIC_ADMOB_ANDROID_BANNER',
-          isProductionBuild() ? '' : 'ca-app-pub-3940256099942544/6300978111'
+        banner: getRequiredEnvVar('NEXT_PUBLIC_ADMOB_ANDROID_BANNER'),
+        interstitial: getRequiredEnvVar(
+          'NEXT_PUBLIC_ADMOB_ANDROID_INTERSTITIAL'
         ),
-        interstitial: getEnvVar(
-          'NEXT_PUBLIC_ADMOB_ANDROID_INTERSTITIAL',
-          isProductionBuild() ? '' : 'ca-app-pub-3940256099942544/1033173712'
-        ),
-        reward: getEnvVar(
-          'NEXT_PUBLIC_ADMOB_ANDROID_REWARD',
-          isProductionBuild() ? '' : 'ca-app-pub-3940256099942544/5224354917'
-        ),
+        reward: getRequiredEnvVar('NEXT_PUBLIC_ADMOB_ANDROID_REWARD'),
       },
     },
     testing: {
-      isTestingMode: getEnvBoolean(
-        'NEXT_PUBLIC_ADMOB_TESTING_MODE',
-        !isProductionBuild()
-      ),
+      isTestingMode: getEnvBoolean('NEXT_PUBLIC_ADMOB_TESTING_MODE', !isProd),
       testingDevices: getEnvArray('NEXT_PUBLIC_ADMOB_TESTING_DEVICES', [
         'DEVICE_ID_HERE',
       ]),
       initializeForTesting: getEnvBoolean(
         'NEXT_PUBLIC_ADMOB_TESTING_MODE',
-        !isProductionBuild()
+        !isProd
       ),
       disableAds: getEnvBoolean('NEXT_PUBLIC_DISABLE_ADS', false),
     },
   },
 };
 
-// Export individual configs for convenience
 export const admobConfig = config.admob;
 export const isProduction = config.isProduction;
 export const environment = config.environment;
-
-// Development mode check
 export const isDevelopment = environment === 'development';
 
-// Debug logging in development
 if (isDevelopment && typeof window !== 'undefined') {
   console.group('🔧 Environment Configuration');
   console.log('Environment:', environment);
