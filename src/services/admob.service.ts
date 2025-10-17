@@ -3,6 +3,7 @@ import {
   BannerAdOptions,
   BannerAdPosition,
   BannerAdSize,
+  MaxAdContentRating,
   RewardAdOptions,
 } from '@capacitor-community/admob';
 import { Capacitor } from '@capacitor/core';
@@ -45,6 +46,8 @@ export class AdMobService {
       await AdMob.initialize({
         testingDevices: admobConfig.testing.testingDevices,
         initializeForTesting: admobConfig.testing.initializeForTesting,
+        tagForUnderAgeOfConsent: true, // COPPA compliance - treat all users as under 13
+        maxAdContentRating: MaxAdContentRating.General, // General Audiences - most restrictive rating
       });
 
       this.isInitialized = true;
@@ -102,6 +105,7 @@ export class AdMobService {
       position: position,
       margin: safeAreaMargin,
       isTesting: admobConfig.testing.isTestingMode,
+      npa: true, // Non-personalized ads for COPPA compliance
     };
 
     this.pushDebug('showBanner.request', { platform, adId: options.adId });
@@ -159,6 +163,7 @@ export class AdMobService {
     const options = {
       adId: adIds[platform].interstitial,
       isTesting: admobConfig.testing.isTestingMode,
+      npa: true, // Non-personalized ads for COPPA compliance
     };
 
     try {
@@ -194,6 +199,7 @@ export class AdMobService {
     const options: RewardAdOptions = {
       adId: adIds[platform].reward,
       isTesting: admobConfig.testing.isTestingMode,
+      npa: true, // Non-personalized ads for COPPA compliance
     };
 
     try {
