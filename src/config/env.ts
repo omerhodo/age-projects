@@ -43,9 +43,50 @@ const isProductionBuild = (): boolean => {
 
 const isProd = isProductionBuild();
 
+// Build-time validation for production builds
+// This will cause the build to FAIL if production env vars are missing
+if (isProd && typeof window === 'undefined') {
+  // Server-side/build-time only
+  const requiredProdVars = [
+    'NEXT_PUBLIC_ADMOB_IOS_BANNER',
+    'NEXT_PUBLIC_ADMOB_IOS_INTERSTITIAL',
+    'NEXT_PUBLIC_ADMOB_IOS_REWARD',
+    'NEXT_PUBLIC_ADMOB_ANDROID_BANNER',
+    'NEXT_PUBLIC_ADMOB_ANDROID_INTERSTITIAL',
+    'NEXT_PUBLIC_ADMOB_ANDROID_REWARD',
+  ];
+
+  const missingVars: string[] = [];
+  const testIdVars: string[] = [];
+
+  requiredProdVars.forEach((varName) => {
+    const val = process.env[varName];
+    if (!val || val.trim() === '') {
+      missingVars.push(varName);
+    } else if (val.includes('3940256099942544')) {
+      testIdVars.push(varName);
+    }
+  });
+
+  if (missingVars.length > 0) {
+    throw new Error(
+      `❌ BUILD FAILED: Missing production environment variables:\n${missingVars.join('\n')}\n\n` +
+        `Production builds REQUIRE all AdMob IDs. Check your .env.production.local file.`
+    );
+  }
+
+  if (testIdVars.length > 0) {
+    throw new Error(
+      `❌ BUILD FAILED: Test AdMob IDs detected in production build:\n${testIdVars.join('\n')}\n\n` +
+        `Production builds MUST use real AdMob IDs, not test IDs.`
+    );
+  }
+}
+
 const getRequiredEnvVar = (key: string): string => {
   const value = process.env[key];
 
+  // Test AdMob IDs for development/fallback
   const testAdIds: { [key: string]: string } = {
     NEXT_PUBLIC_ADMOB_IOS_BANNER: 'ca-app-pub-3940256099942544/2934735716',
     NEXT_PUBLIC_ADMOB_IOS_INTERSTITIAL:
@@ -57,18 +98,19 @@ const getRequiredEnvVar = (key: string): string => {
     NEXT_PUBLIC_ADMOB_ANDROID_REWARD: 'ca-app-pub-3940256099942544/5224354917',
   };
 
+  // For production, value should already be validated at build time
+  // Just return the value or empty string (never crash at runtime)
+  if (isProd) {
+    return value || '';
+  }
+
+  // Development/test mode: use provided value or fall back to test IDs
   if (value && value.trim() !== '') {
     return value;
   }
 
   if (testAdIds[key]) {
     return testAdIds[key];
-  }
-
-  if (isProd) {
-    console.warn(
-      `Warning: Environment variable "${key}" is missing for production build. Using fallback.`
-    );
   }
 
   return '';
