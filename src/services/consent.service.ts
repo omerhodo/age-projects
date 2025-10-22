@@ -1,8 +1,3 @@
-import {
-  appTrackingService,
-  TrackingAuthorizationStatus,
-} from './app-tracking.service';
-
 export interface ConsentInfo {
   consentStatus: 'UNKNOWN' | 'NOT_REQUIRED' | 'REQUIRED' | 'OBTAINED';
   formStatus: 'UNKNOWN' | 'AVAILABLE' | 'UNAVAILABLE';
@@ -53,30 +48,18 @@ export class ConsentService {
 
   private constructor() {}
 
-  async initialize(settings: ConsentSettings): Promise<void> {
+  async initialize(): Promise<void> {
     if (this.isInitialized) {
       console.log('🔧 Consent Service already initialized');
       return;
     }
 
     try {
-      await appTrackingService.initialize();
-      const needsATT = await appTrackingService.needsTrackingPrompt();
-      if (needsATT) {
-        const attStatus = await appTrackingService.requestTrackingPermission();
-
-        if (
-          attStatus === TrackingAuthorizationStatus.denied ||
-          attStatus === TrackingAuthorizationStatus.restricted
-        ) {
-          this.setNonPersonalizedConsent();
-        } else if (attStatus === TrackingAuthorizationStatus.authorized) {
-          this.setConsent(true);
-        }
-      }
+      // COPPA Compliance: No ATT needed, we only show non-personalized ads
+      console.log('🔒 Initializing Consent Service (COPPA - NPA only)');
 
       await this.loadUMPScript();
-      await this.requestConsentInfoUpdate(settings);
+      await this.requestConsentInfoUpdate();
       await this.loadAndShowConsentFormIfRequired();
 
       this.isInitialized = true;
@@ -161,7 +144,7 @@ export class ConsentService {
     return this.umpLoadPromise;
   }
 
-  private requestConsentInfoUpdate(_settings: ConsentSettings): Promise<void> {
+  private requestConsentInfoUpdate(): Promise<void> {
     return new Promise((resolve, reject) => {
       if (!window.googletag) {
         window.googletag = {
@@ -311,12 +294,9 @@ export class ConsentService {
   }
 
   async canShowAds(): Promise<boolean> {
-    if (!this.consentInfo.canRequestAds) {
-      return false;
-    }
-
-    const canShowPersonalizedAds = await appTrackingService.canShowAds();
-    return canShowPersonalizedAds;
+    // COPPA: We only check GDPR consent, not ATT
+    // All ads are non-personalized, so no tracking permission needed
+    return this.consentInfo.canRequestAds;
   }
 
   canShowAdsSync(): boolean {

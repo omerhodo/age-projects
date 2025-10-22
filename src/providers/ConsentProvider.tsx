@@ -1,7 +1,6 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { admobConfig } from '../config/env';
 import { ConsentInfo, consentService } from '../services/consent.service';
 
 interface ConsentContextType {
@@ -61,19 +60,10 @@ export const ConsentProvider: React.FC<ConsentProviderProps> = ({
         console.warn('⚠️ No publisher ID found, using test ID');
       }
 
-      await consentService.initialize({
-        publisherId: publisherId || 'test-publisher-id',
-        debugGeography: admobConfig.testing.isTestingMode
-          ? 'DEBUG_GEOGRAPHY_EEA'
-          : 'DEBUG_GEOGRAPHY_DISABLED',
-        testDeviceIdentifiers: admobConfig.testing.testingDevices,
-        tagForUnderAgeOfConsent: false,
-      });
+      await consentService.initialize();
 
       setConsentInfo(consentService.getConsentInfo());
       setIsInitialized(true);
-
-      console.log('✅ Consent Management initialized successfully');
     } catch (error) {
       console.error('❌ Error initializing Consent Management:', error);
       setIsInitialized(true); // Hata durumunda da devam et

@@ -8,7 +8,6 @@ import {
 } from '@capacitor-community/admob';
 import { Capacitor } from '@capacitor/core';
 import { admobConfig } from '../config/env';
-import { appTrackingService } from './app-tracking.service';
 
 export class AdMobService {
   private static instance: AdMobService;
@@ -39,9 +38,10 @@ export class AdMobService {
 
     try {
       this.pushDebug('initialize.start', { testing: admobConfig.testing });
-      const canShowPersonalizedAds = await appTrackingService.canShowAds();
-      this.pushDebug('initialize.attCheck', { canShowPersonalizedAds });
-      console.log('🍎 Can show personalized ads:', canShowPersonalizedAds);
+
+      // COPPA Compliance: Always use non-personalized ads
+      // No ATT check needed as we never use personalized ads
+      console.log('🔒 Initializing AdMob with COPPA compliance (NPA only)');
 
       await AdMob.initialize({
         testingDevices: admobConfig.testing.testingDevices,

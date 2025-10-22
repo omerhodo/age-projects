@@ -37,28 +37,9 @@ export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
   const { isMobile } = usePlatform();
   const { canShowAdsSync } = useConsent();
   const adMob = useAdMob();
-  const [attAllowed, setAttAllowed] = React.useState<boolean | null>(null);
 
-  useEffect(() => {
-    let mounted = true;
-    (async () => {
-      try {
-        const mod = await import('../services/app-tracking.service');
-        const allowed = await mod.appTrackingService.canShowAds();
-        if (mounted) setAttAllowed(allowed);
-      } catch (err) {
-        console.warn(
-          'Unable to determine ATT status, defaulting to allow for non-iOS',
-          err
-        );
-        if (mounted) setAttAllowed(true);
-      }
-    })();
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  // COPPA Compliance: We don't use ATT as we only show non-personalized ads
+  // No tracking or personalized ads for family-friendly apps
   const [showAds, setShowAds] = useState(false);
 
   useEffect(() => {
@@ -67,18 +48,22 @@ export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
       storedConsent = localStorage.getItem('gdpr_consent');
     }
 
+    // COPPA: We show non-personalized ads to all users who consent (GDPR)
+    // No ATT check needed as we never use personalized/interest-based ads
     const allowForNonPersonalized = storedConsent === 'non_personalized';
 
     const shouldShowAds =
       isMobile &&
       !admobConfig.testing.disableAds &&
-      ((canShowAdsSync && (attAllowed === null ? false : attAllowed)) ||
-        allowForNonPersonalized);
-    console.log('🚀 AdMob Provider Debug:', {
+      (canShowAdsSync || allowForNonPersonalized);
+
+    console.log('🚀 AdMob Provider Debug (COPPA - NPA only):', {
       isMobile,
       disableAds: admobConfig.testing.disableAds,
       canShowAdsSync,
+      allowForNonPersonalized,
       shouldShowAds,
+      mode: 'non-personalized-only',
       env_disable_ads: process.env.NEXT_PUBLIC_DISABLE_ADS,
       adMobInitialized: adMob.isInitialized,
     });
@@ -96,7 +81,6 @@ export const AdMobProvider: React.FC<AdMobProviderProps> = ({ children }) => {
     canShowAdsSync,
     adMob.isInitialized,
     adMob.isBannerVisible,
-    attAllowed,
     adMob,
   ]);
 
