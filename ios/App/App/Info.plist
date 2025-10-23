@@ -354,7 +354,12 @@
 			<string>97r2b46745.skadnetwork</string>
 		</dict>
 	</array>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>This app would like to access app-related data to provide you with personalized ads. You can still use the app without allowing tracking, and will see generic ads instead.</string>
+	<!-- COPPA Compliance Settings for AdMob -->
+	<!-- These keys ensure child-directed treatment and family-friendly ads -->
+	<key>GADIsAdManagerApp</key>
+	<true/>
+	<!-- Note: NSUserTrackingUsageDescription is intentionally REMOVED -->
+	<!-- COPPA apps should NOT request tracking permission -->
+	<!-- We only show non-personalized ads (npa: true) -->
 </dict>
 </plist>

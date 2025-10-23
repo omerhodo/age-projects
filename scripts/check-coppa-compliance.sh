@@ -105,15 +105,96 @@ fi
 
 echo ""
 
-# 5. Dosya Varlık Kontrolü
-echo "📄 5. Dokümantasyon Kontrolü..."
+# 5. AndroidManifest.xml Kontrolü (KRİTİK!)
+echo "📱 5. AndroidManifest.xml COPPA Meta-Data Kontrolü..."
+echo "-------------------------------------------"
+
+MANIFEST_FILE="android/app/src/main/AndroidManifest.xml"
+
+if [ -f "$MANIFEST_FILE" ]; then
+    if grep -q "TAG_FOR_CHILD_DIRECTED_TREATMENT" "$MANIFEST_FILE"; then
+        if grep -A1 "TAG_FOR_CHILD_DIRECTED_TREATMENT" "$MANIFEST_FILE" | grep -q "true"; then
+            echo "${GREEN}✅ TAG_FOR_CHILD_DIRECTED_TREATMENT = true${NC}"
+        else
+            echo "${RED}❌ TAG_FOR_CHILD_DIRECTED_TREATMENT değeri 'true' olmalı!${NC}"
+            exit 1
+        fi
+    else
+        echo "${RED}❌ AndroidManifest.xml'de TAG_FOR_CHILD_DIRECTED_TREATMENT meta-data eksik!${NC}"
+        echo "${YELLOW}Bu Google Play için KRİTİK bir gereksinim!${NC}"
+        exit 1
+    fi
+
+    if grep -q "MAX_AD_CONTENT_RATING" "$MANIFEST_FILE"; then
+        if grep -A1 "MAX_AD_CONTENT_RATING" "$MANIFEST_FILE" | grep -q '"G"'; then
+            echo "${GREEN}✅ MAX_AD_CONTENT_RATING = 'G'${NC}"
+        else
+            echo "${RED}❌ MAX_AD_CONTENT_RATING değeri 'G' olmalı!${NC}"
+            exit 1
+        fi
+    else
+        echo "${RED}❌ AndroidManifest.xml'de MAX_AD_CONTENT_RATING meta-data eksik!${NC}"
+        echo "${YELLOW}Bu Google Play için KRİTİK bir gereksinim!${NC}"
+        exit 1
+    fi
+else
+    echo "${YELLOW}⚠️  AndroidManifest.xml bulunamadı${NC}"
+fi
+
+echo ""
+
+# 6. iOS Info.plist Kontrolü (KRİTİK!)
+echo "🍎 6. iOS Info.plist ATT Kontrolü..."
+echo "-------------------------------------------"
+
+PLIST_FILE="ios/App/App/Info.plist"
+
+if [ -f "$PLIST_FILE" ]; then
+    # Check for actual NSUserTrackingUsageDescription key (not comments)
+    if grep -E "^\s*<key>NSUserTrackingUsageDescription</key>" "$PLIST_FILE" > /dev/null 2>&1; then
+        echo "${RED}❌ HATA: Info.plist'te NSUserTrackingUsageDescription bulundu!${NC}"
+        echo "${YELLOW}COPPA apps için ATT tracking izni YASAK!${NC}"
+        echo "${YELLOW}Bu key KALDIRILMALI!${NC}"
+        exit 1
+    else
+        echo "${GREEN}✅ NSUserTrackingUsageDescription YOK (doğru)${NC}"
+    fi
+
+    if grep -q "GADApplicationIdentifier" "$PLIST_FILE"; then
+        echo "${GREEN}✅ GADApplicationIdentifier var${NC}"
+    else
+        echo "${YELLOW}⚠️  GADApplicationIdentifier (AdMob App ID) eksik${NC}"
+    fi
+else
+    echo "${YELLOW}⚠️  Info.plist bulunamadı (iOS projesi yok olabilir)${NC}"
+fi
+
+echo ""
+
+# 7. Package.json - ATT Paketi Kontrolü
+echo "📦 7. Dependencies - ATT Paketi Kontrolü..."
+echo "-------------------------------------------"
+
+if grep -q "capacitor-plugin-app-tracking-transparency" package.json; then
+    echo "${RED}❌ HATA: capacitor-plugin-app-tracking-transparency paketi bulundu!${NC}"
+    echo "${YELLOW}Bu paket COPPA apps için gereksiz ve zararlı!${NC}"
+    echo "${YELLOW}Kaldırın: yarn remove capacitor-plugin-app-tracking-transparency${NC}"
+    exit 1
+else
+    echo "${GREEN}✅ ATT paketi yok (doğru)${NC}"
+fi
+
+echo ""
+
+# 8. Dosya Varlık Kontrolü
+echo "📄 8. Dokümantasyon Kontrolü..."
 echo "-------------------------------------------"
 
 REQUIRED_DOCS=(
-    "COPPA_FIX_SUMMARY.md"
     "docs/COPPA_FIX_OCT_2025.md"
     "docs/FAMILIES_SDK_CERTIFICATION.md"
     "docs/FAMILIES_POLICY_COMPLIANCE.md"
+    "docs/CRITICAL_MANIFEST_FIX.md"
 )
 
 for doc in "${REQUIRED_DOCS[@]}"; do
@@ -126,8 +207,8 @@ done
 
 echo ""
 
-# 6. Build Dosyaları Kontrolü
-echo "🏗️  6. Build Konfigürasyonu Kontrolü..."
+# 9. Build Dosyaları Kontrolü
+echo "🏗️  9. Build Konfigürasyonu Kontrolü..."
 echo "-------------------------------------------"
 
 if [ -f "android/app/build.gradle" ]; then
@@ -145,24 +226,29 @@ fi
 
 echo ""
 
-# 7. Özet
+# 10. Özet
 echo "=========================================="
 echo "📊 SONUÇ"
 echo "=========================================="
 echo ""
 echo "${GREEN}✅ SDK Sertifikasyonu: Google AdMob v$PLAY_SERVICES_VERSION (≥19.0.0)${NC}"
-echo "${GREEN}✅ COPPA Uyumluluğu: tagForUnderAgeOfConsent + MaxAdContentRating${NC}"
+echo "${GREEN}✅ COPPA Uyumluluğu (TypeScript): tagForUnderAgeOfConsent + MaxAdContentRating${NC}"
+echo "${GREEN}✅ COPPA Uyumluluğu (AndroidManifest): TAG_FOR_CHILD + MAX_AD_CONTENT${NC}"
 echo "${GREEN}✅ Non-Personalized Ads: npa: true (tüm reklam türlerinde)${NC}"
-echo "${GREEN}✅ ATT Kontrolü: Yok (kaldırıldı)${NC}"
+echo "${GREEN}✅ ATT Kontrolü: Yok (kod, paket, plist)${NC}"
+echo "${GREEN}✅ iOS Info.plist: NSUserTrackingUsageDescription YOK${NC}"
 echo "${GREEN}✅ Kullanıcı Takibi: Yok${NC}"
 echo ""
-echo "${BLUE}🎉 Uygulama Families Policy gereksinimleri ile uyumlu!${NC}"
+echo "${BLUE}🎉 Uygulama Families Policy gereksinimleri ile TAMAMEN uyumlu!${NC}"
 echo ""
 echo "📋 Sonraki Adımlar:"
-echo "1. npm run release:android:production"
-echo "2. Google Play Console'a yükle"
-echo "3. Değişiklik notlarını ekle (docs/FAMILIES_SDK_CERTIFICATION.md'den kopyala)"
-echo "4. İncelemeye gönder"
+echo "1. npx cap sync (Android ve iOS)"
+echo "2. npm run release:android:production"
+echo "3. Google Play Console'a yükle"
+echo "4. Değişiklik notlarını ekle (docs/CRITICAL_MANIFEST_FIX.md'den kopyala)"
+echo "5. İncelemeye gönder"
 echo ""
-echo "📚 Detaylı bilgi için: docs/FAMILIES_SDK_CERTIFICATION.md"
+echo "📚 Detaylı bilgi için:"
+echo "  - docs/CRITICAL_MANIFEST_FIX.md (YENİ - ÇOK ÖNEMLİ!)"
+echo "  - docs/FAMILIES_SDK_CERTIFICATION.md"
 echo ""

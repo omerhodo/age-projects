@@ -6,8 +6,6 @@ PODS:
     - Google-Mobile-Ads-SDK (= 11.3.0)
     - GoogleUserMessagingPlatform (< 3.0.0, >= 2.7.0)
   - CapacitorCordova (7.4.3)
-  - CapacitorPluginAppTrackingTransparency (2.0.5):
-    - Capacitor
   - Google-Mobile-Ads-SDK (11.3.0):
     - GoogleUserMessagingPlatform (>= 1.1)
   - GoogleUserMessagingPlatform (2.7.0)
@@ -16,7 +14,6 @@ DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorCommunityAdmob (from `../../node_modules/@capacitor-community/admob`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
-  - CapacitorPluginAppTrackingTransparency (from `../../node_modules/capacitor-plugin-app-tracking-transparency`)
 
 SPEC REPOS:
   trunk:
@@ -30,17 +27,14 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor-community/admob"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
-  CapacitorPluginAppTrackingTransparency:
-    :path: "../../node_modules/capacitor-plugin-app-tracking-transparency"
 
 SPEC CHECKSUMS:
   Capacitor: 28d6c01026a9a3f7156529498ec1f389a2a28dbc
   CapacitorCommunityAdmob: 310beff216a3470b2c85b1fccd99d2a6815e1ef7
   CapacitorCordova: 435121e81a2df4d0034f0fb11fcefab5104cfdb5
-  CapacitorPluginAppTrackingTransparency: 92ae9c1cfb5cf477753db9269689332a686f675a
   Google-Mobile-Ads-SDK: 301a16c461c331ba34ff4dab40a22ab7c147af61
   GoogleUserMessagingPlatform: a8b56893477f67212fbc8411c139e61d463349f5
 
-PODFILE CHECKSUM: 27812f07cf4421cb591fe172cb8ca3ecf94217cf
+PODFILE CHECKSUM: caafe999b2f90d5ad95240cafe9f54d5a01dd691
 
 COCOAPODS: 1.16.2

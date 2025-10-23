@@ -39,6 +39,18 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-9796784353160604~3080791969"/>
 
+        <!-- COPPA Compliance: Tag For Child Directed Treatment -->
+        <!-- This ensures Google knows this app is for children and COPPA applies -->
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.TAG_FOR_CHILD_DIRECTED_TREATMENT"
+            android:value="true"/>
+
+        <!-- Maximum Ad Content Rating: G (General Audiences) -->
+        <!-- Ensures only family-friendly ads are shown -->
+        <meta-data
+            android:name="com.google.android.gms.ads.MAX_AD_CONTENT_RATING"
+            android:value="G"/>
+
     </application>
 
     <!-- Permissions -->
